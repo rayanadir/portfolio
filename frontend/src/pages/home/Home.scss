@@ -1,0 +1,45 @@
+.background{
+    &__image{
+        width: 100%;
+    }
+}
+
+@media (max-width: 424px){
+    .background{
+        &__image{
+            filter: blur(2px);
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .background{
+        &__image{
+            filter: blur(2px);
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .background{
+        &__image{
+            filter: blur(4px);
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+    .background{
+        &__image{
+            filter: blur(8px);
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .background{
+        &__image{
+            filter: blur(10px);
+        }
+    }
+}
