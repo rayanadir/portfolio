@@ -32,9 +32,18 @@ const Home = () => {
   return (
     <main>
         <section className='background'>
+          <div className="background__welcome">
+            <h1 className='background__welcome__text welcome'>Bienvenue sur mon portfolio !</h1>
+            <h3 className='background__welcome__text project_contact'>Jetez un œil à mes projets ou contactez moi</h3>
+            <div className="background__welcome__buttons">
+              <button className="background__welcome__button" id="projects">Projets</button>
+              <button className="background__welcome__button" id="contact">Contact</button>
+            </div>
+          </div>
+            
             <img id='home-background' src={background2} alt="home-background" className='background__image'/>
         </section>
-        <section className="projects">
+        <section className="projects" id="projects">
           {PROJECTS.map((project) => {
             return <Project 
                       key={project.title}
