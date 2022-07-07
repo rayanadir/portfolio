@@ -9,7 +9,11 @@ const Home = () => {
   window.addEventListener('scroll', () => {
     let image =document.getElementById('home-background');
     var opacityVal;
-    if(windowWidth<=767){
+    if(windowWidth<=424){
+      opacityVal=80/window.scrollY;
+      if(opacityVal > 1.5) opacityVal=1.5;
+    }
+    if(windowWidth>=425 && windowWidth<=767){
       opacityVal=300/window.scrollY;
       if(opacityVal > 2) opacityVal=2;
     }

@@ -21,10 +21,7 @@
         &__button{
             border: 0;
             cursor: pointer;
-            padding: 11px 0;
-            width: 110px;
             transition: .2s;
-            font-size: 14px;
         }
     }
     &__image{
@@ -32,13 +29,6 @@
         z-index: 1;
     }
 
-}
-
-.welcome{
-    font-size: 32px;
-}
-.project_contact{
-    font-size: 24px;
 }
 
 #projects{
@@ -59,10 +49,27 @@
 
 @media (max-width: 424px){
     .background{
+        &__welcome{
+            top: 10%;
+            &__buttons{
+                margin-top: 3rem;
+            }
+            &__button{
+                padding: 8px 0;
+                width: 90px;
+                font-size: 10px;
+            }
+        }
         &__image{
-            filter: blur(2px);
+            filter: blur(1.5px);
         }
     }
+    .welcome{
+        font-size: 20px;
+    }
+    .project_contact{
+        font-size: 14px;
+    }    
 }
 
 @media (min-width : 425px) and (max-width: 767px){
@@ -70,6 +77,22 @@
         &__image{
             filter: blur(2px);
         }
+        &__welcome{
+            &__button{
+                padding: 10px 0;
+                width: 110px;
+                font-size: 12px;
+            }
+            &__buttons{
+                margin-top: 3rem;
+            }
+        }
+    }
+    .welcome{
+        font-size: 24px;
+    }
+    .project_contact{
+        font-size: 16px;
     }
 }
 
@@ -78,6 +101,19 @@
         &__image{
             filter: blur(4px);
         }
+        &__welcome{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }
+    }
+    .welcome{
+        font-size: 32px;
+    }
+    .project_contact{
+        font-size: 24px;
     }
 }
 
@@ -86,7 +122,20 @@
         &__image{
             filter: blur(8px);
         }
+        &__welcome{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }                 
     }
+    .welcome{
+        font-size: 38px;
+    }
+    .project_contact{
+        font-size: 30px;
+    } 
 }
 
 @media (min-width: 1440px){
@@ -94,5 +143,18 @@
         &__image{
             filter: blur(10px);
         }
+        &__welcome{
+            &__button{
+                padding: 16px 0;
+                width: 140px;
+                font-size: 17px;
+            }
+        }
+    }
+    .welcome{
+        font-size: 48px;
+    }
+    .project_contact{
+        font-size: 32px;
     }
 }
