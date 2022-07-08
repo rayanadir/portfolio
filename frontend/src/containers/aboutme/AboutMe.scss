@@ -1,0 +1,88 @@
+.aboutme{
+    width: 90%;
+    margin: auto;
+    &__title, &__name, &__text{
+        text-align: center;
+        font-weight: 100;
+    }
+}
+
+@media (max-width: 424px){
+    .aboutme{
+        &__title{
+            font-size: 24px;
+        }
+        &__name{
+            font-size: 18px;
+        }
+        &__text{
+            font-size: 14px;
+            width: 90%;
+            margin: 14px auto;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .aboutme{
+        &__title{
+            font-size: 28px;
+        }
+        &__name{
+            font-size: 20px;
+        }
+        &__text{
+            font-size: 16px;
+            width: 80%;
+            margin: 18px auto;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .aboutme{
+        &__title{
+            font-size: 32px;
+        }
+        &__name{
+            font-size: 22px;
+        }
+        &__text{
+            font-size: 18px;
+            width: 70%;
+            margin: 18px auto;
+        }
+    }
+}
+
+@media (min-width : 1024px) and (max-width: 1439px){
+    .aboutme{
+        &__title{
+            font-size: 36px;
+        }
+        &__name{
+            font-size: 26px;
+        }
+        &__text{
+            font-size: 20px;
+            width: 65%;
+            margin: 20px auto;
+        }
+    }
+}
+
+@media (min-width : 1440px){
+    .aboutme{
+        &__title{
+            font-size: 48px;
+        }
+        &__name{
+            font-size: 32px;
+        }
+        &__text{
+            font-size: 24px;
+            width: 60%;
+            margin: 24px auto;
+        }
+    }
+}
