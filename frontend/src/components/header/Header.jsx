@@ -10,7 +10,7 @@ const Header = () => {
           <h3 className='header__frontend'>Développeur Front-End React.js</h3>
         </div>
         <nav className='header__nav'>
-          <ul>
+          <ul className='header__nav_list'>
             <li className='header__nav_element'>
               Contact
             </li>

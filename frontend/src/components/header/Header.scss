@@ -20,14 +20,14 @@
     &__nav_element:hover{
         text-decoration: underline white;
     }
+    &__nav_list{
+        display: flex;
+        flex-direction: row;
+        column-gap: 3rem;
+        font-size: x-large;
+    }
 }
 
-ul{
-    display: flex;
-    flex-direction: row;
-    column-gap: 3rem;
-    font-size: x-large;
-}
 
 @media (max-width: 424px){
     .header{
@@ -41,10 +41,11 @@ ul{
         &__nav_element{
             font-size: 10px;
         }
+        &__nav_list{
+            column-gap: 1rem;
+        }
     }
-    ul{
-        column-gap: 1rem;
-    }
+
 }
 
 @media (min-width : 425px) and (max-width: 767px){
@@ -59,10 +60,11 @@ ul{
         &__nav_element{
             font-size: 12px;
         }
+        &__nav_list{
+            column-gap: 1.5rem;
+        }
     }
-    ul{
-        column-gap: 1.5rem;
-    }
+
 }
 
 @media (min-width : 768px) and (max-width: 1023px){
