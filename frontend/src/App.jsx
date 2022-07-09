@@ -2,7 +2,7 @@ import './App.scss';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home/Home';
-import Project from './pages/project/Project';
+import ProjectPage from './pages/projectPage/ProjectPage';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
 
@@ -12,7 +12,7 @@ const App = ()  => {
       <Header />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/project/:id' element={<Project />} />
+        <Route path='/project/:id' element={<ProjectPage />} />
       </Routes>
       <Footer />
     </React.Fragment>
