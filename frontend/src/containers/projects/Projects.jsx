@@ -1,13 +1,13 @@
 import React from 'react';
 import '../projects/Projects.scss'
-import ProjectPage from '../../pages/projectPage/ProjectPage';
+import Project from '../../components/project/Project';
 import { PROJECTS } from '../../data/projects';
 
 const Projects = () => {
   return (
     <section className="projects" id="projects">
           {PROJECTS.map((project) => {
-            return <ProjectPage 
+            return <Project 
                       key={project.title}
                       description={project.description}
                       github_repo_link={project.github_repo_link}
