@@ -142,7 +142,7 @@ export const PROJECTS = [
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_7_06112021',
         website_link: 'https://rayanadir.github.io/RayanDahmena_7_06112021/',
         main_image: [main_image_p7],
-        stack: ['HTML','SCSS','JS'],
+        stack: ['HTML','SASS','JS'],
         paragraphers: [
             "This website shows recipes that you can filter by the search bar or simples filters.",
             "The github repository contains algo1 and algo2 branches.",
@@ -164,7 +164,7 @@ export const PROJECTS = [
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_6_19102021',
         website_link: 'https://rayanadir.github.io/RayanDahmena_6_19102021/',
         main_image: [home_desk_p6],
-        stack: ['HTML','SCSS','JS'],
+        stack: ['HTML','SASS','JS'],
         paragraphers: [
             "The main page shows photographers that you can filters with tags.",
             "You can access to the photographers page with their medias.",
@@ -198,7 +198,7 @@ export const PROJECTS = [
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_3_31082021',
         website_link: 'https://rayanadir.github.io/RayanDahmena_3_31082021/',
         main_image: [home_desk_p3],
-        stack: ['HTML','SCSS'],
+        stack: ['HTML','SASS'],
         paragraphers: [
             "OhMyFood is a restaurant website, choose a restaurant and select a dish.",
             "Dishes apperance are dynamized by CSS animations, using SASS.",
