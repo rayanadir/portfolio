@@ -5,6 +5,7 @@ import AboutMe from '../../containers/aboutme/AboutMe';
 import Projects from '../../containers/projects/Projects';
 
 const Home = () => {
+  document.title="Rayan Dahmena - Portfolio"
   return (
     <main>
         <Background />
