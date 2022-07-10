@@ -38,7 +38,7 @@ const Background = () => {
                 <h1 className='background__welcome__text welcome'>Bienvenue sur mon portfolio !</h1>
                 <h3 className='background__welcome__text project_contact'>Jetez un œil à mes projets ou contactez moi</h3>
                 <div className="background__welcome__buttons">
-                    <button onClick={() => { document.querySelector('.footer').scrollIntoView() }} className="background__welcome__button" id="projects_button">Projets</button>
+                    <button onClick={() => { document.querySelector('.projects').scrollIntoView() }} className="background__welcome__button" id="projects_button">Projets</button>
                     <button className="background__welcome__button" id="contact_button">Contact</button>
                 </div>
             </div>
