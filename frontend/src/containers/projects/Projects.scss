@@ -1,0 +1,12 @@
+.projects{
+    margin-top: 10rem;
+    //background-color: rgb(199, 199, 199);
+    padding: 2rem 0;
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        width: 90%;
+        margin: auto;
+        row-gap: 2rem;
+    }
+}
