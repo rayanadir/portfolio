@@ -32,6 +32,7 @@ import home_mobile_p2 from '../img/p2/home_mobile_p2.png';
 
 export const PROJECTS = [
     {
+        id:'hrnet',
         title: 'HRNet React',
         description: 'Convert jQuery into React app',
         github_repo_link: 'https://github.com/rayanadir/Rayan_Dahmena_14_28052022',
@@ -56,6 +57,7 @@ export const PROJECTS = [
         images: [main_background_p14, employee_list_p14],
     },
     {
+        id:'argentbank',
         title: 'ArgentBank',
         description: 'Use an API for a bank user account with React',
         github_repo_link: 'https://github.com/rayanadir/Rayan_Dahmena_13_03052022',
@@ -78,6 +80,7 @@ export const PROJECTS = [
         images: [main_background_p13, login_background_p13],        
     },
     {
+        id:'sportsee',
         title: 'Sportsee',
         description: 'Develop an analytics dashboard with React',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_12_03042022',
@@ -99,6 +102,7 @@ export const PROJECTS = [
         images: [main_background_p12], 
     },
     {
+        id:'kasa',
         title: 'Kasa',
         description: 'Develop a web app with React and React Router',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_11_11032022',
@@ -118,12 +122,13 @@ export const PROJECTS = [
         images: [desk_home_p11,desk_apartment_p11,desk_about_p11,mobile_home_p11,mobile_apartment_p11,mobile_about_p11], 
     },
     {
+        id:'billed',
         title: 'Billed',
         description: 'Debug and test a SaaS',
         github_repo_link: 'https://github.com/rayanadir/Rayan_Dahmena_9_12012022',
         website_link: '',
         main_image: [add_bill_p9],
-        stack: ['HTML','CSS','JS','Jest'],
+        stack: ['HTML','CSS','JS','Jest', 'SQLite'],
         paragraphers: [
             "Billed is a website for adding bills for employees.",
             "The main goals are to correct bugs with the chrome debugger and to write unit tests.",
@@ -137,6 +142,7 @@ export const PROJECTS = [
         images: [add_bill_p9, bills_list_p9], 
     },
     {
+        id:'lespetitsplats',
         title: 'Les petits plats',
         description: 'Develop a search algorithm in Javascript',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_7_06112021',
@@ -159,6 +165,7 @@ export const PROJECTS = [
         images: [main_image_p7,main_image_filter_p7,main_image_text_p7], 
     },
     {
+        id:'fisheye',
         title: 'FishEye',
         description: 'Create an accessible website for a photographers platform',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_6_19102021',
@@ -178,6 +185,7 @@ export const PROJECTS = [
         images: [home_desk_p6,home_mobile_p6,photographer_desk_p6,photographer_mobile_p6,desk_carousel_p6], 
     },
     {
+        id:'gameon',
         title: 'GameOn',
         description: 'Create a landing page with Javascript',
         github_repo_link: 'https://github.com/rayanadir/Rayan_Dahmena_4_05102021',
@@ -193,6 +201,7 @@ export const PROJECTS = [
         images: [home_desk_p4,home_mobile_p4,home_form_p4,home_form_mobile_p4], 
     },
     {
+        id:'ohmyfood',
         title: 'OhMyFood',
         description: 'Dynamize a web page with CSS animations',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_3_31082021',
@@ -208,6 +217,7 @@ export const PROJECTS = [
         images: [home_desk_p3,home_mobile_p3,restaurant_desk_p3,restaurant_mobile_p3], 
     },
     {
+        id:'reservia',
         title: 'Reservia',
         description: 'Transform a sketch into a website with HTML and CSS',
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_2_21082021',
