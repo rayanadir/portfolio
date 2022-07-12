@@ -5,7 +5,6 @@ import Switch from '@mui/material/Switch';
 
 // Importations select
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -92,15 +91,14 @@ const Header = () => {
 
               <Box>
                 <FormControl  fullWidth>
-                  {/*<InputLabel>{language === "fr" ? <img className='header__flag' src={french} alt="french flag"/>  : language === "en" ? <img className='header__flag' src={uk} alt="uk flag"/> : ""}</InputLabel>*/}
                   <Select
                     value={language}
                     onChange={(e)=>{setLanguage(e.target.value)}}
                     sx={{ height: "34px", borderRadius: "0", color:"white", fontWeight:'100' }}
                     id='language_button'
                   >
-                    <MenuItem value="fr"><img className='header__flag' src={french} alt="french flag" id="french"/> Français</MenuItem>
-                    <MenuItem value="en"><img className='header__flag' src={uk} alt="uk flag" id="uk" /> Anglais</MenuItem>
+                    <MenuItem value="fr"><img className='header__flag' src={french} alt="french flag" id="french"/></MenuItem>
+                    <MenuItem value="en"><img className='header__flag' src={uk} alt="uk flag" id="uk"/></MenuItem>
                   </Select>
                 </FormControl>
               </Box>

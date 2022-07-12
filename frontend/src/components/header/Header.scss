@@ -52,8 +52,9 @@
     font-weight: 100;
     font-size: x-large;
     text-transform: none;
-    min-width: 100px;
+    min-width: 50px;
     padding: 0;
+    column-gap: .2rem;
 }
 
 #language_button:hover{
