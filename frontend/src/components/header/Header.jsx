@@ -61,8 +61,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 
 const Header = () => {
-
-  const [language, setLanguage] = React.useState("fr");
+  const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
 
   React.useEffect(() => {
     const languageInput=document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
@@ -93,12 +92,12 @@ const Header = () => {
                 <FormControl  fullWidth>
                   <Select
                     value={language}
-                    onChange={(e)=>{setLanguage(e.target.value)}}
+                    onChange={(e)=>{setLanguage(e.target.value); localStorage.setItem('lang', e.target.value)}}
                     sx={{ height: "34px", borderRadius: "0", color:"white", fontWeight:'100' }}
                     id='language_button'
                   >
-                    <MenuItem value="fr"><img className='header__flag' src={french} alt="french flag" id="french"/></MenuItem>
-                    <MenuItem value="en"><img className='header__flag' src={uk} alt="uk flag" id="uk"/></MenuItem>
+                    <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french"/></MenuItem>
+                    <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk"/></MenuItem>
                   </Select>
                 </FormControl>
               </Box>

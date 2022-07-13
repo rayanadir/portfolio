@@ -52,7 +52,7 @@
     font-weight: 100;
     font-size: x-large;
     text-transform: none;
-    min-width: 50px;
+    //min-width: 50px;
     padding: 0;
     column-gap: .2rem;
 }
@@ -77,6 +77,10 @@
             column-gap: 1rem;
             align-items: center;
         }
+        &__flag{
+            width: 14px;
+            height: auto;
+        }
     }
 
 }
@@ -97,16 +101,29 @@
             column-gap: 1.5rem;
             align-items: center;
         }
+        &__flag{
+            width: 18px;
+            height: auto;
+        }
     }
-
 }
 
 @media (min-width : 768px) and (max-width: 1023px){
-    
+    .header{
+        &__flag{
+            width: 24px;
+            height: auto;
+        }
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1439px){
-    
+    .header{
+        &__flag{
+            width: 28px;
+            height: auto;
+        }
+    } 
 }
 
 @media (min-width: 1440px){
