@@ -9,6 +9,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+// Importations traduction
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
+
 import french from "../../img/flag/france-flag.png";
 import uk from "../../img/flag/uk-flag.png";
 
@@ -62,6 +66,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Header = () => {
   const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
+  const { t } = useTranslation();
+
 
   React.useEffect(() => {
     const languageInput=document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
@@ -79,20 +85,20 @@ const Header = () => {
       <div className="header__wrapper">
         <div className="header__name_frontend">
           <h1 className='header__name'>Rayan Dahmena</h1>
-          <h3 className='header__frontend'>Développeur Front-End React.js</h3>
+          <h3 className='header__frontend'>{t('frontend_developer')}</h3>
         </div>
         <nav className='header__nav'>
           <ul className='header__nav_list'>
 
             <li className='header__nav_element'>
-              Contact
+              {t('contact')}
             </li>
 
               <Box>
-                <FormControl  fullWidth>
+                <FormControl fullWidth>
                   <Select
                     value={language}
-                    onChange={(e)=>{setLanguage(e.target.value); localStorage.setItem('lang', e.target.value)}}
+                    onChange={(e)=>{setLanguage(e.target.value); localStorage.setItem('lang', e.target.value); i18next.changeLanguage(e.target.value)}}
                     sx={{ height: "34px", borderRadius: "0", color:"white", fontWeight:'100' }}
                     id='language_button'
                   >
@@ -105,7 +111,7 @@ const Header = () => {
             <MaterialUISwitch sx={{ m: 0 }} defaultChecked />
 
             <li className='header__nav_element'>
-              À propos
+              {t('about')}
             </li>
           </ul>
         </nav>
