@@ -5,8 +5,10 @@ import Home from './pages/home/Home';
 import ProjectPage from './pages/projectPage/ProjectPage';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
+import { useTranslation } from "react-i18next";
 
 const App = ()  => {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Header />
