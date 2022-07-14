@@ -1,9 +1,9 @@
 import React from 'react'
 import '../stack/Stack.scss'
 
-const Stack = ({title, stackArr}) => {
+const Stack = ({title, stackArr, stack}) => {
   return (
-        <article className="aboutme__stack" id='frontend'>
+        <article className="aboutme__stack" id={stack}>
           <h2 className="aboutme__stack__title">{title}</h2>
           <ul className='aboutme__stack__list'>
             {
