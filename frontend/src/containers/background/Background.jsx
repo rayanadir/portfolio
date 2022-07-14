@@ -1,6 +1,7 @@
 import React from 'react'
 import '../background/Background.scss';
-import background2 from '../../img/main-background2.jpg'
+import background2 from '../../img/main-background2.jpg';
+import { useTranslation } from "react-i18next";
 
 const Background = () => {
     
@@ -32,14 +33,16 @@ const Background = () => {
         image.style.filter = `blur(${opacityVal}px)`;
     })
 
+    const { t } = useTranslation()
+
     return (
         <section className='background'>
             <div className="background__welcome">
-                <h1 className='background__welcome__text welcome'>Bienvenue sur mon portfolio !</h1>
-                <h3 className='background__welcome__text project_contact'>Jetez un œil à mes projets ou contactez moi</h3>
+                <h1 className='background__welcome__text welcome'>{t('welcome_portfolio')} </h1>
+                <h3 className='background__welcome__text project_contact'>{t('take_a_look')}</h3>
                 <div className="background__welcome__buttons">
-                    <button onClick={() => { document.querySelector('.projects').scrollIntoView() }} className="background__welcome__button" id="projects_button">Projets</button>
-                    <button className="background__welcome__button" id="contact_button">Contact</button>
+                    <button onClick={() => { document.querySelector('.projects').scrollIntoView() }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
+                    <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
                 </div>
             </div>
             <img id='home-background' src={background2} alt="home-background" className='background__image' />
