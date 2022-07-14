@@ -3,7 +3,6 @@ import '../projects/Projects.scss'
 import Project from '../../components/project/Project';
 import { PROJECTS } from '../../data/projects';
 import TextField from '@mui/material/TextField';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,6 +12,7 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjects } from '../../slices/projectsSlice';
+import { useTranslation } from 'react-i18next';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,6 +28,7 @@ var searchText='';
 var selectArr=[];
 
 const Projects = () => {
+  const { t } = useTranslation();
 
   const [search, setSearch] = React.useState('')
   const [option, setOption] = React.useState([]);
@@ -35,6 +36,10 @@ const Projects = () => {
   const dispatch = useDispatch();
   
   let stackList = useSelector((state) => state.projects.stackList);
+  let projects= useSelector((state) => [...new Set(state.projects.projects.map((project) => {
+    return {...project, description:t(project.id)}
+  }))]);
+  
   
   const select = (e) => {
     selectArr= e.target.value;
@@ -50,20 +55,20 @@ const Projects = () => {
 
   return (
     <section className="projects" id="projects">
-      <h1 className='projects__title'>Mes projets</h1>
+      <h1 className='projects__title'>{t('my_projects')}</h1>
       <div className="projects__search">
         <FormControl id='textformcontrol'>
           <TextField
             id="outlined-size-small"
             size="small"
-            label="Rechercher un projet"
+            label={t('search_project')}
             value={search}
             onChange={(e) => {searchProject(e)}}
           />
         </FormControl>
     
         <FormControl sx={{ m: 0, height:"auto" }} id="formcontrol" size="small">
-          <InputLabel id="demo-multiple-chip-label">Trier</InputLabel>
+          <InputLabel id="demo-multiple-chip-label">{t('filter')}</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
@@ -89,9 +94,12 @@ const Projects = () => {
         </FormControl>
       </div>
 
+      {
+        searchText.length > 0 || selectArr.length > 0 ? <p className="projects__result">{projects.length >= 1 ? projects.length : projects.length === 0 ?  "Aucun" : ""} projet{projects.length>1 ? "s":  projects.length ===0 ? " ne" :""}  correspond{projects.length>1 ? "ent": ""} à votre recherche</p> :""
+      }
 
       <div className="projects__list">
-        {PROJECTS.map((project) => {
+        {projects.map((project) => {
             return <Project 
                       key={project.title}
                       description={project.description}
