@@ -25,12 +25,17 @@
         width: 90%;
         margin: auto;
     }
+    &__result{
+        width: 90%;
+        margin: auto;
+    }
 }
 
 
 
 @media (max-width: 767px){
     .projects{
+        margin-top: 3rem;
         &__list{
         grid-template-columns: repeat(1,1fr);
         row-gap: 1rem;
@@ -55,6 +60,7 @@
 
 @media (min-width : 768px) and (max-width: 1023px){
     .projects{
+        margin-top: 4rem;
         &__list{
         grid-template-columns: repeat(2,1fr);
         row-gap: 0;            
@@ -69,10 +75,16 @@
     #outlined-size-small,#demo-multiple-chip{
         width: 277px;
     }
+    .projects{
+        margin-top: 7rem;
+    }
 }
 
 @media (min-width: 1440px){
     #outlined-size-small,#demo-multiple-chip{
         width: 277px;
+    }
+    .projects{
+        margin-top: 10rem;
     }
 }
