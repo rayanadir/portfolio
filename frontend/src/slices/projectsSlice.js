@@ -5,14 +5,19 @@ const initialState = {
     projects: PROJECTS,
     searchProject: [],
     selectOption: [],
-    stackList: [...new Set(PROJECTS.map((project) => project.stack).flat())]
+    stackList: [...new Set(PROJECTS.map((project) => project.stack).flat())],
+    searchText:"",
+    selectArr:[]
 }
 
 const projectsSlice = createSlice({
     name: "projectSlice",
     initialState,
     reducers: {
-        getProjects: (state, action) => {
+        translateProjects: (state,action) => {
+            state.projects=action.payload.projects
+        }
+        ,getProjects: (state, action) => {
             let projects = action.payload.PROJECTS;
             let searchTextValue = action.payload.searchText;
             let selectArrayValue = action.payload.selectArr;
@@ -40,11 +45,24 @@ const projectsSlice = createSlice({
             }
             state.projects = projects;
             state.stackList = [...new Set(projects.map((project) => project.stack).flat())];
-            console.log(projects);
+        },
+        globalSearchProjects: (state,action) => {
+            state.projects=action.payload.result;
+            state.stackList=action.payload.stackList
+        },
+        changeLanguage: (state) => {
+            state.searchText="";
+            state.selectArr=[];
+        },
+        setSearchText: (state, action) => {
+            state.searchText=action.payload;
+        },
+        setSelectArray: (state, action) => {
+            state.selectArr=action.payload;
         }
     }
 })
 
-export const { getProjects } = projectsSlice.actions
+export const { getProjects, translateProjects, globalSearchProjects, changeLanguage, setSearchText, setSelectArray } = projectsSlice.actions
 
 export const projectsReducer = projectsSlice.reducer
