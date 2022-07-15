@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjects } from '../../slices/projectsSlice';
+import { globalSearchProjects, setSearchText, setSelectArray } from '../../slices/projectsSlice';
 import { useTranslation } from 'react-i18next';
 
 const ITEM_HEIGHT = 48;
@@ -24,8 +24,8 @@ const MenuProps = {
   },
 };
 
-var searchText='';
-var selectArr=[];
+var searchText = '';
+var selectArr = [];
 
 const Projects = () => {
   const { t } = useTranslation();
@@ -34,23 +34,57 @@ const Projects = () => {
   const [option, setOption] = React.useState([]);
 
   const dispatch = useDispatch();
-  
+
   let stackList = useSelector((state) => state.projects.stackList);
-  let projects= useSelector((state) => [...new Set(state.projects.projects.map((project) => {
-    return {...project, description:t(project.id)}
-  }))]);
+  let projects= useSelector((state) =>state.projects.projects);
+
+  let searchTextState= useSelector((state) => state.projects.searchText);
+  let selectArrState= useSelector((state) => state.projects.selectArr);
   
-  
+  let translatedProjects= PROJECTS.map((project) => {
+    return {...project, description: t(project.id)}
+  })
+
+  const globalSearch = (searchText, selectArr) => {
+    let result;
+    if (searchText.length > 0 && selectArr.length === 0) {
+      result= translatedProjects.filter((project) => {
+        return project.title.toLowerCase().includes(searchText.toLowerCase())
+          || project.description.toLowerCase().includes(searchText.toLowerCase())
+          || project.stack.some(stack => stack.toLowerCase().includes(searchText.toLowerCase()));
+      })
+    }
+    else if (searchText.length === 0 && selectArr.length > 0) {
+      result= translatedProjects.filter((project) => selectArr.every(stack => project.stack.includes(stack)))
+    }
+    else if (searchText.length > 0 && selectArr.length > 0) {
+      let searchResult = translatedProjects.filter((project) => {
+        return project.title.toLowerCase().includes(searchText.toLowerCase())
+          || project.description.toLowerCase().includes(searchText.toLowerCase())
+          || project.stack.some(stack => stack.toLowerCase().includes(searchText.toLowerCase()));
+      })
+      let selectResult = translatedProjects.filter((project) => selectArr.every(stack => project.stack.includes(stack)));
+      result= searchResult.filter(x => selectResult.indexOf(x) !== -1)
+    }
+    else if (searchText.length === 0 && selectArr.length === 0) {
+      result= translatedProjects;
+    }
+    stackList= [...new Set(result.map((project) => project.stack).flat())];
+    dispatch(globalSearchProjects({result,stackList}))
+  }
+
   const select = (e) => {
-    selectArr= e.target.value;
+    selectArr = e.target.value;
     setOption(selectArr);
-    dispatch(getProjects({PROJECTS,searchText,selectArr}));
+    dispatch(setSelectArray(selectArr))
+    globalSearch(searchText, selectArr)
   };
 
   const searchProject = (e) => {
-    searchText= e.target.value;
+    searchText = e.target.value;
     setSearch(searchText);
-    dispatch(getProjects({PROJECTS,searchText,selectArr}));
+    dispatch(setSearchText(searchText))
+    globalSearch(searchText, selectArr)
   }
 
   return (
@@ -62,12 +96,12 @@ const Projects = () => {
             id="outlined-size-small"
             size="small"
             label={t('search_project')}
-            value={search}
-            onChange={(e) => {searchProject(e)}}
+            value={searchTextState}
+            onChange={(e) => { searchProject(e) }}
           />
         </FormControl>
-    
-        <FormControl sx={{ m: 0, height:"auto" }} id="formcontrol" size="small">
+
+        <FormControl sx={{ m: 0, height: "auto" }} id="formcontrol" size="small">
           <InputLabel id="demo-multiple-chip-label">{t('filter')}</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
@@ -75,7 +109,7 @@ const Projects = () => {
             multiple
             onChange={select}
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            value={option}
+            value={selectArrState}
             renderValue={(selected) => (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {selected.map((value) => (
@@ -95,23 +129,27 @@ const Projects = () => {
       </div>
 
       {
-        searchText.length > 0 || selectArr.length > 0 ? <p className="projects__result">{projects.length >= 1 ? projects.length : projects.length === 0 ?  "Aucun" : ""} projet{projects.length>1 ? "s":  projects.length ===0 ? " ne" :""}  correspond{projects.length>1 ? "ent": ""} à votre recherche</p> :""
+        searchTextState.length > 0 || selectArrState.length > 0 ? 
+        <p className="projects__result">
+          {projects.length > 1 ? t('several_projects', {length:projects.length}) : projects.length===1 ?  t('one_project', {length:projects.length}) : projects.length===0 ? t('no_project') : ""}
+        </p> 
+        : ""
       }
 
       <div className="projects__list">
         {projects.map((project) => {
-            return <Project 
-                      key={project.title}
-                      description={project.description}
-                      main_image={project.main_image}
-                      stack={project.stack}
-                      title={project.title}
-                      id={project.id}
-                      /> 
-          })}
+          return <Project
+            key={project.title}
+            description={project.description}
+            main_image={project.main_image}
+            stack={project.stack}
+            title={project.title}
+            id={project.id}
+          />
+        })}
       </div>
 
-        </section>
+    </section>
   )
 }
 
