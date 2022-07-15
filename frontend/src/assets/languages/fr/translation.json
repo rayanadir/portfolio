@@ -24,5 +24,8 @@
     "fisheye":"Créer un site accessible pour une plateforme de photographes",
     "gameon":"Créer une landing page avec Javascript",
     "ohmyfood":"Dynamiser une page web avec des animations CSS",
-    "reservia":"Transformer une maquette en site web avec HTML&CSS"
+    "reservia":"Transformer une maquette en site web avec HTML&CSS",
+    "several_projects": "{{length}} projets correspondent à votre recherche",
+    "one_project": "{{length}} projet correspond à votre recherche",
+    "no_project": "Aucun projet ne correspond à votre recherche"
 }
