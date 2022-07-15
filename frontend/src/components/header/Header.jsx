@@ -16,6 +16,9 @@ import i18next from 'i18next';
 import french from "../../img/flag/france-flag.png";
 import uk from "../../img/flag/uk-flag.png";
 
+import { useDispatch } from 'react-redux';
+import { changeLanguage } from '../../slices/projectsSlice';
+
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -67,8 +70,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const Header = () => {
   const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
   const { t } = useTranslation();
-
-
+  const dispatch = useDispatch()
   React.useEffect(() => {
     const languageInput=document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
     const arrowDropdown=document.querySelector('.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon');
@@ -98,7 +100,12 @@ const Header = () => {
                 <FormControl fullWidth>
                   <Select
                     value={language}
-                    onChange={(e)=>{setLanguage(e.target.value); localStorage.setItem('lang', e.target.value); i18next.changeLanguage(e.target.value)}}
+                    onChange={(e)=>{
+                      setLanguage(e.target.value); 
+                      localStorage.setItem('lang', e.target.value); 
+                      i18next.changeLanguage(e.target.value);
+                      dispatch(changeLanguage())
+                    }}
                     sx={{ height: "34px", borderRadius: "0", color:"white", fontWeight:'100' }}
                     id='language_button'
                   >
