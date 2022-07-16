@@ -1,0 +1,38 @@
+.light{
+    background: white;
+    .header{
+        &__nav_element:hover{
+            text-decoration: underline black;
+        }
+    }
+    .project{
+        &__link{
+            color:black;
+        }
+    }
+    .footer{
+        &__link{
+            color:black
+        }
+    }
+}
+
+.dark{
+    background: #121212;
+    color: white;
+    .header{
+        &__nav_element:hover{
+            text-decoration: underline white;
+        }
+    }
+    .project{
+        &__link{
+            color:white;
+        }
+    }
+    .footer{
+        &__link{
+            color:white
+        }
+    }
+}
