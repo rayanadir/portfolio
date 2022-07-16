@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../header/Header.scss';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
@@ -18,6 +18,8 @@ import uk from "../../img/flag/uk-flag.png";
 
 import { useDispatch } from 'react-redux';
 import { changeLanguage } from '../../slices/projectsSlice';
+
+import { ThemeContext } from '../../context/ThemeContext';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -81,9 +83,12 @@ const Header = () => {
     input.style.borderStyle="none";
     arrow.style.display="none";
   }, [])
+
+  const { toggleTheme, theme } = useContext(ThemeContext)
+
   
   return (
-    <header className='header'>
+    <header className={`header ${theme}`}>
       <div className="header__wrapper">
         <div className="header__name_frontend">
           <h1 className='header__name'>Rayan Dahmena</h1>
@@ -115,7 +120,7 @@ const Header = () => {
                 </FormControl>
               </Box>
 
-            <MaterialUISwitch sx={{ m: 0 }} defaultChecked />
+            <MaterialUISwitch sx={{ m: 0 }} onChange={toggleTheme}/>
 
             <li className='header__nav_element'>
               {t('about')}

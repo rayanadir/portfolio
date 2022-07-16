@@ -1,6 +1,7 @@
 .header{
-    background-color: #131418;
+    //background-color: #131418;
     padding: 1rem 3rem;
+    z-index: 50;
     &__wrapper{
         display: flex;
         justify-content: space-between;
@@ -10,7 +11,7 @@
     }
     &__name, &__frontend, &__nav_element{
         margin: 0;
-        color: white;
+        //color: white;
         font-weight: 100;
     }
     &__nav_element{
@@ -20,9 +21,6 @@
         padding: 0;
         cursor: pointer;
         list-style-type: none;
-    }
-    &__nav_element:hover{
-        text-decoration: underline white;
     }
     &__nav_list{
         display: flex;
@@ -39,6 +37,7 @@
         background-color: transparent;
     }
 }
+
 
 #language_button{
     display: flex;
