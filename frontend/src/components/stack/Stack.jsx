@@ -1,5 +1,5 @@
 import React from 'react'
-import '../stack/Stack.scss'
+import '../stack/Stack.scss';
 
 const Stack = ({title, stackArr, stack}) => {
   return (

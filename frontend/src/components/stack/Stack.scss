@@ -124,3 +124,23 @@
         }
     }
 }
+
+.dark{
+    .aboutme{
+        &__stack{
+            padding: 1.5rem;
+            border-radius: 5px;
+            background-color: rgb(58, 58, 58);
+        }
+    }
+}
+
+.light{
+    .aboutme{
+        &__stack{
+            padding: 1.5rem;
+            border-radius: 0px;
+            background-color: white;
+        }
+    }
+}
