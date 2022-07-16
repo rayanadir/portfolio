@@ -27,7 +27,7 @@ const Project = ({ id, title, description, main_image, stack }) => {
                     // eslint-disable-next-line array-callback-return
                     STACK.map((s) => {
                       if(s.name===element){
-                        return <img src={s.icon} alt={s.id} key={s.id} className='project__list__icon'/>
+                        return <img src={s.icon} alt={s.id} key={s.id} className='project__list__icon' title={s.name}/>
                       }
                     })
                   }
