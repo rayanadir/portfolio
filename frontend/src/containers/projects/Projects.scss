@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    margin-top: 10rem;
-    padding: 2rem 0;
+    padding-top: 10rem;
+    padding: 10rem 0 5rem 0;
     &__list{
         display: grid;
         grid-template-columns: repeat(3,1fr);
@@ -23,7 +23,7 @@
         align-items: center;
         column-gap: 3rem;
         width: 90%;
-        margin: auto;
+        margin: 0 auto 2rem;
     }
     &__result{
         width: 90%;
@@ -31,11 +31,13 @@
     }
 }
 
-
+#outlined-size-small,#demo-multiple-chip{
+    background-color: white;
+}
 
 @media (max-width: 767px){
     .projects{
-        margin-top: 3rem;
+        padding-top: 3rem;
         &__list{
         grid-template-columns: repeat(1,1fr);
         row-gap: 1rem;
@@ -60,7 +62,7 @@
 
 @media (min-width : 768px) and (max-width: 1023px){
     .projects{
-        margin-top: 4rem;
+        padding-top: 4rem;
         &__list{
         grid-template-columns: repeat(2,1fr);
         row-gap: 0;            
@@ -76,7 +78,7 @@
         width: 277px;
     }
     .projects{
-        margin-top: 7rem;
+        padding-top: 7rem;
     }
 }
 
@@ -85,6 +87,6 @@
         width: 277px;
     }
     .projects{
-        margin-top: 10rem;
+        padding-top: 10rem;
     }
 }

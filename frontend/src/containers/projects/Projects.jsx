@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../projects/Projects.scss'
 import Project from '../../components/project/Project';
 import { PROJECTS } from '../../data/projects';
@@ -13,6 +13,7 @@ import Chip from '@mui/material/Chip';
 import { useDispatch, useSelector } from 'react-redux'
 import { globalSearchProjects, setSearchText, setSelectArray } from '../../slices/projectsSlice';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,6 +30,7 @@ var selectArr = [];
 
 const Projects = () => {
   const { t } = useTranslation();
+  const { toggleTheme, theme } = useContext(ThemeContext)
 
   const [search, setSearch] = React.useState('')
   const [option, setOption] = React.useState([]);
@@ -88,27 +90,28 @@ const Projects = () => {
   }
 
   return (
-    <section className="projects" id="projects">
+    <section className={`projects ${theme}`} id="projects">
       <h1 className='projects__title'>{t('my_projects')}</h1>
       <div className="projects__search">
         <FormControl id='textformcontrol'>
+          <label htmlFor="outlined-size-small">{t('search_project')}</label>
           <TextField
             id="outlined-size-small"
             size="small"
-            label={t('search_project')}
             value={searchTextState}
             onChange={(e) => { searchProject(e) }}
           />
         </FormControl>
 
         <FormControl sx={{ m: 0, height: "auto" }} id="formcontrol" size="small">
-          <InputLabel id="demo-multiple-chip-label">{t('filter')}</InputLabel>
+          {/*<InputLabel id="demo-multiple-chip-label"></InputLabel>*/}
+          <label htmlFor="demo-multiple-chip">{t('filter')}</label>
           <Select
-            labelId="demo-multiple-chip-label"
+            
             id="demo-multiple-chip"
             multiple
             onChange={select}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            input={<OutlinedInput id="select-multiple-chip"  />}
             value={selectArrState}
             renderValue={(selected) => (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
