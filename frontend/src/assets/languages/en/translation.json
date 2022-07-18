@@ -27,5 +27,8 @@
     "reservia":"Transform a sketch into a website with HTML and CSS",
     "several_projects": "{{length}} projects match your search",
     "one_project": "{{length}} project matches your search",
-    "no_project": "No project matches your search"
+    "no_project": "No project matches your search",
+    "light_theme":"Light theme",
+    "dark_theme":"Dark theme",
+    "language":"Language"
 }

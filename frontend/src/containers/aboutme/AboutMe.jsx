@@ -18,7 +18,6 @@ const AboutMe = () => {
     return years;
   }
 
-  // eslint-disable-next-line no-unused-vars
   const { toggleTheme, theme } = useContext(ThemeContext)
 
   return (

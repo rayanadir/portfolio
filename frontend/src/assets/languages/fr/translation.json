@@ -27,5 +27,8 @@
     "reservia":"Transformer une maquette en site web avec HTML&CSS",
     "several_projects": "{{length}} projets correspondent à votre recherche",
     "one_project": "{{length}} projet correspond à votre recherche",
-    "no_project": "Aucun projet ne correspond à votre recherche"
+    "no_project": "Aucun projet ne correspond à votre recherche",
+    "light_theme":"Thème clair",
+    "dark_theme":"Thème sombre",
+    "language":"Langue"
 }

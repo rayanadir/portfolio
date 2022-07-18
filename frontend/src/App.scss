@@ -1,5 +1,5 @@
 .light{
-    background: white;
+    background: rgb(255,255,252);
     .header{
         &__nav_element:hover{
             text-decoration: underline black;
@@ -8,6 +8,9 @@
     .project{
         &__link{
             color:black;
+        }
+        &__mainImage{
+            opacity: 1;
         }
     }
     .footer{
@@ -29,9 +32,56 @@
         &__link{
             color:white;
         }
+        &__mainImage{
+            opacity: 0.8;
+        }
     }
     .footer{
         &__link{
+            color:white
+        }
+    }
+}
+
+.header_light{
+    background-color: rgb(255,255,252);
+    .header{
+        &__nav_element:hover{
+            text-decoration: underline black;
+        }
+        &__menu-btn{
+            filter: invert(0);
+        }
+    }
+}
+
+.footer_light{
+    .footer{
+        &__link{
+            color:black
+        }
+    }
+}
+
+.header_dark{
+    background-color: black;
+    .header{
+        &__name,&__frontend,&__nav_element{
+            color: white;
+        }
+        &__nav_element:hover{
+            text-decoration: underline white;
+        }
+        &__menu-btn{
+            filter: invert(1);
+        }
+    }
+}
+
+.footer_dark{
+    background-color: black;
+    .footer{
+        &__link,&__element{
             color:white
         }
     }
