@@ -19,6 +19,7 @@
         padding: 0;
         cursor: pointer;
         list-style-type: none;
+
     }
     &__nav_list{
         display: flex;
@@ -45,6 +46,18 @@
     }
 }
 
+.hover_none{
+    display: flex;
+    align-items: inherit;
+    height: 34px;
+    padding: 0;
+    font-weight: 100;
+}
+
+.hover_none:hover{
+    cursor: default;
+    text-decoration: none;
+}
 
 #language_button{
     display: flex;
@@ -85,6 +98,7 @@
         }
         &__nav_element{
             font-size: 20px;
+            justify-content: space-between;
         }
         &__nav_list{
             display: none;
@@ -97,7 +111,10 @@
             display: initial;
         }
     }
-
+    .hover_none{
+        font-size: 20px;
+        justify-content: space-between;
+    }
 }
 
 @media (min-width : 425px) and (max-width: 767px){
@@ -110,6 +127,7 @@
         }
         &__nav_element{
             font-size: 22px;
+            justify-content: space-between;
         }
         &__nav_list{
             display: none;
@@ -122,12 +140,16 @@
             display: initial;
         }
     }
+    .hover_none{
+        font-size: 22px;
+        justify-content: space-between;
+    }
 }
 
 @media (min-width : 768px) and (max-width: 1023px){
     .header{
         &__flag{
-            width: 24px;
+            width: 32px;
             height: auto;
         }
         &__menu-btn{
@@ -142,7 +164,7 @@
 @media (min-width: 1024px) and (max-width: 1439px){
     .header{
         &__flag{
-            width: 28px;
+            width: 32px;
             height: auto;
         }
         &__menu-btn{
@@ -170,19 +192,18 @@
     .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
         border-width: 0;
     }
-    .css-1d3z3hw-MuiOutlinedInput-notchedOutline:active{
+    .css-1d3z3hw-MuiOutlinedInput-notchedOutline:focus{
         border-width: 0;
     }
 }
-.css-bagk2j-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-style: none;
+
+
+#language_button_drawer{
+    padding: 7px;
 }
 
-.css-bagk2j-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline :focus{
-    border-style: none;
-}
-
-
-.css-4t3x6l-MuiPaper-root-MuiDrawer-paper .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    border-width: 0;
+.select_sidemenu {
+    fieldset{
+        border-style: none;
+    }
 }

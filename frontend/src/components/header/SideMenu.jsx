@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -9,13 +8,12 @@ import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
 import french from "../../img/flag/france-flag.png";
 import uk from "../../img/flag/uk-flag.png";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage } from '../../slices/projectsSlice';
+import { changeSelectedLanguage } from '../../slices/languagesSlice';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-
 import { ThemeContext } from '../../context/ThemeContext';
 
 import menu from "../../img/hamburger-menu.svg"
@@ -67,9 +65,34 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
+const getWindowWidthDimensions = () => {
+    const { innerWidth: width } = window;
+    return {
+        width,
+    };
+}
+
+const useWindowWidthDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = React.useState(
+        getWindowWidthDimensions()
+    );
+
+    React.useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowWidthDimensions());
+        }
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowDimensions;
+}
+
 export default function SideMenu() {
     const [state, setState] = React.useState({ left: false });
-    const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
+    //const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
+    let language = useSelector((state) => state.languages.language)
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const toggleDrawer = (anchor, open) => (event) => {
@@ -80,58 +103,63 @@ export default function SideMenu() {
         setState({ ...state, [anchor]: open });
     };
     const { toggleTheme, theme } = React.useContext(ThemeContext)
-
-    /*React.useEffect(() => {
+    const { width } = useWindowWidthDimensions();
+    React.useEffect(() => {
         const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
         languageInput.id = "languageInputDrawer";
         const inputDrawer = document.getElementById('languageInputDrawer');
         inputDrawer.style.borderWidth = "0";
-    }, [])*/
+        
+    }, [])
 
     const list = (anchor) => (
         <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250, height:"100%" }}
+            sx={{ width: width * (2 / 3), height: "100%" }}
             role="presentation"
-            
             onKeyDown={toggleDrawer(anchor, false)}
             className={theme}
         >
-            <List>
-                <ListItem className='header__nav_element' style={{display:"flex",alignItems:"center"}}>
+            <List style={{ display: "flex", flexDirection: "column", rowGap: "2rem", padding: '2rem 1rem' }}>
+                <li className='header__nav_element' style={{ display: "flex", alignItems: "center" }}>
                     {t('contact')}
-                </ListItem>
+                </li>
 
-                <ListItem onClick={toggleDrawer(anchor,true)} style={{display:"flex",alignItems:"center"}}>
+                <li className=' hover_none'>
+                    <label htmlFor="translation">{t('language')}</label>
                     <Box>
                         <FormControl fullWidth>
                             <Select
                                 value={language}
                                 onChange={(e) => {
-                                    setLanguage(e.target.value);
                                     localStorage.setItem('lang', e.target.value);
                                     i18next.changeLanguage(e.target.value);
                                     dispatch(changeLanguage())
+                                    dispatch(changeSelectedLanguage(e.target.value))
                                 }}
-                                sx={{ height: "34px", borderRadius: "0", color: "white", fontWeight: '100',p:0 }}
+                                sx={{ height: "34px", borderRadius: "0", color: "white", fontWeight: '100', p: 0 }}
                                 id='language_button_drawer'
                                 IconComponent={() => null}
+                                itemID="itemId"
+                                labelId='labelId'
+                                className='select_sidemenu'
                             >
                                 <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french" /></MenuItem>
                                 <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk" /></MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <label htmlFor="translation">{t('language')}</label>
-                </ListItem>
 
-                <ListItem onClick={toggleDrawer(anchor,true)} style={{display:"flex",alignItems:"center"}}>
+                </li>
+
+                <li className=' hover_none'>
+                    <label htmlFor="theme">{theme === "dark" ? t('dark_theme') : t('light_theme')}</label>
                     <MaterialUISwitch sx={{ m: 0 }} checked={theme === "dark" ? true : false} onChange={toggleTheme} />
-                    <label htmlFor="theme">{theme === "dark" ? t('dark_theme'): t('light_theme')}</label>
-                </ListItem>
 
-                <ListItem className="header__nav_element" style={{display:"flex",alignItems:"center"}}>
+                </li>
+
+                <li className="header__nav_element" style={{ display: "flex", alignItems: "center" }}>
                     {t('about')}
-                </ListItem>
+                </li>
 
             </List>
 
@@ -140,16 +168,16 @@ export default function SideMenu() {
 
     return (
         <div>
-                <React.Fragment key="left">
-                    <img src={menu} alt="menu" className={`header__menu-btn menu-btn_${theme}`} onClick={ toggleDrawer("left",true)} />
-                    <Drawer
-                        anchor="left"
-                        open={state["left"]}
-                        onClose={toggleDrawer("left", false)}
-                    >
-                        {list("left")}
-                    </Drawer>
-                </React.Fragment>
+            <React.Fragment key="left">
+                <img src={menu} alt="menu" className={`header__menu-btn menu-btn_${theme}`} onClick={toggleDrawer("left", true)} />
+                <Drawer
+                    anchor="left"
+                    open={state["left"]}
+                    onClose={toggleDrawer("left", false)}
+                >
+                    {list("left")}
+                </Drawer>
+            </React.Fragment>
         </div>
     );
 }

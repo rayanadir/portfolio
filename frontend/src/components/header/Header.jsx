@@ -16,14 +16,12 @@ import i18next from 'i18next';
 import french from "../../img/flag/france-flag.png";
 import uk from "../../img/flag/uk-flag.png";
 
-import menu from "../../img/hamburger-menu.svg"
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage } from '../../slices/projectsSlice';
+import { changeSelectedLanguage } from '../../slices/languagesSlice';
 
 import { ThemeContext } from '../../context/ThemeContext';
 
-import Drawer from '@mui/material/Drawer';
 import SideMenu from './SideMenu';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -75,23 +73,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 
 const Header = () => {
-  const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
-  /*const [anchorState, setAnchorState] = React.useState({
-    top:false,
-    left:false,
-    bottom:false,
-    right:false
-  })*/
+  //const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
+  let language = useSelector((state) => state.languages.language)
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
-
-  /*const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setAnchorState({ ...anchorState, [anchor]: open })
-  };*/
 
   React.useEffect(() => {
     const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
@@ -101,11 +86,7 @@ const Header = () => {
   }, [])
 
   const { toggleTheme, theme } = useContext(ThemeContext)
-
-
-
-
-
+  
   return (
     <header className={`header ${theme}`}>
       <div className="header__wrapper">
@@ -124,14 +105,15 @@ const Header = () => {
                 <Select
                   value={language}
                   onChange={(e) => {
-                    setLanguage(e.target.value);
                     localStorage.setItem('lang', e.target.value);
                     i18next.changeLanguage(e.target.value);
                     dispatch(changeLanguage())
+                    dispatch(changeSelectedLanguage(e.target.value))
                   }}
                   sx={{ height: "34px", borderRadius: "0", color: "white", fontWeight: '100' }}
                   id='language_button'
                   IconComponent={() => null}
+                  className="select_header"
                 >
                   <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french" /></MenuItem>
                   <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk" /></MenuItem>
@@ -146,43 +128,6 @@ const Header = () => {
             </li>
           </ul>
           <SideMenu />
-          {/*<img src={menu} alt="menu" className={`header__menu-btn menu-btn_${theme}`} onClick={() => { toggleDrawer(anchorState,true) }} />
-          <Drawer
-            anchor="left"
-            open={anchorState['left']}
-            onClose={() => {toggleDrawer(anchorState,false)}}
-          >
-            <ul className='header__nav_list'>
-              <li className='header__nav_element'>
-                {t('contact')}
-              </li>
-
-              <Box>
-                <FormControl fullWidth>
-                  <Select
-                    value={language}
-                    onChange={(e) => {
-                      setLanguage(e.target.value);
-                      localStorage.setItem('lang', e.target.value);
-                      i18next.changeLanguage(e.target.value);
-                      dispatch(changeLanguage())
-                    }}
-                    sx={{ height: "34px", borderRadius: "0", color: "white", fontWeight: '100' }}
-                    id='language_button'
-                  >
-                    <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french" /></MenuItem>
-                    <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk" /></MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-
-              <MaterialUISwitch sx={{ m: 0 }} checked={theme === "dark" ? true : false} onChange={toggleTheme} />
-
-              <li className='header__nav_element'>
-                {t('about')}
-              </li>
-            </ul>
-          </Drawer>*/}
         </nav>
       </div>
     </header>
