@@ -1,8 +1,14 @@
+
+
 .light{
     background: rgb(255,255,252);
     .header{
         &__nav_element:hover{
             text-decoration: underline black;
+            &__sidemenu:hover{
+                cursor: default;
+                text-decoration: none;
+            }
         }
     }
     .project{
@@ -26,6 +32,10 @@
     .header{
         &__nav_element:hover{
             text-decoration: underline white;
+            &__sidemenu:hover{
+                cursor: default;
+                text-decoration: none;
+            }
         }
     }
     .project{
