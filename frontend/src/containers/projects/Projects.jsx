@@ -5,7 +5,6 @@ import { PROJECTS } from '../../data/projects';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -30,9 +29,11 @@ var selectArr = [];
 
 const Projects = () => {
   const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
   const { toggleTheme, theme } = useContext(ThemeContext)
-
+  // eslint-disable-next-line no-unused-vars
   const [search, setSearch] = React.useState('')
+  // eslint-disable-next-line no-unused-vars
   const [option, setOption] = React.useState([]);
 
   const dispatch = useDispatch();
