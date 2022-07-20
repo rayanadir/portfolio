@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const Background = () => {
     useEffect(() => {
-        const windowWidth = window.innerWidth;
+        const windowWidth = window.innerWidth; 
             const setBlur = () => {
                 let image = document.getElementById('home-background');
                 var opacityVal;
