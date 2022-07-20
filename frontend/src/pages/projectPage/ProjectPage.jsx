@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../projectPage/ProjectPage.scss';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -6,10 +6,6 @@ import { STACK } from '../../data/stack';
 import { useTranslation } from 'react-i18next';
 
 const ProjectPage = () => {
-  useEffect(() => {
-    window.scrollTo(0,0)
-  }, [])
-  
   let {id}= useParams();
   let projects= useSelector((state) => state.projects.projects);
   let project = projects.find(project => project.id === id);
