@@ -71,5 +71,7 @@
     "ohmyfood0":"OhMyFood is a restaurant website, choose a restaurant and select a dish.",
     "ohmyfood1":"Dishes apperance are dynamized by CSS animations, using SASS.",
     "reservia0":"Reservia is a vacation booking website.",
-    "reservia1":"NB : this website has no functionnalities, it is just a sketch integration in HTML, CSS."
+    "reservia1":"NB : this website has no functionnalities, it is just a sketch integration in HTML, CSS.",
+    "github_repo_link":"Github repository link",
+    "website_link":"Website link"
 }

@@ -64,11 +64,13 @@
     "fisheye2":"Navigation à travers les images avec le carousel.",
     "fisheye3":"Vous pouvez aimer un média pour incrémenter le nombre total de 'j'aime'.",
     "fisheye4":"Ouvrez un formulaire pour contacter le photographe, un envoi réussi affichera le résultat dans la console",
-    "fisheye5":"NB : there is no backend server, no data will be sent, this is just a form mock",
+    "fisheye5":"NB : il n'y a aucun serveur en ligne, aucune donnée ne sera envoyée, il s'agit juste d'une simulation d'un formulaire",
     "gameon0":"Open a modal form and register yourself to GameOn.",
     "gameon1":"NB : il n'y a aucun serveur en ligne, aucune donnée ne sera envoyée, il s'agit juste d'une simulation d'un formulaire",
     "ohmyfood0":"OhMyFood est un site de restaurants, séléctionnez un restaurant et un plat.",
     "ohmyfood1":"L'apparition des plats est dynamisé par des animations CSS, avec SASS.",
     "reservia0":"Reservia est un site de réservation de vacances.",
-    "reservia1":"NB : ce site n'a aucune fonctionnalité, il s'agit juste d'une intégration de maquette en HTML, CSS."
+    "reservia1":"NB : ce site n'a aucune fonctionnalité, il s'agit juste d'une intégration de maquette en HTML, CSS.",
+    "github_repo_link":"Lien du dépôt github",
+    "website_link":"Lien du site"
 }

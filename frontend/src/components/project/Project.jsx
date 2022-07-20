@@ -4,16 +4,18 @@ import { STACK } from '../../data/stack';
 import { Link } from "react-router-dom"
 
 const Project = ({ id, title, description, main_image, stack }) => {
-
+  const projectAccess = () => {
+    window.removeEventListener('scroll',()=>{})
+  }
   return (
     <article className="project" id={id}>
         <div className="project__image_informations">
-          <Link to={`/project/${id}`} className="project__link">
+          <Link to={`/project/${id}`} className="project__link" onClick={projectAccess}>
             <img className='project__mainImage' src={main_image} alt={title} />
           </Link>
           <div className="project__informations">
             <div className="project__title_desc">
-              <Link to={`/project/${id}`} className='project__link'>
+              <Link to={`/project/${id}`} className='project__link' onClick={projectAccess}>
                 <h2 className='project__title'>{title}</h2>
               </Link>
               <p className='project__description'>{description}</p>              

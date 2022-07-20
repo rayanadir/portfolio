@@ -45,14 +45,11 @@ export const PROJECTS = [
             "hrnet2",
             "hrnet3"
         ],
-        other_links: [
-            { 
-                'hrnet_link_0' : 'https://www.npmjs.com/package/react-modal-library-rayan-dahmena', 
-            },
-            {
-                'hrnet_link_1' : 'https://github.com/OpenClassrooms-Student-Center/P12_Front-end',
-            }
-        ],
+        other_links: { 
+                'hrnet_link_0' : 'https://www.npmjs.com/package/react-modal-library-rayan-dahmena',
+                'hrnet_link_1' : 'https://github.com/OpenClassrooms-Student-Center/P12_Front-end', 
+        }
+        ,
         responsive:false,
         images: [main_background_p14, employee_list_p14],
     },
@@ -71,11 +68,10 @@ export const PROJECTS = [
             "argentbank3",
             "argentbank4"
         ],
-        other_links: [
-            { 
+        other_links: { 
                 'argentbank_link_0' : 'https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API', 
-            },
-        ],
+        },
+        
         responsive:true,
         images: [main_background_p13, login_background_p13],        
     },
@@ -93,11 +89,9 @@ export const PROJECTS = [
             "sportsee2",
             "sportsee3"
         ],
-        other_links: [
-            { 
+        other_links: { 
                 'sportsee_link_0' : 'https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard', 
-            },
-        ],
+        },
         responsive:false,
         images: [main_background_p12], 
     },
@@ -113,11 +107,9 @@ export const PROJECTS = [
             "kasa0",
             "kasa1",
         ],
-        other_links: [
-            { 
+        other_links:{ 
                 'kasa_link_0' : 'https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard', 
-            },
-        ],
+        },
         responsive:true,
         images: [desk_home_p11,desk_apartment_p11,desk_about_p11,mobile_home_p11,mobile_apartment_p11,mobile_about_p11], 
     },
@@ -133,11 +125,9 @@ export const PROJECTS = [
             "billed0",
             "billed1",
         ],
-        other_links: [
-            { 
+        other_links: { 
                 'billed_link_0' : 'https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back', 
-            },
-        ],
+        },
         responsive:false,
         images: [add_bill_p9, bills_list_p9], 
     },
@@ -156,11 +146,9 @@ export const PROJECTS = [
             "lespetitsplats3",
             "lespetitsplats4"
         ],
-        other_links: [
-            { 
+        other_links: { 
                 'lespetitsplats_link_0' : 'https://github.com/rayanadir/RayanDahmena_7_06112021/blob/main/fiche_investigation.pdf', 
-            },
-        ],
+        },
         responsive:false,
         images: [main_image_p7,main_image_filter_p7,main_image_text_p7], 
     },
@@ -180,7 +168,7 @@ export const PROJECTS = [
             "fisheye4",
             "fisheye5",
         ],
-        other_links: [],
+        other_links: {},
         responsive:true,
         images: [home_desk_p6,home_mobile_p6,photographer_desk_p6,photographer_mobile_p6,desk_carousel_p6], 
     },
@@ -196,7 +184,7 @@ export const PROJECTS = [
             "gameon1",
             "gameon2",
         ],
-        other_links: [],
+        other_links: {},
         responsive:true,
         images: [home_desk_p4,home_mobile_p4,home_form_p4,home_form_mobile_p4], 
     },
@@ -212,7 +200,7 @@ export const PROJECTS = [
             "ohmyfood0",
             "ohmyfood1",
         ],
-        other_links: [],
+        other_links: {},
         responsive:true,
         images: [home_desk_p3,home_mobile_p3,restaurant_desk_p3,restaurant_mobile_p3], 
     },
@@ -228,7 +216,7 @@ export const PROJECTS = [
             "reservia0",
             "reservia1",
         ],
-        other_links: [],
+        other_links: {},
         responsive:true,
         images: [home_desk_p2,home_mobile_p2], 
     },

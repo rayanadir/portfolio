@@ -1,0 +1,94 @@
+.projectPage{
+    width: 70%;
+    margin: auto;
+    &__title{
+        font-size: 48px;
+        font-weight: 100;
+        margin-bottom: 0;
+    }
+    &__description{
+        font-size: 32px;
+        font-weight: 100;
+        margin: 0;
+    }
+    &__stack{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 2rem;
+        padding: 0;
+        &__element{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            list-style-type: none;
+            &__icon{
+                width: 32px;
+                height: 32px;
+            }
+            &__name{
+                font-size: 16px;
+                font-weight: 100;
+            }
+        }
+    }
+    &__details{
+        display: flex;
+        flex-direction: row;
+        &__links_paragraphers{
+            display: flex;
+            flex-direction: column;
+        }
+        &__links{
+            display: flex;
+            flex-direction: column;
+            &__linkName{
+                font-weight: 100;
+            }
+            &__link{
+                font-weight: 100;
+            }
+        }
+        &__paragraphers{
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            &__paragrapher{
+                list-style-type: none;
+                font-weight: 100;
+            }
+        }
+    }
+    &__otherLinks{
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        &__linkName{
+            list-style-type: none;
+            font-weight: 100;
+        }
+        &__link{
+            font-weight: 100;
+        }
+    }
+}
+
+@media (max-width: 424px){
+
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+
+}
+
+@media (min-width: 1440px){
+
+}

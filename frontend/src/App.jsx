@@ -1,5 +1,5 @@
 import './App.scss';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home/Home';
 import ProjectPage from './pages/projectPage/ProjectPage';
@@ -9,7 +9,7 @@ import { PROJECTS } from './data/projects';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from 'react-redux';
 import { translateProjects } from './slices/projectsSlice';
-import {ThemeProvider} from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 const App = () => {
   const { t } = useTranslation();
@@ -21,15 +21,17 @@ const App = () => {
     dispatch(translateProjects({ projects }))
   }, [t, dispatch])
 
-  
+
   return (
     <React.Fragment>
       <ThemeProvider>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/project/:id' element={<ProjectPage />} />
-        </Routes> 
+        <div className="content-wrap">
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/project/:id' element={<ProjectPage />} />
+          </Routes>
+        </div>
         <Footer />
       </ThemeProvider>
     </React.Fragment>

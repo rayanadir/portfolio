@@ -1,37 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../background/Background.scss';
 import background2 from '../../img/main-background2.jpg';
 import { useTranslation } from "react-i18next";
 
 const Background = () => {
-    
-    const windowWidth = window.innerWidth;
-    window.addEventListener('scroll', () => {
-        let image = document.getElementById('home-background');
-        var opacityVal;
-        if (windowWidth <= 424) {
-            opacityVal = 80 / window.scrollY;
-            if (opacityVal > 1.5) opacityVal = 1.5;
+    useEffect(() => {
+        const windowWidth = window.innerWidth;
+            const setBlur = () => {
+                let image = document.getElementById('home-background');
+                var opacityVal;
+                if (windowWidth <= 424) {
+                    opacityVal = 80 / window.scrollY;
+                    if (opacityVal > 1.5) opacityVal = 1.5;
+                }
+                if (windowWidth >= 425 && windowWidth <= 767) {
+                    opacityVal = 300 / window.scrollY;
+                    if (opacityVal > 2) opacityVal = 2;
+                }
+                if (windowWidth >= 768 && windowWidth <= 1023) {
+                    opacityVal = 400 / window.scrollY;
+                    if (opacityVal > 4) opacityVal = 4;
+                }
+                if (windowWidth >= 1024 && windowWidth <= 1439) {
+                    opacityVal = 500 / window.scrollY;
+                    if (opacityVal > 8) opacityVal = 8;
+                }
+                if (windowWidth >= 1440) {
+                    opacityVal = 600 / window.scrollY;
+                    if (opacityVal > 10) opacityVal = 10;
+                }
+                if (opacityVal < 1) opacityVal = 0;
+                image.style.filter = `blur(${opacityVal}px)`;
+            }
+        window.addEventListener('scroll', setBlur)
+        return () => {
+            window.removeEventListener('scroll', setBlur)
         }
-        if (windowWidth >= 425 && windowWidth <= 767) {
-            opacityVal = 300 / window.scrollY;
-            if (opacityVal > 2) opacityVal = 2;
-        }
-        if (windowWidth >= 768 && windowWidth <= 1023) {
-            opacityVal = 400 / window.scrollY;
-            if (opacityVal > 4) opacityVal = 4;
-        }
-        if (windowWidth >= 1024 && windowWidth <= 1439) {
-            opacityVal = 500 / window.scrollY;
-            if (opacityVal > 8) opacityVal = 8;
-        }
-        if (windowWidth >= 1440) {
-            opacityVal = 600 / window.scrollY;
-            if (opacityVal > 10) opacityVal = 10;
-        }
-        if (opacityVal < 1) opacityVal = 0;
-        image.style.filter = `blur(${opacityVal}px)`;
-    })
+    }, [])
+
 
     const { t } = useTranslation()
 
