@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const Project = ({ id, title, description, main_image, stack }) => {
   const projectAccess = () => {
-    window.removeEventListener('scroll',()=>{})
+    window.removeEventListener('scroll',()=>{}) 
   }
   return (
     <article className="project" id={id}>
