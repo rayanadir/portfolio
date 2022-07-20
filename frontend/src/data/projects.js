@@ -82,7 +82,7 @@ export const PROJECTS = [
         github_repo_link: 'https://github.com/rayanadir/RayanDahmena_12_03042022',
         website_link: '',
         main_image: [main_background_p12],
-        stack: ['React','Node.js'],
+        stack: ['React','Node.js'], 
         paragraphers: [
             "sportsee0",
             "sportsee1",
