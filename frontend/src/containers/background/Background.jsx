@@ -47,7 +47,9 @@ const Background = () => {
                 <h1 className='background__welcome__text welcome'>{t('welcome_portfolio')} </h1>
                 <h3 className='background__welcome__text project_contact'>{t('take_a_look')}</h3>
                 <div className="background__welcome__buttons">
-                    <button onClick={() => { document.querySelector('.projects').scrollIntoView() }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
+                    <button onClick={() => { 
+                        document.querySelector('.projects').scrollIntoView({behavior:"smooth"}) 
+                        }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
                     <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
                 </div>
             </div>
