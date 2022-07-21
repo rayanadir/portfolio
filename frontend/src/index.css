@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-html{
-  scroll-behavior: smooth;
-}
-
 #root{
   display: flex;
   flex-direction: column;
