@@ -24,7 +24,7 @@
     "fisheye":"Créer un site accessible pour une plateforme de photographes",
     "gameon":"Créer une landing page avec Javascript",
     "ohmyfood":"Dynamiser une page web avec des animations CSS",
-    "reservia":"Transformer une maquette en site web avec HTML&CSS",
+    "reservia":"Transformer une maquette en site web avec HTML & CSS",
     "several_projects": "{{length}} projets correspondent à votre recherche",
     "one_project": "{{length}} projet correspond à votre recherche",
     "no_project": "Aucun projet ne correspond à votre recherche",
@@ -72,5 +72,6 @@
     "reservia0":"Reservia est un site de réservation de vacances.",
     "reservia1":"NB : ce site n'a aucune fonctionnalité, il s'agit juste d'une intégration de maquette en HTML, CSS.",
     "github_repo_link":"Lien du dépôt github",
-    "website_link":"Lien du site" 
+    "website_link":"Lien du site",
+    "responsive":"Site réactif" 
 }
