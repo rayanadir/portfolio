@@ -181,8 +181,8 @@ export const PROJECTS = [
         main_image: [home_desk_p4],
         stack: ['HTML','CSS','JS'],
         paragraphers: [
+            "gameon0",
             "gameon1",
-            "gameon2",
         ],
         other_links: {},
         responsive:true,
