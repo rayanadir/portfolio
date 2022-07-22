@@ -105,7 +105,6 @@ const Projects = () => {
         </FormControl>
 
         <FormControl sx={{ m: 0, height: "auto" }} id="formcontrol" size="small">
-          {/*<InputLabel id="demo-multiple-chip-label"></InputLabel>*/}
           <label htmlFor="demo-multiple-chip">{t('filter')}</label>
           <Select
             
