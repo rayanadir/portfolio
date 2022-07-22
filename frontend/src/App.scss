@@ -26,6 +26,23 @@
             color:black
         }
     }
+    #prev,#next,#check,#uncheck,#responsive{
+        filter: invert(0);
+    }
+    .projectPage{
+        &__details{
+            &__links{
+                &__link{
+                    color:black
+                }
+            }
+        }
+        &__otherLinks{
+            &__link{
+                color: black;
+            }
+        }
+    }
 }
 
 .dark{
@@ -51,6 +68,23 @@
     .footer{
         &__link{
             color:white
+        }
+    }
+    #prev,#next,#check,#uncheck,#responsive{
+        filter: invert(1);
+    }
+    .projectPage{
+        &__details{
+            &__links{
+                &__link{
+                    color:white
+                }
+            }
+        }
+        &__otherLinks{
+            &__link{
+                color: white;
+            }
         }
     }
 }
