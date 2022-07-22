@@ -17,7 +17,7 @@ const AboutMe = () => {
     let years = Math.floor(days / 365.25);
     return years;
   }
-
+  // eslint-disable-next-line no-unused-vars
   const { toggleTheme, theme } = useContext(ThemeContext)
 
   return (
