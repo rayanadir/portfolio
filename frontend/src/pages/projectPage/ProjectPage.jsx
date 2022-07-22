@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import '../projectPage/ProjectPage.scss';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -7,11 +7,14 @@ import { useTranslation } from 'react-i18next';
 import responsive from "../../img/responsive.svg";
 import check from '../../img/check.svg';
 import uncheck from "../../img/uncheck.svg";
-import fullscreen from "../../img/fullscreen.svg";
-import Carrousel from '../../components/carrousel/Carrousel';
+import arrow from "../../img/arrow.svg";
+import { ThemeContext } from '../../context/ThemeContext';
 
 const ProjectPage = () => {
   let { id } = useParams();
+  // eslint-disable-next-line no-unused-vars
+  const { toggleTheme, theme } = useContext(ThemeContext)
+  const [activeIndex,setActiveIndex] = useState(0) 
   let projects = useSelector((state) => state.projects.projects);
   let project = projects.find(project => project.id === id);
   document.title = `Rayan Dahmena - ${project.title}`
@@ -21,9 +24,29 @@ const ProjectPage = () => {
     return null;
   }
 
+  
+
+  const previousImage = () => {
+    setActiveIndex((index) => index - 1 < 0 ? project.images.length - 1 : index - 1)
+  }
+
+  const nextImage = () => {
+    setActiveIndex((index) => index + 1 > project.images.length - 1 ? 0 : index + 1 )
+  }
+  
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+  }
+
+  const onClickUrl = (url) => {
+    return () => openInNewTab(url)
+  }
+
   return (
     <main>
-      <section className="projectPage">
+      <section className={`projectPage ${theme}`}>
+        <div className="projectPage__wrapper">
         <h1 className='projectPage__title'>{project.title}</h1>
         <h2 className='projectPage__description'>{project.description}</h2>
         <ul className="projectPage__stack">
@@ -68,7 +91,14 @@ const ProjectPage = () => {
             </ul>
           </div>
           <div className="projectPage__details__images">
-              <img src={project.images[0]} alt="project" className='projectPage__details__images__image' />
+              <div className="projectPage__details__images__image_count">
+                <img src={project.images[activeIndex]} alt="project" className='projectPage__details__images__image_count__image' onClick={onClickUrl(project.images[activeIndex])}/>
+                <p className='projectPage__details__images__image_count__count'>
+                  {project.images.length > 1 ? <img src={arrow} alt="previous" onClick={previousImage} className="projectPage__details__images__image_count__count__icon" id='prev'/> : null}
+                    {activeIndex+1}/{project.images.length}
+                  {project.images.length > 1 ? <img src={arrow} alt="next" onClick={nextImage} className="projectPage__details__images__image_count__count__icon" id='next' /> : null}
+                </p>
+              </div>
           </div>
         </article>
         {
@@ -91,6 +121,7 @@ const ProjectPage = () => {
             <img src={uncheck} alt="uncheck" className='projectPage__responsive__icon' id='uncheck' />
           }
         </p>
+        </div>
       </section>
     </main>
   )

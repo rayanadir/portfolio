@@ -1,10 +1,14 @@
 .projectPage{
-    width: 70%;
-    margin: auto;
+    min-height: 150vh;
+    &__wrapper{
+        width: 70%;
+        margin: auto;
+    }
     &__title{
         font-size: 48px;
         font-weight: 100;
         margin-bottom: 0;
+        margin-top: 0;
     }
     &__description{
         font-size: 32px;
@@ -35,8 +39,8 @@
     }
     &__details{
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         column-gap: 2rem;
         &__links_paragraphers{
             display: flex;
@@ -51,6 +55,7 @@
             }
             &__link{
                 font-weight: 100;
+                word-break: break-word;
             }
         }
         &__paragraphers{
@@ -63,16 +68,38 @@
             }
         }
         &__images{
-            &__image{
+            display: flex;
+            flex-direction: column;
+            row-gap: .5rem;
+            &__image_count{
+                display: flex;
+                flex-direction: column;
+                &__image{
+                height: 300px;
                 width: 500px;
+                object-fit: contain;
                 cursor: pointer;
                 filter: brightness(1);
                 transition: filter .3s ease-in-out;
                 box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem black;
-            }
-            &__image:hover{
-                filter: brightness(0.5);
-                transition:  filter .3s ease-in-out;
+                }
+                &__image:hover{
+                    filter: brightness(0.5);
+                    transition:  filter .3s ease-in-out;
+                }
+                &__count{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    column-gap: 1rem;
+                    font-weight: 100;
+                    text-align: center;
+                    &__icon{
+                        width: 32px;
+                        height: 32px;
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
@@ -86,6 +113,7 @@
         }
         &__link{
             font-weight: 100;
+            word-break: break-word;
         }
     }
     &__responsive{
@@ -93,7 +121,6 @@
         flex-direction: row;
         align-items: center;
         column-gap: 7px;
-        margin: 0;
         font-weight: 100;
     }
 }
@@ -108,22 +135,100 @@
     height: 24px;
 }
 
-@media (max-width: 424px){
+#next{
+    transform: rotate(180deg);
+}
 
+@media (max-width: 424px){
+    .projectPage{
+        padding-top: 1rem;
+        &__wrapper{
+            width: 95%;
+        }
+        
+        &__details{
+            display: block;
+            &__images{
+                display: flex;
+                justify-content: center;
+                &__image_count{
+                     &__image{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (min-width : 425px) and (max-width: 767px){
-
+    .projectPage{
+        padding-top: 2rem;
+        &__wrapper{
+            width: 90%;
+        }
+       
+        &__details{
+            display: block;
+            &__images{
+                display: flex;
+                justify-content: center;
+                &__image_count{
+                    &__image{
+                    width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (min-width : 768px) and (max-width: 1023px){
-
+    .projectPage{
+        padding-top: 3rem;
+        &__wrapper{
+            width: 90%;
+        }
+        
+        &__details{
+            display: block;
+            &__images{
+                &__image_count{
+                    &__image{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1439px){
-
+    .projectPage{
+        padding-top: 4rem;
+        &__wrapper{
+            width: 80%;
+        }
+        
+        &__details{
+            &__images{
+                &__image{
+                    width: 400px;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: 1440px){
-
+    .projectPage{
+        padding-top: 5rem;
+        &__wrapper{
+            width: 70%;
+        }
+        
+        &__details{
+            flex-direction: row;
+        }
+    }
 }
