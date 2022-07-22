@@ -73,7 +73,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 
 const Header = () => {
-  //const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
   let language = useSelector((state) => state.languages.language)
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -88,7 +87,7 @@ const Header = () => {
   const { toggleTheme, theme } = useContext(ThemeContext)
   
   return (
-    <header className={`header ${theme}`}>
+    <header className={`header header_${theme}`}>
       <div className="header__wrapper">
         <div className="header__name_frontend">
           <h1 className='header__name'>Rayan Dahmena</h1>
