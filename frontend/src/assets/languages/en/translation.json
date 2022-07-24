@@ -74,5 +74,7 @@
     "reservia1":"NB : this website has no functionnalities, it is just a sketch integration in HTML, CSS.",
     "github_repo_link":"Github repository link",
     "website_link":"Website link",
-    "responsive":"Responsive site" 
+    "responsive":"Responsive site",
+    "next_project":"Next project",
+    "previous_project":"Previous project" 
 }
