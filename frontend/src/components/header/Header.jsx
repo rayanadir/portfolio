@@ -23,6 +23,9 @@ import { changeSelectedLanguage } from '../../slices/languagesSlice';
 import { ThemeContext } from '../../context/ThemeContext';
 
 import SideMenu from './SideMenu';
+import { useLocation, Link } from 'react-router-dom';
+
+import arrow from "../../img/arrow.svg"
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -76,6 +79,7 @@ const Header = () => {
   let language = useSelector((state) => state.languages.language)
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   React.useEffect(() => {
     const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
@@ -89,10 +93,18 @@ const Header = () => {
   return (
     <header className={`header header_${theme}`}>
       <div className="header__wrapper">
-        <div className="header__name_frontend">
-          <h1 className='header__name'>Rayan Dahmena</h1>
-          <h3 className='header__frontend'>{t('frontend_developer')}</h3>
-        </div>
+        {
+          location.pathname === "/" ? 
+          <div className="header__name_frontend">
+            <h1 className='header__name'>Rayan Dahmena</h1>
+            <h3 className='header__frontend'>{t('frontend_developer')}</h3>
+          </div> 
+          : 
+          <Link to="/" className='header__link'>
+            <img src={arrow} alt="back home" id="back_home" className='header__back'/>
+          </Link> 
+        }
+        
         <nav className='header__nav'>
           <ul className='header__nav_list'>
             <li className='header__nav_element'>
