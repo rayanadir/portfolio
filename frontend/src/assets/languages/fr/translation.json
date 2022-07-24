@@ -74,5 +74,7 @@
     "reservia1":"NB : ce site n'a aucune fonctionnalité, il s'agit juste d'une intégration de maquette en HTML, CSS.",
     "github_repo_link":"Lien du dépôt github",
     "website_link":"Lien du site",
-    "responsive":"Site réactif" 
+    "responsive":"Site réactif",
+    "next_project":"Projet suivant",
+    "previous_project":"Projet précédent" 
 }
