@@ -12,6 +12,9 @@
                 text-decoration: none;
             }
         }
+        #back_home{
+            filter: invert(0);
+        }
     }
     .project{
         &__link{
@@ -26,9 +29,10 @@
             color:black
         }
     }
-    #prev,#next,#check,#uncheck,#responsive{
+    #prev,#next,#check,#uncheck,#responsive,#previous_project,#next_project{
         filter: invert(0);
     }
+    
     .projectPage{
         &__details{
             &__links{
@@ -40,6 +44,13 @@
         &__otherLinks{
             &__link{
                 color: black;
+            }
+        }
+        &__navigation{
+            &__button{
+                &__title{
+                    color: black;
+                }
             }
         }
     }
@@ -70,9 +81,10 @@
             color:white
         }
     }
-    #prev,#next,#check,#uncheck,#responsive{
+    #prev,#next,#check,#uncheck,#responsive,#previous_project,#next_project{
         filter: invert(1);
     }
+    
     .projectPage{
         &__details{
             &__links{
@@ -84,6 +96,13 @@
         &__otherLinks{
             &__link{
                 color: white;
+            }
+        }
+        &__navigation{
+            &__button{
+                &__title{
+                    color: white;
+                }
             }
         }
     }
@@ -98,6 +117,9 @@
         &__menu-btn{
             filter: invert(0);
         }
+    }
+    #back_home{
+        filter: invert(0);
     }
 }
 
@@ -121,6 +143,9 @@
         &__menu-btn{
             filter: invert(1);
         }
+    }
+    #back_home{
+        filter: invert(1);
     }
 }
 
