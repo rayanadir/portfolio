@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home/Home';
 import ProjectPage from './pages/projectPage/ProjectPage';
+import Error from './pages/error/Error';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { PROJECTS } from './data/projects';
@@ -21,7 +22,6 @@ const App = () => {
     dispatch(translateProjects({ projects }))
   }, [t, dispatch])
 
-
   return (
     <React.Fragment>
       <ThemeProvider>
@@ -30,6 +30,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/project/:id' element={<ProjectPage />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
         <Footer />
