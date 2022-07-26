@@ -53,6 +53,11 @@ const projectsSlice = createSlice({
         changeLanguage: (state) => {
             state.searchText="";
             state.selectArr=[];
+            state.stackList=[...new Set(PROJECTS.map((project) => project.stack).flat())]
+        },
+        clearInputs: (state) => {
+            state.searchText="";
+            state.selectArr=[];
         },
         setSearchText: (state, action) => {
             state.searchText=action.payload;
@@ -63,6 +68,6 @@ const projectsSlice = createSlice({
     }
 })
 
-export const { getProjects, translateProjects, globalSearchProjects, changeLanguage, setSearchText, setSelectArray } = projectsSlice.actions
+export const { getProjects, translateProjects, globalSearchProjects, changeLanguage, setSearchText, setSelectArray, clearInputs } = projectsSlice.actions
 
 export const projectsReducer = projectsSlice.reducer
