@@ -47,6 +47,9 @@ const Projects = () => {
   let translatedProjects= PROJECTS.map((project) => {
     return {...project, description: t(project.id)}
   })
+/*
+  const PROJECT_RESULT_SESSION_STR=JSON.parse(sessionStorage.getItem('projectResult'))
+  console.log(PROJECT_RESULT_SESSION_STR)*/
 
   const globalSearch = (searchText, selectArr) => {
     let result;
@@ -74,6 +77,7 @@ const Projects = () => {
     }
     stackList= [...new Set(result.map((project) => project.stack).flat())];
     dispatch(globalSearchProjects({result,stackList}))
+    //sessionStorage.setItem('projectResult',JSON.stringify({result,stackList,searchText,selectArr}))
   }
 
   const select = (e) => {
