@@ -109,7 +109,7 @@
 }
 
 .header_light{
-    background-color: rgb(255,255,252);
+    background-color: #e8e8e8;
     .header{
         &__nav_element:hover{
             text-decoration: underline black;
@@ -124,6 +124,7 @@
 }
 
 .footer_light{
+    background-color: #e8e8e8;
     .footer{
         &__link{
             color:black
