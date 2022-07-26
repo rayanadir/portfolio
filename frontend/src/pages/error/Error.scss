@@ -1,0 +1,96 @@
+.error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5rem;
+    min-height: 150vh;
+    &__icon{
+        width: 124px;
+        height: 124px;
+    }
+    &__404,&__error,&__notFound,&__link{
+        font-weight: 100;
+    }
+    &__404{
+        margin-bottom: 0;
+    }
+    &__error{
+        margin: 0;
+    }
+    &__notFound{
+        margin-top: 0;
+    }
+    &__link{
+        &__button{
+            border: 0;
+            cursor: pointer;
+            transition: .2s;
+            background-color: #61dafb;
+            margin-top: 2rem;
+        }
+        &__button:hover{
+            background-color: white;
+        }
+    }
+}
+
+
+@media (max-width: 424px){
+    .error{
+        &__link{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .error{
+        &__link{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .error{
+        &__link{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+    .error{
+        &__link{
+            &__button{
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .error{
+        &__link{
+            &__button{
+                padding: 16px 0;
+                width: 140px;
+                font-size: 17px;
+            }
+        }
+    }
+}
