@@ -76,5 +76,8 @@
     "website_link":"Lien du site",
     "responsive":"Site réactif",
     "next_project":"Projet suivant",
-    "previous_project":"Projet précédent" 
+    "previous_project":"Projet précédent",
+    "error":"Erreur",
+    "doesnt_exist":"Cette page n'existe pas.",
+    "home_page":"Page d'accueil" 
 }
