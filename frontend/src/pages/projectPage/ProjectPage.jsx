@@ -10,9 +10,11 @@ import uncheck from "../../img/uncheck.svg";
 import arrow from "../../img/arrow.svg";
 import { ThemeContext } from '../../context/ThemeContext';
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import Error from "../error/Error"
 
 const ProjectPage = () => {
+  const { t } = useTranslation();
   let { id } = useParams();
   // eslint-disable-next-line no-unused-vars
   const { toggleTheme, theme } = useContext(ThemeContext);
@@ -21,13 +23,13 @@ const ProjectPage = () => {
     return { ...project, index }
   }));
   let project = projects.find(project => project.id === id);
+  if (!project) {
+    return <Error />
+  }
   let projectIndex = project.index;
   document.title = `Rayan Dahmena - ${project.title}`
-  const { t } = useTranslation();
-  if (!project) {
-    console.log("aucun projet trouvé");
-    return null;
-  }
+  
+
 
   const previousImage = () => {
     setActiveImageIndex((index) => index - 1 < 0 ? project.images.length - 1 : index - 1)
@@ -122,7 +124,7 @@ const ProjectPage = () => {
             <div className="projectPage__carrousel">
               <div className="projectPage__carrousel__images">
                 <div className="projectPage__carrousel__images__image_count">
-                  <img src={project.images[activeImageIndex]} alt="project" className='projectPage__carrousel__images__image_count__image' onClick={onClickUrl(project.images[activeImageIndex])} />
+                  <img src={project.images[activeImageIndex]} alt="project" title={t('open_image')} className='projectPage__carrousel__images__image_count__image' onClick={onClickUrl(project.images[activeImageIndex])} />
                   <p className='projectPage__carrousel__images__image_count__count'>
                     {project.images.length > 1 ? <img src={arrow} alt="previous" onClick={previousImage} className="projectPage__carrousel__images__image_count__count__icon" id='prev' /> : null}
                     {activeImageIndex + 1}/{project.images.length}
@@ -138,7 +140,7 @@ const ProjectPage = () => {
             {
               projectIndex === 0 ? null :
                 <Link to={`/project/${projects[projectIndex - 1].id}`} className="projectPage__navigation__link">
-                  <Button variant='outlined' title={t('previous_project')} style={{width:"150px"}}>
+                  <Button variant='text' title={t('previous_project')}>
                     <div className="projectPage__navigation__button">
                       <img src={arrow} alt="previous icon" className='projectPage__navigation__button__previous' id="previous_project" />
                       <p className="projectPage__navigation__button__title">{projects[projectIndex - 1].title}</p>
@@ -150,7 +152,7 @@ const ProjectPage = () => {
             {
               projectIndex === projects.length - 1 ? null :
                 <Link to={`/project/${projects[projectIndex + 1].id}`} className="projectPage__navigation__link">
-                  <Button variant='outlined' title={t('next_project')} style={{width:"150px"}}>
+                  <Button variant='text' title={t('next_project')} >
                     <div className="projectPage__navigation__button">
                       <p className="projectPage__navigation__button__title">{projects[projectIndex + 1].title}</p>
                       <img src={arrow} alt="next icon" className='projectPage__navigation__button__next' id="next_project" />
