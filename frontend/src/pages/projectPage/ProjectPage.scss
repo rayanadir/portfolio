@@ -1,17 +1,16 @@
 .projectPage{
     min-height: 150vh;
+    padding-bottom: 5rem;
     &__wrapper{
         width: 70%;
         margin: auto;
     }
     &__title{
-        font-size: 48px;
         font-weight: 100;
         margin-bottom: 0;
         margin-top: 0;
     }
     &__description{
-        font-size: 32px;
         font-weight: 100;
         margin: 0;
     }
@@ -26,10 +25,6 @@
             flex-direction: column;
             align-items: center;
             list-style-type: none;
-            &__icon{
-                width: 32px;
-                height: 32px;
-            }
             &__name{
                 font-size: 16px;
                 font-weight: 100;
@@ -109,6 +104,7 @@
         display: flex;
         flex-direction: column;
         padding: 0;
+        row-gap: 1rem;
         &__linkName{
             list-style-type: none;
             font-weight: 100;
@@ -127,9 +123,8 @@
     }
     &__navigation{
         display: flex;
-        //flex-direction: row;
         flex-wrap: wrap;
-        column-gap: 2rem;
+        justify-content: space-between;
         &__link{
             text-decoration: none;
         }
@@ -167,11 +162,24 @@
         &__wrapper{
             width: 95%;
         }
+        &__title{
+            font-size: 24px;
+        }
+        &__description{
+            font-size: 18px;
+        }
+        &__stack{
+            &__element{
+                &__icon{
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+        }
         &__informations_carrousel{
             display: flex;
             flex-direction: column;
-            //align-items: flex-start;
-           row-gap: 1rem;
+            row-gap: 1rem;
         }
         &__carrousel{
             &__images{
@@ -201,10 +209,23 @@
         &__wrapper{
             width: 90%;
         }
+        &__title{
+            font-size: 30px;
+        }
+        &__description{
+            font-size: 20px;
+        }
+        &__stack{
+            &__element{
+                &__icon{
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+        }
         &__informations_carrousel{
             display: flex;
             flex-direction: column;
-            //align-items: flex-start;
             row-gap: 1rem;
         }
         &__carrousel{
@@ -232,6 +253,20 @@
         padding-top: 3rem;
         &__wrapper{
             width: 90%;
+        }
+        &__title{
+            font-size: 36px;
+        }
+        &__description{
+            font-size: 24px;
+        }
+        &__stack{
+            &__element{
+                &__icon{
+                    width: 72px;
+                    height: 72px;
+                }
+            }
         }
         &__informations_carrousel{
             display: flex;
@@ -261,6 +296,20 @@
         &__wrapper{
             width: 80%;
         }
+        &__title{
+            font-size: 44px;
+        }
+        &__description{
+            font-size: 28px;
+        }
+        &__stack{
+            &__element{
+                &__icon{
+                    width: 96px;
+                    height: 96px;
+                }
+            }
+        }
         &__informations_carrousel{
             display: flex;
             flex-direction: column;
@@ -285,6 +334,20 @@
         padding-top: 5rem;
         &__wrapper{
             width: 70%;
+        }
+        &__title{
+            font-size: 48px;
+        }
+        &__description{
+            font-size: 32px;
+        }
+        &__stack{
+            &__element{
+                &__icon{
+                    width: 96px;
+                    height: 96px;
+                }
+            }
         }
         &__informations_carrousel{
             display: flex;
