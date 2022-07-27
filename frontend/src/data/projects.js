@@ -9,6 +9,7 @@ import desk_home_p11 from '../img/p11/desk_home_p11.png';
 import mobile_about_p11 from '../img/p11/mobile_about_p11.png';
 import mobile_apartment_p11 from '../img/p11/mobile_apartment_p11.png';
 import mobile_home_p11 from '../img/p11/mobile_home_p11.png';
+import main_image_p10 from "../img/p10/learn_at_home.png";
 import add_bill_p9 from '../img/p9/add_bill_p9.png';
 import bills_list_p9 from '../img/p9/bills_list_p9.png';
 import main_image_filter_p7 from '../img/p7/main_image_filter_p7.png';
@@ -112,6 +113,31 @@ export const PROJECTS = [
         },
         responsive:true,
         images: [desk_home_p11,desk_apartment_p11,desk_about_p11,mobile_home_p11,mobile_apartment_p11,mobile_about_p11], 
+    },
+    {
+        id:'learn_at_home',
+        title:"Learn@Home",
+        description:"learn_at_home",
+        github_repo_link: "https://github.com/rayanadir/learn_at_home",
+        website_link:"",
+        main_image: [main_image_p10],
+        stack:['Figma'],
+        paragraphers: [
+            "learn_at_home0",
+            "learn_at_home1",
+            "learn_at_home2",
+            "learn_at_home3",
+            "learn_at_home4",
+            "learn_at_home5",
+        ],
+        other_links:{
+            "learn_at_home_link_0" : "https://github.com/rayanadir/learn_at_home/blob/main/Dahmena_Rayan_1_diagrammes_cas_usage_022022.pdf",
+            "learn_at_home_link_1":"https://github.com/rayanadir/learn_at_home/blob/main/Dahmena_Rayan_2_user_stories_022022.pdf",
+            "learn_at_home_link_2" : "https://github.com/rayanadir/learn_at_home/blob/main/Dahmena_Rayan_3_maquettes_022022.pdf",
+            "learn_at_home_link_3" : "https://discovered-frog-6c1.notion.site/862cc58b2b73458091716e821d7574d8?v=df8b5580b66747fbaefa0904ab96a403",
+        },
+        responsive:true,
+        images: [main_image_p10]
     },
     {
         id:'billed',
