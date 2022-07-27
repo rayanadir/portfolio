@@ -19,6 +19,7 @@
     "argentbank":"Utiliser une API pour un compte utilisateur bancaire avec React",
     "sportsee":"Développer un tableau de bord d'analytics avec React",
     "kasa":"Développer une application avec React et React Router",
+    "learn_at_home":"Définir les besoins pour une application de soutien scolaire",
     "billed":"Débugger et tester un SaaS RH",
     "lespetitsplats":"Développer un algorithme de recherche en Javascript",
     "fisheye":"Créer un site accessible pour une plateforme de photographes",
@@ -51,6 +52,16 @@
     "kasa0":"Kasa est un site d'annonces de logements.",
     "kasa1":"Chaque logement a sa page, vous pouvez naviguer à travers les images du logement.",
     "kasa_link_0":"Lien du dépôt github du projet Backend",
+    "learn_at_home0":"Ce projet à pour objectif de définir les besoins d'une application de soutien scolaire.",
+    "learn_at_home1":"Les documents de ce projet sont accessibles dans le dépôt Github.",
+    "learn_at_home2":"Des diagrammes de cas d'usage illustrent les interactions entre les acteurs et les fonctionnalités des différentes pages.",
+    "learn_at_home3":"Un document pour les récits utilisateurs avec critères d'acceptation détaillent les fonctionnalités définies.",
+    "learn_at_home4":"Les maquettes sont adaptées aux formats ordinateur et mobile pour chaque page du projet. Les maquettes ont été produites depuis Figma.",
+    "learn_at_home5":"Un tableau kanban pour évoluer en méthodologie agile est disponible en dessous. Ce tableau regroupe les fonctionnalités du projet.",
+    "learn_at_home_link_0":"Lien des diagrammes de cas d'usage",
+    "learn_at_home_link_1":"Lien des récits utilisateurs avec critère d'acceptation",
+    "learn_at_home_link_2":"Lien des maquettes",
+    "learn_at_home_link_3":"Lien du tableau kanban",
     "billed0":"Billed est un site pour ajouter des notes de frais aux employés.",
     "billed1":"Les objectifs de ce projets sont de corriger les bugs avec le débogueur de Chrome et de rédiger des tests unitaires.",
     "billed_link_0":"Lien du dépôt github du projet Backend",
@@ -79,5 +90,6 @@
     "previous_project":"Projet précédent",
     "error":"Erreur",
     "doesnt_exist":"Cette page n'existe pas.",
-    "home_page":"Page d'accueil" 
+    "home_page":"Page d'accueil",
+    "open_image":"Ouvrir cette image dans un nouvel onglet" 
 }
