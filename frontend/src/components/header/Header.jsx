@@ -107,9 +107,12 @@ const Header = () => {
         
         <nav className='header__nav'>
           <ul className='header__nav_list'>
-            <li className='header__nav_element'>
-              {t('contact')}
-            </li>
+            <Link to="/auth" className='header__link'>
+              <li className='header__nav_element'>
+                {t('contact')}
+              </li>
+            </Link>
+            
 
             <Box>
               <FormControl fullWidth>

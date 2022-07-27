@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import List from '@mui/material/List';
 import { ThemeContext } from '../../context/ThemeContext';
+import { Link } from 'react-router-dom';
 
 import menu from "../../img/hamburger-menu.svg"
 
@@ -120,10 +121,11 @@ export default function SideMenu() {
             className={theme}
         >
             <List style={{ display: "flex", flexDirection: "column", rowGap: "2rem", padding: '2rem 1rem' }}>
-                <li className='header__nav_element' style={{ display: "flex", alignItems: "center" }}>
+            <Link to="/auth" className='header__link'>
+                <li className='header__nav_element' onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
                     {t('contact')}
                 </li>
-
+            </Link>
                 <li className=' hover_none'>
                     <label htmlFor="translation">{t('language')}</label>
                     <Box>
@@ -157,7 +159,7 @@ export default function SideMenu() {
 
                 </li>
 
-                <li className="header__nav_element" style={{ display: "flex", alignItems: "center" }}>
+                <li className="header__nav_element" onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
                     {t('about')}
                 </li>
 
