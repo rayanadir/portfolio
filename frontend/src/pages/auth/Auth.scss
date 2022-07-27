@@ -1,0 +1,91 @@
+.auth{
+    min-height: 150vh;
+    &__wrapper{
+        margin: auto;
+    }
+    &__form{
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        margin: auto;
+        border-radius: 5px;
+        padding: 2rem;
+        row-gap: 2rem;
+        &__form{
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            &__login-register{
+                font-weight: 100;
+            }
+            &__input{
+                background-color: white;
+                border-radius: 5px;
+            }
+        }
+        &__selectAuth{
+            display: flex;
+            flex-direction: row;
+            &__button{
+                width: 50%;
+                text-transform: none;
+                background-color: transparent;
+                border: 0;
+                padding: 1rem 2rem;
+                font-weight: 100;
+                cursor: pointer;
+            }
+            &_button:hover{
+                background-color: rgba(25, 118, 210, 0.04);
+            }
+        }
+    }
+}
+
+#login_select[active="true"]{
+    background-color: #d2d2d2;
+}
+
+#register_select[active="true"]{
+    background-color: #d2d2d2;
+}
+
+@media (max-width: 424px){
+    .auth{
+        &__wrapper{
+            width: 95%;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .auth{
+        &__wrapper{
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .auth{
+        &__wrapper{
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+    .auth{
+        &__wrapper{
+            width: 80%;
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .auth{
+        &__wrapper{
+            width: 70%;
+        }
+    }
+}
