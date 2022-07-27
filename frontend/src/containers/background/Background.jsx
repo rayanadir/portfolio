@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import '../background/Background.scss';
 import background2 from '../../img/main-background2.jpg';
 import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom';
 
 const Background = () => {
     useEffect(() => {
@@ -10,12 +11,12 @@ const Background = () => {
                 let image = document.getElementById('home-background');
                 var opacityVal;
                 if (windowWidth <= 424) {
-                    opacityVal = 80 / window.scrollY;
-                    if (opacityVal > 1.5) opacityVal = 1.5;
+                    opacityVal = 120 / window.scrollY;
+                    if (opacityVal > 4) opacityVal = 4;
                 }
                 if (windowWidth >= 425 && windowWidth <= 767) {
                     opacityVal = 300 / window.scrollY;
-                    if (opacityVal > 2) opacityVal = 2;
+                    if (opacityVal > 4) opacityVal = 4;
                 }
                 if (windowWidth >= 768 && windowWidth <= 1023) {
                     opacityVal = 400 / window.scrollY;
@@ -50,7 +51,9 @@ const Background = () => {
                     <button onClick={() => { 
                         document.querySelector('.projects').scrollIntoView({behavior:"smooth"}) 
                         }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
-                    <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
+                    <Link to="/auth">
+                        <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
+                    </Link>
                 </div>
             </div>
             <img id='home-background' src={background2} alt="home-background" className='background__image' />

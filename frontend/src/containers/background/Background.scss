@@ -52,37 +52,47 @@
     .background{
         &__welcome{
             top: 10%;
+            padding: 7px;
+            width: 90%;
             &__buttons{
-                margin-top: 3rem;
+                margin-top: 2rem;
+                flex-direction: column;
+                row-gap: 1rem;
+                align-items: center;
             }
             &__button{
-                padding: 8px 0;
-                width: 90px;
-                font-size: 10px;
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
             }
         }
         &__image{
-            filter: blur(1.5px);
+            filter: blur(4px);
+            height: 500px;
+            object-fit: cover;
         }
     }
     .welcome{
-        font-size: 20px;
+        font-size: 32px;
     }
     .project_contact{
-        font-size: 14px;
+        font-size: 24px;
     }    
 }
 
 @media (min-width : 425px) and (max-width: 767px){
     .background{
         &__image{
-            filter: blur(2px);
+            filter: blur(4px);
+            height: 500px;
+            object-fit: cover;
         }
         &__welcome{
+            width: 90%;
             &__button{
-                padding: 10px 0;
-                width: 110px;
-                font-size: 12px;
+                padding: 12px 0;
+                width: 120px;
+                font-size: 14px;
             }
             &__buttons{
                 margin-top: 3rem;
@@ -90,10 +100,10 @@
         }
     }
     .welcome{
-        font-size: 24px;
+        font-size: 32px;
     }
     .project_contact{
-        font-size: 16px;
+        font-size: 24px;
     }
 }
 
