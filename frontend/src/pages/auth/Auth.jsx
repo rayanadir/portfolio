@@ -3,34 +3,42 @@ import '../auth/Auth.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { ThemeContext } from '../../context/ThemeContext';
+import Tooltip from '@mui/material/Tooltip';
+import information from '../../img/information.svg'
+
+
+
+const longText = `
+  Inscrivez vous afin de me contacter, aucune donnée ne sera partagée.
+  `;
 
 const Auth = () => {
     const [authType, setAuthType] = useState('login')
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
 
-    const active={
-        backgroundColor:"#d2d2d2",
-        textTransform:"none"
+    const active = {
+        backgroundColor: "#d2d2d2",
+        textTransform: "none"
     }
-    
 
-        const setButtonFocus= (button) => {
-            if(button==="login"){
-                const register= document.getElementById('register_select');
-                const login = document.getElementById('login_select');
-                login.setAttribute('active',true)
-                register.removeAttribute("active");
-            }else if(button==="register"){
-                const register= document.getElementById('register_select');
-                const login = document.getElementById('login_select');
-                login.removeAttribute('active');
-                login.style.backgroundColor=""
-                register.setAttribute('active',true)
-            }
+
+    const setButtonFocus = (button) => {
+        if (button === "login") {
+            const register = document.getElementById('register_select');
+            const login = document.getElementById('login_select');
+            login.setAttribute('active', true)
+            register.removeAttribute("active");
+        } else if (button === "register") {
+            const register = document.getElementById('register_select');
+            const login = document.getElementById('login_select');
+            login.removeAttribute('active');
+            login.style.backgroundColor = ""
+            register.setAttribute('active', true)
         }
+    }
 
-    
+
     return (
         <main>
             <section className={`auth ${theme}`}>
@@ -38,8 +46,8 @@ const Auth = () => {
                     <form action="" className='auth__form'>
 
                         <div className="auth__form__selectAuth">
-                            <Button id="login_select" onClick={() => { setAuthType('login'); setButtonFocus("login")}} style={active} className="auth__form__selectAuth__button"  variant="text" >Connexion</Button>
-                            <Button id="register_select" onClick={() => { setAuthType('register'); setButtonFocus("register") }} style={{textTransform:"none"}} className="auth__form__selectAuth__button" variant="text" >Inscription</Button>
+                            <Button id="login_select" onClick={() => { setAuthType('login'); setButtonFocus("login") }} style={active} className="auth__form__selectAuth__button" variant="text" >Connexion</Button>
+                            <Button id="register_select" onClick={() => { setAuthType('register'); setButtonFocus("register") }} style={{ textTransform: "none" }} className="auth__form__selectAuth__button" variant="text" >Inscription</Button>
                         </div>
 
                         {
@@ -67,13 +75,30 @@ const Auth = () => {
                                         size="small"
                                     />
 
-                                    <Button variant="text" style={{textTransform:"none"}}>Connexion</Button>
+                                    <Button variant="text" style={{ textTransform: "none" }}>Connexion</Button>
 
                                 </div>
                                 : authType === "register" ?
                                     <div className="auth__form__form" id="registerForm">
 
-                                        <h1 className="auth__form__form__login-register">Inscrivez-vous</h1>
+                                        <div className="auth__form__form__login-register-about">
+                                            <Tooltip title={longText}
+                                                componentsProps={{
+                                                    tooltip: {
+                                                        sx: {
+                                                            fontWeight: "100",
+                                                            fontSize: "12px",
+                                                        }
+                                                    }
+                                                }}
+                                            >
+                                                <Button sx={{ m: 0, width: 32, height:32, borderRadius:20, padding:0, minWidth:32, minHeight:32 }}>
+                                                    <img src={information} alt="information" className="auth__form__form__login-register-about__icon" id="information"/>
+                                                </Button>
+                                            </Tooltip>
+                                            <h1 className="auth__form__form__login-register">Inscrivez-vous</h1>
+                                        </div>
+
 
                                         <label htmlFor="emailRegister">Email</label>
                                         <TextField
@@ -114,7 +139,7 @@ const Auth = () => {
                                             className='auth__form__form__input'
                                         />
 
-                                        <Button variant="text" style={{textTransform:"none"}}>Inscription</Button>
+                                        <Button variant="text" style={{ textTransform: "none" }}>Inscription</Button>
 
                                     </div>
                                     : null

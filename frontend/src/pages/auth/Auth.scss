@@ -17,6 +17,18 @@
             row-gap: 1rem;
             &__login-register{
                 font-weight: 100;
+                margin: 0;
+                height: 37px;
+            }
+            &__login-register-about{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                column-gap: .5rem;
+                &__icon{
+                    width: 32px;
+                    height: 32px;
+                }
             }
             &__input{
                 background-color: white;
