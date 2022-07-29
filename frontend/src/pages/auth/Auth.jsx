@@ -4,18 +4,30 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { ThemeContext } from '../../context/ThemeContext';
 import Tooltip from '@mui/material/Tooltip';
-import information from '../../img/information.svg'
-
-
-
-const longText = `
-  Inscrivez vous afin de me contacter, aucune donnée ne sera partagée.
-  `;
+import information from '../../img/information.svg';
+import { useTranslation } from 'react-i18next';
 
 const Auth = () => {
-    const [authType, setAuthType] = useState('login')
+    const [authType, setAuthType] = useState('login');
+    const [loginForm, setLoginForm] = useState({
+        email:"",
+        password:""
+    });
+    const [registerForm, setRegisterForm] = useState({
+        email:"",
+        username:"",
+        password:"",
+        confirmPassword:"",
+    })
+    const updateForm = (value,form) => {
+        return form((prev) => {
+            return { ...prev, ...value}
+        })
+    }
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
+
+    const { t } = useTranslation();
 
     const active = {
         backgroundColor: "#d2d2d2",
@@ -38,6 +50,8 @@ const Auth = () => {
         }
     }
 
+    const tooltipText = t('tooltipText');
+
 
     return (
         <main>
@@ -46,16 +60,16 @@ const Auth = () => {
                     <form action="" className='auth__form'>
 
                         <div className="auth__form__selectAuth">
-                            <Button id="login_select" onClick={() => { setAuthType('login'); setButtonFocus("login") }} style={active} className="auth__form__selectAuth__button" variant="text" >Connexion</Button>
-                            <Button id="register_select" onClick={() => { setAuthType('register'); setButtonFocus("register") }} style={{ textTransform: "none" }} className="auth__form__selectAuth__button" variant="text" >Inscription</Button>
+                            <Button id="login_select" onClick={() => { setAuthType('login'); setButtonFocus("login") }} style={active} className="auth__form__selectAuth__button" variant="text" >{t('login')}</Button>
+                            <Button id="register_select" onClick={() => { setAuthType('register'); setButtonFocus("register") }} style={{ textTransform: "none" }} className="auth__form__selectAuth__button" variant="text" >{t('register')}</Button>
                         </div>
 
                         {
                             authType === "login" ?
                                 <div className="auth__form__form" id="loginForm">
-                                    <h1 className="auth__form__form__login-register">Connectez-vous</h1>
+                                    <h1 className="auth__form__form__login-register">{t('login')}</h1>
 
-                                    <label htmlFor="emailLogin">Email</label>
+                                    <label htmlFor="emailLogin">{t('email')}</label>
                                     <TextField
                                         required
                                         id="emailLogin"
@@ -63,9 +77,13 @@ const Auth = () => {
                                         type="email"
                                         className='auth__form__form__input'
                                         size='small'
+                                        value={loginForm.email}
+                                        onChange={(e) => {updateForm({email:e.target.value},setLoginForm)}}
+                                        
+                                        
                                     />
 
-                                    <label htmlFor="passwordLogin">Mot de passe</label>
+                                    <label htmlFor="passwordLogin">{t('password')}</label>
                                     <TextField
                                         required
                                         id="passwordLogin"
@@ -73,16 +91,18 @@ const Auth = () => {
                                         type="password"
                                         className='auth__form__form__input'
                                         size="small"
+                                        value={loginForm.password}
+                                        onChange={(e) => {updateForm({password:e.target.value},setLoginForm)}}
                                     />
 
-                                    <Button variant="text" style={{ textTransform: "none" }}>Connexion</Button>
+                                    <Button variant="text" style={{ textTransform: "none" }} onClick={()=> {console.log(loginForm)}}>{t('login')}</Button>
 
                                 </div>
                                 : authType === "register" ?
                                     <div className="auth__form__form" id="registerForm">
 
                                         <div className="auth__form__form__login-register-about">
-                                            <Tooltip title={longText}
+                                            <Tooltip title={tooltipText}
                                                 componentsProps={{
                                                     tooltip: {
                                                         sx: {
@@ -91,16 +111,18 @@ const Auth = () => {
                                                         }
                                                     }
                                                 }}
+                                                enterTouchDelay={0}
+                                                leaveTouchDelay={5000}
                                             >
                                                 <Button sx={{ m: 0, width: 32, height:32, borderRadius:20, padding:0, minWidth:32, minHeight:32 }}>
                                                     <img src={information} alt="information" className="auth__form__form__login-register-about__icon" id="information"/>
                                                 </Button>
                                             </Tooltip>
-                                            <h1 className="auth__form__form__login-register">Inscrivez-vous</h1>
+                                            <h1 className="auth__form__form__login-register">{t('register')}</h1>
                                         </div>
 
 
-                                        <label htmlFor="emailRegister">Email</label>
+                                        <label htmlFor="emailRegister">{t('email')}</label>
                                         <TextField
                                             required
                                             id="emailRegister"
@@ -108,9 +130,11 @@ const Auth = () => {
                                             type="email"
                                             size="small"
                                             className='auth__form__form__input'
+                                            value={registerForm.email}
+                                            onChange={(e) => {updateForm({email:e.target.value},setRegisterForm)}}
                                         />
 
-                                        <label htmlFor="usernameRegister">Nom d'utilisateur</label>
+                                        <label htmlFor="usernameRegister">{t('username')}</label>
                                         <TextField
                                             required
                                             id="usernameRegister"
@@ -118,9 +142,11 @@ const Auth = () => {
                                             type="text"
                                             size="small"
                                             className='auth__form__form__input'
+                                            value={registerForm.username}
+                                            onChange={(e) => {updateForm({username:e.target.value},setRegisterForm)}}
                                         />
 
-                                        <label htmlFor="createPasswordRegister">Créer mot de passe</label>
+                                        <label htmlFor="createPasswordRegister">{t('create_password')}</label>
                                         <TextField
                                             required
                                             id="createPasswordRegister"
@@ -128,18 +154,22 @@ const Auth = () => {
                                             type="password"
                                             size="small"
                                             className='auth__form__form__input'
+                                            value={registerForm.password}
+                                            onChange={(e) => {updateForm({password:e.target.value},setRegisterForm)}}
                                         />
 
-                                        <label htmlFor="confirmPasswordRegister">Confirmer mot de passe</label>
+                                        <label htmlFor="confirmPasswordRegister">{t('confirm_password')}</label>
                                         <TextField
                                             required
                                             id="confirmPasswordRegister"
                                             variant="outlined"
                                             size="small"
                                             className='auth__form__form__input'
+                                            value={registerForm.confirmPassword}
+                                            onChange={(e) => {updateForm({confirmPassword:e.target.value},setRegisterForm)}}
                                         />
 
-                                        <Button variant="text" style={{ textTransform: "none" }}>Inscription</Button>
+                                        <Button variant="text" style={{ textTransform: "none" }} onClick={()=> { console.log(registerForm)}}>{t('register')}</Button>
 
                                     </div>
                                     : null
