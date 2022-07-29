@@ -91,5 +91,13 @@
     "error":"Erreur",
     "doesnt_exist":"Cette page n'existe pas.",
     "home_page":"Page d'accueil",
-    "open_image":"Ouvrir cette image dans un nouvel onglet" 
+    "open_image":"Ouvrir cette image dans un nouvel onglet",
+    "tooltipText":"Inscrivez vous afin de me contacter, aucune donnée ne sera partagée.",
+    "login":"Connexion",
+    "register":"Inscription",
+    "email":"Email",
+    "password":"Mot de passe",
+    "username":"Nom d'utilisateur",
+    "create_password":"Créer mot de passe",
+    "confirm_password":"Confirmer mot de passe" 
 }

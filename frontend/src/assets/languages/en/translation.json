@@ -91,5 +91,13 @@
     "error":"Error",
     "doesnt_exist":"This page doesn't exist.",
     "home_page":"Home page",
-    "open_image":"Open this image in a new tab"  
+    "open_image":"Open this image in a new tab",
+    "tooltipText":"Register yourself to contact me, no data will be shared",
+    "login":"Login",
+    "register":"Register",
+    "email":"Email",
+    "password":"Password",
+    "username":"Username",
+    "create_password":"Create password",
+    "confirm_password":"Confirm password"   
 }
