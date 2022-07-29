@@ -1,17 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser')
-const userRoutes = require('./routes/user.routes')
-require('dotenv').config({path:'./config/.env'})
-require('./config/db')
+const express = require("express");
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
-
-//routes
-app.use('/', userRoutes);
-
-//server
-app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
-})
+const cors = require("cors");
+require("dotenv").config({ path: "./config.env" });
+const port = process.env.PORT || 5000;
+app.use(cors());
+app.use(express.json());
+app.use(require("./routes/record"));
+// get driver connection
+const dbo = require("./config/db");
+ 
+app.listen(port, () => {
+  // perform a database connection when server starts
+  dbo.connectToServer(function (err) {
+    if (err) console.error(err);
+ 
+  });
+  console.log(`Server is running on port: ${port}`);
+});
