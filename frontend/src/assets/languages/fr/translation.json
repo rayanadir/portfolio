@@ -99,5 +99,7 @@
     "password":"Mot de passe",
     "username":"Nom d'utilisateur",
     "create_password":"Créer mot de passe",
-    "confirm_password":"Confirmer mot de passe" 
+    "confirm_password":"Confirmer mot de passe",
+    "remember":"Se souvenir de moi",
+    "forgot":"Mot de passe oublié ?" 
 }
