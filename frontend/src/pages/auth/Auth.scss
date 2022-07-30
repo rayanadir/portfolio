@@ -1,44 +1,71 @@
-.auth{
+.auth {
     min-height: 150vh;
-    &__wrapper{
+
+    &__wrapper {
         margin: auto;
     }
-    &__form{
+
+    &__form {
         display: flex;
         flex-direction: column;
-        width: 300px;
+        width: 370px;
         margin: auto;
         border-radius: 5px;
         padding: 2rem;
         row-gap: 2rem;
-        &__form{
+
+        &__form {
             display: flex;
             flex-direction: column;
             row-gap: 1rem;
-            &__login-register{
+
+            &__login-register {
                 font-weight: 100;
                 margin: 0;
                 height: 37px;
             }
-            &__login-register-about{
+
+            &__login-register-about {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 column-gap: .5rem;
-                &__icon{
+
+                &__icon {
                     width: 32px;
                     height: 32px;
                 }
             }
-            &__input{
+
+            &__input {
                 background-color: white;
                 border-radius: 5px;
             }
+
+            &__options {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                &__remember {
+                    display: flex;
+                    flex-direction: row;
+                    column-gap: 5px;
+                    &__text {
+                        font-weight: 100;
+                        margin: 0;
+                        cursor: pointer;
+                    }
+                }
+            }
+
         }
-        &__selectAuth{
+
+        &__selectAuth {
             display: flex;
             flex-direction: row;
-            &__button{
+
+            &__button {
                 width: 50%;
                 text-transform: none;
                 background-color: transparent;
@@ -47,56 +74,67 @@
                 font-weight: 100;
                 cursor: pointer;
             }
-            &_button:hover{
+
+            &_button:hover {
                 background-color: rgba(25, 118, 210, 0.04);
             }
         }
     }
 }
 
-#login_select[active="true"]{
+#login_select[active="true"] {
     background-color: #d2d2d2;
 }
 
-#register_select[active="true"]{
+#register_select[active="true"] {
     background-color: #d2d2d2;
 }
 
-@media (max-width: 424px){
-    .auth{
-        &__wrapper{
+@media (max-width: 424px) {
+    .auth {
+        &__wrapper {
             width: 95%;
         }
+
+        &__form {
+            width: 100%;
+            padding: 1rem 0;
+        }
     }
 }
 
-@media (min-width : 425px) and (max-width: 767px){
-    .auth{
-        &__wrapper{
+@media (min-width : 425px) and (max-width: 767px) {
+    .auth {
+        &__wrapper {
+            width: 90%;
+        }
+
+        &__form {
+            width: 100%;
+            padding: 1rem 0;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px) {
+    .auth {
+        &__wrapper {
             width: 90%;
         }
     }
 }
 
-@media (min-width : 768px) and (max-width: 1023px){
-    .auth{
-        &__wrapper{
-            width: 90%;
-        }
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1439px){
-    .auth{
-        &__wrapper{
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .auth {
+        &__wrapper {
             width: 80%;
         }
     }
 }
 
-@media (min-width: 1440px){
-    .auth{
-        &__wrapper{
+@media (min-width: 1440px) {
+    .auth {
+        &__wrapper {
             width: 70%;
         }
     }
