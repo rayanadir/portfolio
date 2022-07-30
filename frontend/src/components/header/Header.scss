@@ -1,5 +1,5 @@
 .header{
-    padding: 2rem 3rem;
+    padding: 1rem 3rem;
     z-index: 50;
     &__wrapper{
         display: flex;
@@ -205,8 +205,8 @@
             display: none;
         }
         &__back{
-            width: 64px;
-            height: 64px;
+            width: 48px;
+            height: 48px;
         }
     }
 }
