@@ -2,26 +2,26 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:5000";
 
-const login = (email,password) => {
-    axios.post(BASE_URL+"/api/login", {email,password})
+const login = async (email,password) => {
+    await axios.post(BASE_URL+"/api/login", {email,password})
     .then(res => {
-        console.log(res.data);
-        return res.data
+        console.log(res);
+        return res
     })
     .catch(err=> {
-        console.log(err);
+        console.log(err.response);
         return err;
     })
 }
 
-const register = (email,username,password,confirmPassword) => {
-    axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
+const register =  (email,username,password,confirmPassword) => {
+     axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
     .then(res => {
-        console.log(res.data);
-        return res.data;
+        console.log(res);
+        return res;
     })
     .catch(err => {
-        console.log(err);
+        console.log(err.response);
         return err;
     })
 }
