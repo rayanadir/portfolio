@@ -101,5 +101,15 @@
     "create_password":"Create password",
     "confirm_password":"Confirm password",
     "remember":"Remember me",
-    "forgot":"Forgot password ?"    
+    "forgot":"Forgot password ?",
+    "field_miss":"Please enter all fields.",
+    "password_length":"Password length must be at least 6 characters.",
+    "different_passwords":"The passwords are not identical.",
+    "account_exists":"An account already uses this email.",
+    "all_fields_miss":"Please enter all fields.",
+    "email_miss":"Enter email.",
+    "password_miss":"Enter password.",
+    "unknown_email":"Unknown email.",
+    "incorrect_password":"Incorrect password.",
+    "server_error":"Server error."    
 }

@@ -101,5 +101,15 @@
     "create_password":"Créer mot de passe",
     "confirm_password":"Confirmer mot de passe",
     "remember":"Se souvenir de moi",
-    "forgot":"Mot de passe oublié ?" 
+    "forgot":"Mot de passe oublié ?",
+    "field_miss":"Remplissez tous les champs.",
+    "password_length":"Le mot de passe doit faire au moins 6 caractères.",
+    "different_passwords":"Les mots de passe sont différents.",
+    "account_exists":"Cette adresse email est déjà utilisée.",
+    "all_fields_miss":"Remplissez tous les champs.",
+    "email_miss":"Saisissez l'adresse email.",
+    "password_miss":"Saisissez le mot de passe.",
+    "unknown_email":"Adresse email inconnue.",
+    "incorrect_password":"Mot de passe incorrect.",
+    "server_error":"Erreur du serveur."   
 }
