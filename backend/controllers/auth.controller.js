@@ -11,22 +11,28 @@ module.exports.signUp = async (req, res) => {
       if (!email || !username || !password || !confirmPassword)
         return res
           .status(400)
-          .json({ errorMessage: "Please enter all required fields." });
+          .json({ 
+            message: "One or several fields are missing.",
+            code_msg:"field_miss" 
+          });
   
       if (password.length < 6)
         return res.status(400).json({
-          errorMessage: "Please enter a password of at least 6 characters.",
+          message: "Password length must be at least 6 characters",
+          code_msg:"password_length",
         });
   
       if (password !== confirmPassword)
         return res.status(400).json({
-          errorMessage: "Please enter the same password twice.",
+          message: "The passwords are not identical",
+          code_msg:"different_passwords"
         });
   
       const existingUser = await User.findOne({ email:email });
       if (existingUser)
         return res.status(400).json({
-          errorMessage: "An account with this email already exists.",
+          message: "An account already uses this email",
+          code_msg:"account_exists",
         });
   
       // hash the password
@@ -63,10 +69,10 @@ module.exports.signUp = async (req, res) => {
           secure: true,
           sameSite: "none",
         })
-        .send({message:"User successfully created !", code_msg:"user_created"});
+        .send({message:"User successfully created !", code_msg:"user_created", token});
     } catch (err) {
       console.error(err);
-      res.status(500).send();
+      res.status(500).send({message:"Internal server error", code_msg:"server_error"});
     }
 }
 
@@ -79,27 +85,27 @@ module.exports.signIn = async (req, res) => {
       if(!email && !password)
         return res
             .status(400)
-            .json({ errorMessage: "Please enter all fields.", code_msg:"all_fields_miss" });
+            .json({ message: "Please enter all fields.", code_msg:"all_fields_miss" });
       if (!email)
         return res
           .status(400)
-          .json({ errorMessage: "Please enter email.", code_msg:"email_miss" });
+          .json({ message: "Please enter email.", code_msg:"email_miss" });
       if (!password)
           return res
             .status(400)
-            .json({ errorMessage: "Please enter password.", code_msg:"password_miss" });
+            .json({ message: "Please enter password.", code_msg:"password_miss" });
   
   
       const existingUser = await User.findOne({ email });
       if (!existingUser)
-        return res.status(401).json({ errorMessage: "Unknown email", code_msg:"unknown_email" });
+        return res.status(401).json({ message: "Unknown email", code_msg:"unknown_email" });
   
       const passwordCorrect = await bcrypt.compare(
         password,
         existingUser.passwordHash
       );
       if (!passwordCorrect)
-        return res.status(401).json({ errorMessage: "Incorrect password", code_msg:"incorrect_password" });
+        return res.status(401).json({ message: "Incorrect password", code_msg:"incorrect_password" });
   
       await existingUser.updateOne({last_login: new Date()})
       // sign the token
@@ -119,11 +125,11 @@ module.exports.signIn = async (req, res) => {
           secure: true,
           sameSite: "none",
         })
-        .send({message:"User successfully logged in !", code_msg:"user_logged"});
+        .send({message:"User successfully logged in !", code_msg:"user_logged", token});
         
     } catch (err) {
       console.error(err);
-      res.status(500).send();
+      res.status(500).send({message:"Internal server error", code_msg:"server_error"});
     }
 }
 
