@@ -1,92 +1,154 @@
-const UserModel = require('../models/user.model');
+const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
-const dbo = require("../config/db");
-const ObjectId = require("mongodb").ObjectId;
 const bcrypt = require('bcrypt')
 
-// Max age of token (3 days)
-const timeLimit = 3*24*60*60*1000;
-
-const createToken = (id) => {
-    return jwt.sign({id}, process.env.TOKEN_SECRET, {
-        expiresIn: timeLimit
-    })
-}
-
 // register
-module.exports.signUp= async (req,response) => {
-    let db_connect = dbo.getDb();
-    try{
-        const {username, email, password, confirmPassword} = req.body;
-        
-        if(!email || !username || !password || !confirmPassword){
-            return response.status(400).json({message:"One or several fields are missing.", msg_code:"field_miss"});
-        }
-        if(password.length<6){
-            return response.status(400).json({message: "Password length must be at least 6 characters", msg_code:"password_length"});
-        }
-        if(password !== confirmPassword){
-            return response.status(400).json({message:"The passwords are not identical",msg_code:"different_passwords"});
-        }
-        const isUserExists= await UserModel.findOne({email});
-        if(isUserExists){
-            return response.status(400).json({message:"An account already uses this email",msg_code:"account_exists"})
-        }
-
-        const salt = await bcrypt.genSalt();
-        const passwordHash= await bcrypt.hash(password,salt);
-
-        const newUser = new UserModel({
-            email,
-            username,
-            password:passwordHash,
-            first_login: new Date(),
-            last_login: new Date(),
-            isAdmin:false
+module.exports.signUp = async (req, res) => {
+    try {
+      const { email, username ,password, confirmPassword } = req.body;
+      // validation
+  
+      if (!email || !username || !password || !confirmPassword)
+        return res
+          .status(400)
+          .json({ errorMessage: "Please enter all required fields." });
+  
+      if (password.length < 6)
+        return res.status(400).json({
+          errorMessage: "Please enter a password of at least 6 characters.",
         });
-        db_connect.collection("users").insertOne(newUser,(err,res) => {
-            if(err) {throw err;}
-            response.status(201).json({res,user: user._id});
+  
+      if (password !== confirmPassword)
+        return res.status(400).json({
+          errorMessage: "Please enter the same password twice.",
+        });
+  
+      const existingUser = await User.findOne({ email:email });
+      if (existingUser)
+        return res.status(400).json({
+          errorMessage: "An account with this email already exists.",
+        });
+  
+      // hash the password
+  
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(password, salt);
+  
+      // save a new user account to the db
+  
+      const newUser = new User({
+        email,
+        username,
+        passwordHash,
+        isAdmin:false,
+        first_login: new Date(),
+        last_login: new Date(),
+      });
+  
+      const savedUser = await newUser.save();
+  
+      // sign the token
+      const token = jwt.sign(
+        {
+          user: savedUser._id,
+        },
+        process.env.TOKEN_SECRET
+      );
+  
+      // send the token in a HTTP-only cookie
+      res
+        .status(201)
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
         })
-    }catch(err){
-        response.status(500).json({error:"Server error"});
+        .send({message:"User successfully created !", code_msg:"user_created"});
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
     }
 }
 
 // login
-module.exports.signIn= async (req,response) =>{
-    let db_connect = dbo.getDb();
-    try{
-        const {email, password} = req.body;
-        if(!email || !password){
-            return response.status(400).json({message:"One or several fields are missing.",msg_code:"field_miss"})
-        }
-        const user = await UserModel.findOne({email});
-        if(!user){
-            return response.status(400).json({message:"Unknown email address",msg_code:"unknown_email"})
-        }
-        const correctPassword = await bcrypt.compare(password, user.password);
-        if(!correctPassword){
-            return response.status(400).json({message:"Incorrect password",msg_code:"incorrect_password"})
-        }
-        let token = createToken(user._id) 
-        const update = {
-            last_login: new Date(),
-        }
-        db_connect.collection('users').updateOne(user._id,update,(err,res)=> {
-            if(err) {throw err;}
-            response.status(201).json({token,res,user:{
-                id:user._id,
-                username:user.username,
-                email:user.email,
-            }})
+module.exports.signIn = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+  
+      // validate
+      if(!email && !password)
+        return res
+            .status(400)
+            .json({ errorMessage: "Please enter all fields.", code_msg:"all_fields_miss" });
+      if (!email)
+        return res
+          .status(400)
+          .json({ errorMessage: "Please enter email.", code_msg:"email_miss" });
+      if (!password)
+          return res
+            .status(400)
+            .json({ errorMessage: "Please enter password.", code_msg:"password_miss" });
+  
+  
+      const existingUser = await User.findOne({ email });
+      if (!existingUser)
+        return res.status(401).json({ errorMessage: "Unknown email", code_msg:"unknown_email" });
+  
+      const passwordCorrect = await bcrypt.compare(
+        password,
+        existingUser.passwordHash
+      );
+      if (!passwordCorrect)
+        return res.status(401).json({ errorMessage: "Incorrect password", code_msg:"incorrect_password" });
+  
+      await existingUser.updateOne({last_login: new Date()})
+      // sign the token
+  
+      const token = jwt.sign(
+        {
+          user: existingUser._id,
+        },
+        process.env.TOKEN_SECRET
+      );
+  
+      // send the token in a HTTP-only cookie
+      res
+        .status(201)
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
         })
-    }catch(err){
-        response.status(500).json({error:"Server error"})
+        .send({message:"User successfully logged in !", code_msg:"user_logged"});
+        
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
     }
 }
 
-module.exports.logout= (req,res) => {
-    res.cookie('jwt','',{timeLimit:1});
-    res.redirect('/');
+// logout
+module.exports.logout = (req, res) => {
+    res
+      .cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: "none",
+      })
+      .send();
+}
+
+// loggedIn
+module.exports.loggedIn = (req, res) => {
+    try {
+      const token = req.cookies.token;
+      if (!token) return res.json(false);
+  
+      jwt.verify(token, process.env.TOKEN_SECRET);
+  
+      res.send(true);
+    } catch (err) {
+      res.json(false);
+    }
 }
