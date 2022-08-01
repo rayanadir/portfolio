@@ -9,20 +9,28 @@ import { useTranslation } from 'react-i18next';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import auth_service from '../../services/auth.service';
+import { useSelector } from "react-redux"
 
 const Auth = () => {
     const [authType, setAuthType] = useState('login');
+
     const [loginForm, setLoginForm] = useState({
         email: "",
         password: ""
     });
+
     const [registerForm, setRegisterForm] = useState({
         email: "",
         username: "",
         password: "",
         confirmPassword: "",
     })
+
     const [checkbox, setCheckboxValue] = useState(false);
+
+    let loginError = useSelector((state) => state.auth.login_error);
+    let registerError = useSelector((state) => state.auth.register_error);
+
     const updateForm = (value, form) => {
         return form((prev) => {
             return { ...prev, ...value }
@@ -60,10 +68,10 @@ const Auth = () => {
         e.preventDefault();
         if (authType === "login") {
             await auth_service.login(loginForm.email,loginForm.password)
-            setLoginForm({ email: "", password: "" })
+            //setLoginForm({ email: "", password: "" })
         } else if (authType === "register") {
             await auth_service.register(registerForm.email,registerForm.username,registerForm.password,registerForm.confirmPassword)
-            setRegisterForm({ email: "", username: "", password: "", confirmPassword: "" })
+            //setRegisterForm({ email: "", username: "", password: "", confirmPassword: "" })
         }
     }
 
@@ -123,6 +131,8 @@ const Auth = () => {
 
 
                                     <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('login')}</Button>
+
+                                     {loginError.code_msg !== "" ? <p className="auth__form__form__error">{t(loginError.code_msg)}</p> : null}
 
                                 </div>
                                 : authType === "register" ?
@@ -194,6 +204,8 @@ const Auth = () => {
                                         />
 
                                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('register')}</Button>
+
+                                        {registerError.code_msg !== "" ? <p className="auth__form__form__error">{t(registerError.code_msg)}</p> : null}
 
                                     </div>
                                     : null
