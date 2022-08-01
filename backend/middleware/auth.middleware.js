@@ -1,39 +1,18 @@
 const jwt = require("jsonwebtoken");
-const UserModel = require("../models/user.model");
 
-module.exports.checkUser = (req,res,next) => {
-    const token = req.cookies.jwt;
-    if(token){
-        jwt.verify(token,process.env.TOKEN_SECRET, async (err, decodedToken) => {
-            if(err){
-                res.locals.user=null;
-                res.cookie("jwt","",{timeLimit: 1});
-                next();
-            }else{
-                let user= await UserModel.findById(decodedToken.id);
-                res.locals.user= user;
-                next();
-            }
-        });
-    }else{
-        res.locals.user=null;
-        next();
-    }
+function auth(req, res, next) {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ errorMessage: "Unauthorized" });
+
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verified.user;
+
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ errorMessage: "Unauthorized" });
+  }
 }
 
-module.exports.requireAuth= (res,response,next) => {
-    const token = req.cookies.jwt;
-    if(token){
-        jwt.verify(token, process.env.TOKEN_SECRET, async (err,decodedToken) => {
-            if(err){
-                console.log(err);
-                response.send(200).json('no token');
-            }else{
-                console.log(decodedToken.id)
-                next();
-            }
-        })
-    }else{
-        console.log("No token")
-    }
-}
+module.exports = auth;
