@@ -103,6 +103,8 @@
     "remember":"Remember me",
     "forgot":"Forgot password ?",
     "field_miss":"Please enter all fields.",
+    "invalid_username":"Enter a valid username, at least 3 characters.",
+    "invalid_email":"Enter a valid email address.",
     "password_length":"Password length must be at least 6 characters.",
     "different_passwords":"The passwords are not identical.",
     "account_exists":"An account already uses this email.",
@@ -111,5 +113,15 @@
     "password_miss":"Enter password.",
     "unknown_email":"Unknown email.",
     "incorrect_password":"Incorrect password.",
-    "server_error":"Server error."    
+    "server_error":"Server error.",
+    "show_password":"Show password",
+    "bcrypt":"Authentication secured by",
+    "invalid_token":"Error, invalid token.",
+    "encrypy_password_error":"Error, cannot encrypt password.",
+    "password_reset":"Password reset successfully.",
+    "email_sent":"A mail to reset your password has been sent.",
+    "password_changed":"Password has been changed successfully.",
+    "current_password_incorrect":"Incorrect current password.",
+    "send_email":"Enter your email address to reset your password",
+    "send":"Send"  
 }

@@ -103,6 +103,8 @@
     "remember":"Se souvenir de moi",
     "forgot":"Mot de passe oublié ?",
     "field_miss":"Remplissez tous les champs.",
+    "invalid_username":"Entrez un nom d'utilisateur valide, au moins 3 caractères.",
+    "invalid_email":"Entrez une adresse email valide.",
     "password_length":"Le mot de passe doit faire au moins 6 caractères.",
     "different_passwords":"Les mots de passe sont différents.",
     "account_exists":"Cette adresse email est déjà utilisée.",
@@ -111,5 +113,15 @@
     "password_miss":"Saisissez le mot de passe.",
     "unknown_email":"Adresse email inconnue.",
     "incorrect_password":"Mot de passe incorrect.",
-    "server_error":"Erreur du serveur."   
+    "server_error":"Erreur du serveur.",
+    "show_password":"Montrer le mot de passe",
+    "bcrypt":"Authentification sécurisée par",
+    "invalid_token":"Erreur, jeton invalide.",
+    "encrypy_password_error":"Erreur, impossible de crypter le mot de passe.",
+    "password_reset":"Mot de passe réinitialisé avec succès.",
+    "email_sent":"Un mail a été envoyé à votre adresse pour réinitialiser votre mot de passe.",
+    "password_changed":"Mot de passe modifié avec succès.",
+    "current_password_incorrect":"Mot de passe actuel incorrect.",
+    "send_email":"Entrez votre adresse email pour réinitialiser votre mot de passe",
+    "send":"Envoyer"   
 }
