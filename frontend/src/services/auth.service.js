@@ -1,8 +1,9 @@
 import axios from "axios";
-import { loginSuccess, loginFail, registerSuccess, registerFail } from "../slices/authSlice";
+import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordRes, forgotPasswordRes, resetPasswordRes } from "../slices/authSlice";
 import { store } from "../app/store"
 
 const BASE_URL = "http://localhost:5000";
+const token = localStorage.getItem("token");
 
 const login =  (email,password) => {
     axios.post(BASE_URL+"/api/login", {email,password})
@@ -39,6 +40,51 @@ const logout = () => {
     .catch(err => { return err})
 }
 
-const auth_service = { login, register, logout }
+const resetPassword = (token,data) => {
+    axios.put(BASE_URL+"/api/resetPassword/"+token,data)
+    .then((res) => {
+        console.log(res)
+        store.dispatch(resetPasswordRes(res))
+        return res;
+    })
+    .catch((err) => {
+        console.log(err)
+        store.dispatch(resetPasswordRes(err))
+        return err;
+    });
+}
+
+
+const forgotPassword = (email) => {
+    axios.put(BASE_URL+"/api/forgotPassword", {email})
+    .then((res)=> {
+        console.log(res.data);
+        store.dispatch(forgotPasswordRes(res.data))
+        return res;
+    })
+    .catch((err) => {
+        console.log(err);
+        store.dispatch(forgotPasswordRes(err.response.data))
+        return err;
+    })
+}
+
+const changePassword = (data) => {
+    axios.put(BASE_URL+"/api/changePassword",data, {
+        headers: {Authorization: `Bearer ${token}`}
+    })
+    .then((res) => {
+        console.log(res);
+        store.dispatch(changePasswordRes(res))
+        return res;
+    })
+    .catch((err) => {
+        console.log(err)
+        store.dispatch(changePasswordRes(err))
+        return err;
+    })
+}
+
+const auth_service = { login, register, logout, resetPassword, forgotPassword, changePassword}
 
 export default auth_service;
