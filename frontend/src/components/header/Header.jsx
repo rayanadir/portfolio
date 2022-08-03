@@ -107,7 +107,7 @@ const Header = () => {
         
         <nav className='header__nav'>
           <ul className='header__nav_list'>
-            <Link to="/auth" className='header__link'>
+            <Link to="/authentication" className='header__link'>
               <li className='header__nav_element'>
                 {t('contact')}
               </li>
