@@ -51,7 +51,7 @@ const Background = () => {
                     <button onClick={() => { 
                         document.querySelector('.projects').scrollIntoView({behavior:"smooth"}) 
                         }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
-                    <Link to="/auth">
+                    <Link to="/authentication">
                         <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
                     </Link>
                 </div>
