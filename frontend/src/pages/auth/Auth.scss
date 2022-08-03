@@ -58,7 +58,17 @@
                     }
                 }
             }
-
+            &__bcrypt{
+                margin: 0;
+                color: grey;
+                &__link{
+                    color: grey;
+                }
+            }
+            &__forgot,&__send{
+                margin: 0;
+                font-weight: 100;
+            }
         }
 
         &__selectAuth {

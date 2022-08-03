@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../auth/Auth.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,11 +9,21 @@ import { useTranslation } from 'react-i18next';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import auth_service from '../../services/auth.service';
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Box } from '@mui/material';
 
 const Auth = () => {
+    const { t } = useTranslation();
     const [authType, setAuthType] = useState('login');
-
+    useEffect(()=> {
+       document.title=t(authType)
+    },[t,authType])
     const [loginForm, setLoginForm] = useState({
         email: "",
         password: ""
@@ -26,10 +36,31 @@ const Auth = () => {
         confirmPassword: "",
     })
 
+    const [emailForgotPassword, setEmailForgotPassword] = useState('')
+
+    const [loginPassword, showLoginPassword] = useState(false);
+    const [registerPassword, showRegisterPassword] = useState(false);
+    const [registerConfirmPassword, showRegisterConfirmPassword] = useState(false);
+
+    const handleShowPassword = (field) => {
+        if(field==="login"){
+            showLoginPassword(!loginPassword);
+        }else if(field==="register"){
+            showRegisterPassword(!registerPassword);
+        }else if(field==="confirm"){
+            showRegisterConfirmPassword(!registerConfirmPassword)
+        }
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
     const [checkbox, setCheckboxValue] = useState(false);
 
     let loginError = useSelector((state) => state.auth.login_error);
     let registerError = useSelector((state) => state.auth.register_error);
+    let forgotState = useSelector((state) => state.auth.forgot_password);
 
     const updateForm = (value, form) => {
         return form((prev) => {
@@ -39,7 +70,7 @@ const Auth = () => {
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
 
-    const { t } = useTranslation();
+    
 
     const active = {
         backgroundColor: "#d2d2d2",
@@ -72,6 +103,8 @@ const Auth = () => {
         } else if (authType === "register") {
             await auth_service.register(registerForm.email,registerForm.username,registerForm.password,registerForm.confirmPassword)
             //setRegisterForm({ email: "", username: "", password: "", confirmPassword: "" })
+        }else if (authType === "forgot"){
+            await auth_service.forgotPassword(emailForgotPassword)
         }
     }
 
@@ -79,7 +112,7 @@ const Auth = () => {
         <main>
             <section className={`auth ${theme}`}>
                 <div className="auth__wrapper">
-                    <form onSubmit={(e) => { onSubmit(e) }} className='auth__form'>
+                    <form onSubmit={(e) => { onSubmit(e) }} className='auth__form' noValidate>
 
                         <div className="auth__form__selectAuth">
                             <Button id="login_select" onClick={() => { setAuthType('login'); setButtonFocus("login") }} style={active} className="auth__form__selectAuth__button" variant="text" >{t('login')}</Button>
@@ -103,14 +136,27 @@ const Auth = () => {
                                     />
 
                                     <label htmlFor="passwordLogin">{t('password')}</label>
-                                    <TextField
+                                    <OutlinedInput
                                         id="passwordLogin"
                                         variant="outlined"
-                                        type="password"
+                                        type={loginPassword ? 'text' : 'password'}
                                         className='auth__form__form__input'
                                         size="small"
                                         value={loginForm.password}
                                         onChange={(e) => { updateForm({ password: e.target.value }, setLoginForm) }}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                              <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={()=>{handleShowPassword("login")}}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                title={t('show_password')}
+                                              >
+                                                {loginPassword ? <VisibilityOff /> : <Visibility />}
+                                              </IconButton>
+                                            </InputAdornment>
+                                          }
                                     />
 
                                     <div className="auth__form__form__options">
@@ -119,23 +165,23 @@ const Auth = () => {
                                                 control={
                                                     <Checkbox value={checkbox} onChange={(e) => { setCheckboxValue(e.target.checked) }} size="small" style={{ padding: 0, color: theme === "dark" ? "white" : "black" }} className="auth__form__form__options__remember__checkbox" />
                                                 }
-                                                label={t('remember')}
+                                                label={<Box sx={{fontSize:"14px", letterSpacing:"0"}}>{t('remember')}</Box>}
                                                 style={{margin:0}}
                                             />
                                         </div>
                                         <div className="auth__form__form__options__forgot">
-                                            <Button variant="text" style={{ color: theme === "dark" ? "white" : "black", textTransform: "none", fontWeight: 100 }}>{t('forgot')}</Button>
+                                            <Button onClick={() => {setAuthType('forgot')}} variant="text" style={{ color: theme === "dark" ? "white" : "black", textTransform: "none", fontWeight: 100 }}>{t('forgot')}</Button>
                                         </div>
                                     </div>
 
-
+                                    <em className="auth__form__form__bcrypt">{t('bcrypt')} <a href="https://www.npmjs.com/package/bcrypt" className="auth__form__form__bcrypt__link">bcrypt</a> </em>
 
                                     <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('login')}</Button>
 
-                                     {loginError.code_msg !== "" ? <p className="auth__form__form__error">{t(loginError.code_msg)}</p> : null}
+                                     {loginError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(loginError.code_msg)}</Box>} color="error" /> : null}
 
                                 </div>
-                                : authType === "register" ?
+                            : authType === "register" ?
                                     <div className="auth__form__form" id="registerForm">
 
                                         <div className="auth__form__form__login-register-about">
@@ -182,33 +228,89 @@ const Auth = () => {
                                         />
 
                                         <label htmlFor="createPasswordRegister">{t('create_password')}</label>
-                                        <TextField
+                                        <OutlinedInput
                                             id="createPasswordRegister"
                                             variant="outlined"
-                                            type="password"
+                                            type={registerPassword ? 'text' : 'password'}
                                             size="small"
                                             className='auth__form__form__input'
                                             value={registerForm.password}
                                             onChange={(e) => { updateForm({ password: e.target.value }, setRegisterForm) }}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                  <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={()=>{handleShowPassword("register")}}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    title={t('show_password')}
+                                                  >
+                                                    {registerPassword ? <VisibilityOff /> : <Visibility />}
+                                                  </IconButton>
+                                                </InputAdornment>
+                                              }
                                         />
 
                                         <label htmlFor="confirmPasswordRegister">{t('confirm_password')}</label>
-                                        <TextField
+                                        <OutlinedInput
                                             id="confirmPasswordRegister"
                                             variant="outlined"
-                                            type="password"
+                                            type={registerConfirmPassword ? 'text' : 'password'}
                                             size="small"
                                             className='auth__form__form__input'
                                             value={registerForm.confirmPassword}
                                             onChange={(e) => { updateForm({ confirmPassword: e.target.value }, setRegisterForm) }}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                  <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={()=>{handleShowPassword("confirm")}}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    title={t('show_password')}
+                                                  >
+                                                    {registerConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                                  </IconButton>
+                                                </InputAdornment>
+                                              }
                                         />
 
+                                        <em className="auth__form__form__bcrypt">{t('bcrypt')} <a href="https://www.npmjs.com/package/bcrypt" className="auth__form__form__bcrypt__link">bcrypt</a> </em>
+                                        
                                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('register')}</Button>
 
-                                        {registerError.code_msg !== "" ? <p className="auth__form__form__error">{t(registerError.code_msg)}</p> : null}
+                                        {registerError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(registerError.code_msg)}</Box>} color="error" /> : null}
 
                                     </div>
-                                    : null
+                            : authType === "forgot" ?
+                                <div className="auth__form__form" id="forgotPasswordForm">
+                                    <h1 className="auth__form__form__forgot">
+                                        {t('forgot')}
+                                    </h1>
+                                    <h3 className="auth__form__form__send">
+                                        {t('send_email')}
+                                    </h3>
+                                    <label htmlFor="emailForgot">{t('email')}</label>
+                                        <TextField
+                                            id="emailForgot"
+                                            variant="outlined"
+                                            type="email"
+                                            size="small"
+                                            className='auth__form__form__input'
+                                            value={emailForgotPassword}
+                                            onChange={(e) => { setEmailForgotPassword(e.target.value) }}
+                                        />
+
+                                <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('send')}</Button>
+
+                                {forgotState.status === 'fail' || forgotState.status === 'success' ?
+                                 <Chip 
+                                    style={{height:"auto", padding:".5rem"}}
+                                    label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(forgotState.code_msg)} </Box>} 
+                                    color={forgotState.status === "success" ? "success" : forgotState.status === 'fail' ? "error" : null }/> 
+                                 : forgotState.status === 'initial' ? null : null}
+                                </div>
+                            : null
                         }
                     </form>
                 </div>
