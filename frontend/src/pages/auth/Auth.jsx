@@ -95,16 +95,14 @@ const Auth = () => {
 
     const tooltipText = t('tooltipText');
 
-    const onSubmit = async (e) => {
+    const onSubmit =  (e) => {
         e.preventDefault();
         if (authType === "login") {
-            await auth_service.login(loginForm.email,loginForm.password)
-            //setLoginForm({ email: "", password: "" })
+            auth_service.login(loginForm.email,loginForm.password)
         } else if (authType === "register") {
-            await auth_service.register(registerForm.email,registerForm.username,registerForm.password,registerForm.confirmPassword)
-            //setRegisterForm({ email: "", username: "", password: "", confirmPassword: "" })
+            auth_service.register(registerForm.email,registerForm.username,registerForm.password,registerForm.confirmPassword)
         }else if (authType === "forgot"){
-            await auth_service.forgotPassword(emailForgotPassword)
+            auth_service.forgotPassword(emailForgotPassword)
         }
     }
 
