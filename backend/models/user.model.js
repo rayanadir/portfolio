@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type:Boolean, required:true },
   first_login : {type: Date, required: true},
   last_login : { type: Date, required:true},
-  userId : { type: String, required:true}
+  userId : { type: String, required:true},
+  resetPasswordToken: {type: String},
+  expirePasswordTokenReset : {type: Date},
 }
 );
 
