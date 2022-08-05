@@ -123,5 +123,11 @@
     "password_changed":"Mot de passe modifié avec succès.",
     "current_password_incorrect":"Mot de passe actuel incorrect.",
     "send_email":"Entrez votre adresse email pour réinitialiser votre mot de passe",
-    "send":"Envoyer"   
+    "send":"Envoyer",
+    "password_confirm_miss":"Entrez la confirmation du mot de passe",
+    "reset_password":"Réinitialiser le mot de passe",
+    "choose_new_password":"Choisir nouveau mot de passe",
+    "new_password":"Nouveau mot de passe",
+    "confirm_new_password":"Confirmer le nouveau mot de passe",
+    "change":"Changer"    
 }
