@@ -196,8 +196,8 @@ module.exports.loggedIn = (req, res) => {
 module.exports.resetPassword = (req, res) => {
   try {
     const token = req.params.token;
-    const { newPassword } = req.body;
-    console.log('object')
+    console.log(token);
+    const { newPassword, confirmNewPassword } = req.body;
     if(!newPassword){
       return res.status(400)
       .json({
@@ -205,6 +205,16 @@ module.exports.resetPassword = (req, res) => {
         code_msg:"password_miss",
         status:'fail',
       })
+    }
+    if(!confirmNewPassword){
+      if(!newPassword){
+        return res.status(400)
+        .json({
+          message:"Enter confirm password",
+          code_msg:"password_confirm_miss",
+          status:'fail',
+        })
+      }
     }
     if(newPassword.length<6){
       return res.status(400)
@@ -214,6 +224,14 @@ module.exports.resetPassword = (req, res) => {
           status:'fail',
       })
     }
+    if(newPassword!==confirmNewPassword){
+      return res.status(400).json({
+        message: "The passwords are not identical",
+        code_msg: "different_passwords",
+        status:'fail'
+      });
+    }
+
     const userToken = jwt.verify(token, process.env.JWT_RESET_KEY);
     Token.findOne({ userId: userToken._id, token, tokenType: 'resetPassword' }, async (err, doc) => {
       if (err) {
@@ -225,7 +243,31 @@ module.exports.resetPassword = (req, res) => {
         });
       }
       const user = await User.findOne({ email: userToken.email });
-      bcrypt.hash(newPassword, 10, (err, hash) => {
+
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(newPassword, salt);
+
+      await user.updateOne({passwordHash});
+      console.log(user);
+      user
+      .save()
+      .then(async (result) => {
+        await Token.findOneAndDelete({ userId: user._id, tokenType: 'resetPassword' });
+        res.status(200).json({
+          status: 'success',
+          message: "Password reset successfully",
+          code_msg:"password_reset",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          status: 'fail',
+          message: "server error",
+          code_msg:"server_error",
+        });
+      });
+
+      /*bcrypt.hash(newPassword, 10, (err, hash) => {
         if (err) {
           console.log(err);
           return res.status(500).json({
@@ -252,7 +294,10 @@ module.exports.resetPassword = (req, res) => {
               code_msg:"server_error",
             });
           });
-      });
+      });*/
+
+
+
     })
   } catch (error) {
     res.status(500).json({
