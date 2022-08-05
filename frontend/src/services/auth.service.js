@@ -40,16 +40,16 @@ const logout = () => {
     .catch(err => { return err})
 }
 
-const resetPassword = (token,data) => {
-    axios.put(BASE_URL+"/api/resetPassword/"+token,data)
+const resetPassword = (token,newPassword,confirmNewPassword) => {
+    axios.put(BASE_URL+"/api/resetPassword/"+token,{newPassword,confirmNewPassword})
     .then((res) => {
-        console.log(res)
-        store.dispatch(resetPasswordRes(res))
+        console.log(res.data)
+        store.dispatch(resetPasswordRes(res.data))
         return res;
     })
     .catch((err) => {
-        console.log(err)
-        store.dispatch(resetPasswordRes(err))
+        console.log(err.response.data)
+        store.dispatch(resetPasswordRes(err.response.data))
         return err;
     });
 }
