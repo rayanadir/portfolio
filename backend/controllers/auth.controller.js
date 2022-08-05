@@ -313,19 +313,12 @@ module.exports.forgotPassword = async (req, res) => {
     }, async (err, doc) => {
       if (doc) {
         console.log(token);
-        /*user.resetPasswordToken=token;
+        user.resetPasswordToken=token;
         user.expirePasswordTokenReset= Date.now() + 3*24*60*60*1000 // 3 days before token expiration
-          transporter.sendMail({
-              to:user.email,
-              from:"no-replay@insta.com",
-              subject:"password reset",
-              html:`
-              <p>You requested for password reset</p>
-              <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
-              `
-          })  */      
-          const url = `${process.env.BASE_URL}/reset/${token}`;
-          await sendEmail(user.email,user.username,"Réinitialisation du mot de passe/Password reset", url);
+        user.userId=doc._id;
+        await user.save()
+        const url = `${process.env.BASE_URL}/reset/${token}`;
+        await sendEmail(user.email,user.username,"Réinitialisation du mot de passe/Password reset", url);
         res.status(200).json({
           status: 'success',
           message: "Email for reset password has been sent",
