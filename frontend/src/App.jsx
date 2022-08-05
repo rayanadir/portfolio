@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from 'react-redux';
 import { translateProjects } from './slices/projectsSlice';
 import { ThemeProvider } from './context/ThemeContext';
+import Reset from './pages/reset/Reset';
 
 const App = () => {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/project/:id' element={<ProjectPage />} />
             <Route path='/authentication' element={<Auth />} />
+            <Route path='/reset/:token' element={<Reset />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
