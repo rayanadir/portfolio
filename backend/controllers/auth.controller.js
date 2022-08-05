@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const Token = require('../models/token.model');
 const { resetPassword } = require('../utils/emailTemplate');
 const { sendEmail } = require('../utils/sendEmail');
+const nodemailer = require('nodemailer')
 
 // register
 module.exports.signUp = async (req, res) => {
@@ -263,19 +264,13 @@ module.exports.resetPassword = (req, res) => {
 }
 
 // forgotPassword
-module.exports.forgotPassword = (req, res) => {
-  const { email } = req.body;
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const emailTest = emailRegex.test(email);
-  User.findOne({ email }, (err, user) => {
-    if (err) {
-      return res.status(500)
-        .json({
-          status: 'fail',
-          message: "Server error",
-          code_msg: "server_error",
-        })
-    }
+module.exports.forgotPassword = async (req, res) => {
+
+  try{
+    const { email } = req.body;
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailTest = emailRegex.test(email);
+  
     if (!email) {
       return res.status(400).
         json({
@@ -292,6 +287,9 @@ module.exports.forgotPassword = (req, res) => {
           status: 'fail',
         })
     }
+  
+    const user = await User.findOne({email});
+
     if (!user) {
       return res.status(400).json({
         status: 'fail',
@@ -299,6 +297,7 @@ module.exports.forgotPassword = (req, res) => {
         code_msg: "unknown_email",
       })
     }
+
     const token = jwt.sign(
       {
         user: user._id
@@ -308,13 +307,25 @@ module.exports.forgotPassword = (req, res) => {
         expiresIn: "7d",
       }
     )
+
     Token.findOneAndUpdate({ userId: user._id, tokenType: "resetPassword" }, { token: token }, {
       new: true, upsert: true
-    }, (err, doc) => {
+    }, async (err, doc) => {
       if (doc) {
         console.log(token);
-        const emailTemplate = resetPassword(email, token);
-        sendEmail(emailTemplate);
+        /*user.resetPasswordToken=token;
+        user.expirePasswordTokenReset= Date.now() + 3*24*60*60*1000 // 3 days before token expiration
+          transporter.sendMail({
+              to:user.email,
+              from:"no-replay@insta.com",
+              subject:"password reset",
+              html:`
+              <p>You requested for password reset</p>
+              <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+              `
+          })  */      
+          const url = `${process.env.BASE_URL}/reset/${token}`;
+          await sendEmail(user.email,user.username,"Réinitialisation du mot de passe/Password reset", url);
         res.status(200).json({
           status: 'success',
           message: "Email for reset password has been sent",
@@ -328,7 +339,16 @@ module.exports.forgotPassword = (req, res) => {
         })
       }
     });
-  })
+
+  }catch(err){
+    return res.status(500)
+    .json({
+      status: 'fail',
+      message: "Server error",
+      code_msg: "server_error",
+    })
+  }
+
 }
 
 // changePassword
