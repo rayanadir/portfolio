@@ -13,6 +13,7 @@ const authState= {
     reset_password:{
         message:'',
         code_msg:'',
+        status:'initial',
     },
     forgot_password:{
         message:'',
@@ -54,7 +55,7 @@ const authSlice = createSlice({
             state.forgot_password=action.payload;
         },
         changePasswordRes: (state,action) => {
-            state.change_password=action.payload.data;
+            state.change_password=action.payload;
         }
     }
 })
