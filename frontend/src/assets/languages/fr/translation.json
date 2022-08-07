@@ -129,5 +129,16 @@
     "choose_new_password":"Choisir nouveau mot de passe",
     "new_password":"Nouveau mot de passe",
     "confirm_new_password":"Confirmer le nouveau mot de passe",
-    "change":"Changer"    
+    "change":"Changer",
+    "back":"Retour à la page de connexion",
+    "invalid_link":"Lien invalide ou a expiré, désolé.",
+    "welcome_username":"Bienvenue {{username}} !",
+    "logout":"Déconnexion",
+    "logout_confirmation":"Voulez-vous vous déconnecter ?",
+    "last_login":"Dernière connexion",
+    "settings":"Réglages",
+    "edit_password":"Modifier le mot de passe",
+    "edit":"Modifier",
+    "cancel":"Annuler",
+    "current_password":"Mot de passe actuel"     
 }

@@ -129,5 +129,16 @@
     "choose_new_password":"Choose new password",
     "new_password":"New password",
     "confirm_new_password":"Confirm new password",
-    "change":"Change"  
+    "change":"Change",
+    "back":"Back to authentication page",
+    "invalid_link":"Invalid link or has expired, sorry.",
+    "welcome_username":"Welcome {{username}} !",
+    "logout":"Logout",
+    "logout_confirmation":"Do you want to log out ?",
+    "last_login":"Last login",
+    "settings":"Settings",
+    "edit_password":"Edit password",
+    "edit":"Edit",
+    "cancel":"Cancel",
+    "current_password":"Current password"    
 }
