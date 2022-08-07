@@ -1,13 +1,26 @@
-const UserModel = require('../models/user.model');
-const ObjectID = require("mongoose").Types.ObjectId;
+const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
+const Token = require('../models/token.model');
 
-module.exports.deleteUser= async (req,res) => {
-    if(!ObjectID.isValid(req.params.id))
-        return res.status(400).send("Unknown ID : " + req.params.id);
-    try{
-        await UserModel.remove({_id:req.params.id}).exec();
-        res.status(200).json({message: "Successfully deleted."});
-    }catch(err){
-        return res.status(500).json({message:err});
+module.exports.getUser = async (req,res) => {
+    try {
+        const { token } = req.body;
+        const existingToken= await Token.findOne({token:token.replace(/['"]+/g, '')})
+        if (!existingToken)
+            return res.status(401).json({ message: "no token", code_msg: "no token" });
+        const user = await User.findOne({userId: existingToken.userId});
+        if(!user){
+            return res.status(400).json({message:"No user found", code_msg:"no_user_found"});
+        }
+        return res.status(201).json({message:"User found", code_msg:"user_found", user:{
+            email:user.email,
+            username:user.username,
+            isAdmin:user.isAdmin,
+            first_login:user.first_login,
+            last_login:user.last_login,
+            userId:user.userId,
+        }})
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error", code_msg: "server_error" });
     }
 }

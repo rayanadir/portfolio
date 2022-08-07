@@ -16,12 +16,18 @@ router.get("/api/logout", authController.logout);
 router.get("/api/loggedIn", authController.loggedIn);
 
 // resetPassword
-router.put("/api/resetPassword/:token", authController.resetPassword);
+router.put("/api/resetPassword/:token", auth, authController.resetPassword);
 
 // forgotPassword
 router.put("/api/forgotPassword", authController.forgotPassword);
 
 // changePassword
 router.put("/api/changePassword", auth ,authController.changePassword);
+
+// checkTokenValidity
+router.post("/api/checkToken", authController.checkToken)
+
+// getUser
+router.post("/api/getUser",userController.getUser);
 
 module.exports = router;
