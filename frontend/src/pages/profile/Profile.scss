@@ -1,0 +1,105 @@
+.profile{
+    min-height: 150vh;
+    padding-top: 3rem;
+    margin: auto;
+    &__wrapper{
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__welcome{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &__welcomeMessage,&__lastlogin{
+                font-weight: 100;
+                margin: 0;
+        }
+    }
+    &__profile{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        &__settings{
+            display: flex;
+            flex-direction: column;
+            &__title{
+                font-weight: 100;
+            }
+            &__edit{
+                display: flex;
+                flex-direction: column;
+                &__label{
+                    font-weight: 100;
+                    margin: 5px 0;
+                }
+                &__title{
+                    font-weight: 100;
+                    margin: 15px 0;
+                }
+                &__buttons{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-top: 3rem;
+                }
+            }
+            &__input{
+                background-color: white;
+                border-radius: 5px;
+                width: 370px;
+            }
+        }
+    }
+}
+
+@media (max-width: 424px) {
+    .profile {
+        &__wrapper {
+            width: 95%;
+        }
+
+        &__form, &__invalid {
+            width: 100%;
+            padding: 1rem 0;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px) {
+    .profile {
+        &__wrapper {
+            width: 90%;
+        }
+
+        &__form, &__invalid {
+            width: 100%;
+            padding: 1rem 0;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px) {
+    .profile {
+        &__wrapper {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .profile {
+        &__wrapper {
+            width: 80%;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .profile {
+        &__wrapper {
+            width: 70%;
+        }
+    }
+}
