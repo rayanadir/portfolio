@@ -8,13 +8,13 @@ const token = localStorage.getItem("token");
 const login =  (email,password) => {
     axios.post(BASE_URL+"/api/login", {email,password})
     .then(res => {
-        console.log(res);
+        //console.log(res);
         store.dispatch(loginSuccess(res))
-        
+        localStorage.setItem('token', JSON.stringify(res.data.token))
         return res;
     })
     .catch(err=> {
-        console.log(err.response);
+        //console.log(err.response);
         store.dispatch(loginFail(err.response))
         return err;
     })
@@ -23,14 +23,25 @@ const login =  (email,password) => {
 const register =  (email,username,password,confirmPassword) => {
      axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
     .then(res => {
-        console.log(res);
-        store.dispatch(registerSuccess(res))
+        //console.log(res);
+        store.dispatch(registerSuccess(res));
+        localStorage.setItem('token', JSON.stringify(res.data.token));
         return res;
     })
     .catch(err => {
-        console.log(err.response);
+        //console.log(err.response);
         store.dispatch(registerFail(err.response));
         return err;
+    })
+}
+
+const loggedIn = () => {
+    axios.get(BASE_URL+"/api/loggedIn")
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
     })
 }
 
@@ -85,6 +96,6 @@ const changePassword = (data) => {
     })
 }
 
-const auth_service = { login, register, logout, resetPassword, forgotPassword, changePassword}
+const auth_service = { login, register, logout, resetPassword, forgotPassword, changePassword, loggedIn}
 
 export default auth_service;
