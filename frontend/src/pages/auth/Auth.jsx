@@ -17,13 +17,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate()
     const [authType, setAuthType] = useState('login');
+    const token = useSelector((state) => state.auth.token);
     useEffect(()=> {
-       document.title=t(authType)
-    },[t,authType])
+       document.title=t(authType);
+        if(token!==null){
+            navigate('/profile');
+        }
+    },[t,authType,navigate,token])
     const [loginForm, setLoginForm] = useState({
         email: "",
         password: ""
