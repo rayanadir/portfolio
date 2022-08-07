@@ -17,7 +17,17 @@ import List from '@mui/material/List';
 import { ThemeContext } from '../../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
-import menu from "../../img/hamburger-menu.svg"
+import menu from "../../img/hamburger-menu.svg";
+
+import logout from "../../img/logout.svg";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+
+import { logoutAction } from '../../slices/authSlice';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -92,7 +102,6 @@ const useWindowWidthDimensions = () => {
 
 export default function SideMenu() {
     const [state, setState] = React.useState({ left: false });
-    //const [language, setLanguage] = React.useState(localStorage.getItem('lang') || "fr");
     let language = useSelector((state) => state.languages.language)
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -110,8 +119,18 @@ export default function SideMenu() {
         languageInput.id = "languageInputDrawer";
         const inputDrawer = document.getElementById('languageInputDrawer');
         inputDrawer.style.borderWidth = "0";
-        
-    }, [])
+    }, []);
+    const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const list = (anchor) => (
         <Box
@@ -121,11 +140,11 @@ export default function SideMenu() {
             className={theme}
         >
             <List style={{ display: "flex", flexDirection: "column", rowGap: "2rem", padding: '2rem 1rem' }}>
-            <Link to="/authentication" className='header__link'>
-                <li className='header__nav_element' onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
-                    {t('contact')}
-                </li>
-            </Link>
+                <Link to="/authentication" className='header__link'>
+                    <li className='header__nav_element' onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
+                        {t('contact')}
+                    </li>
+                </Link>
                 <li className=' hover_none'>
                     <label htmlFor="translation">{t('language')}</label>
                     <Box>
@@ -163,6 +182,33 @@ export default function SideMenu() {
                     {t('about')}
                 </li>
 
+                {
+                    token !== null && token ?
+                        <li className='header__nav_element' onClick={handleClickOpen}>
+                            <p style={{margin:"0"}}>{t('logout')}</p>
+                            <img src={logout}  alt="logout" id="logout" className='header__logoutIcon' />
+                        </li>
+                        : null
+                }
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {t('logout')}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {t('logout_confirmation')}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button style={{textTransform:"none"}} onClick={handleClose}>{t('cancel')}</Button>
+                        <Button style={{textTransform:"none"}} onClick={()=> {dispatch(logoutAction());handleClose()} }>{t('logout')}</Button>
+                    </DialogActions>
+                </Dialog>
             </List>
 
         </Box >

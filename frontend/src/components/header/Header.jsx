@@ -26,6 +26,15 @@ import SideMenu from './SideMenu';
 import { useLocation, Link } from 'react-router-dom';
 
 import arrow from "../../img/arrow.svg"
+import logout from "../../img/logout.svg";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+
+import { logoutAction } from '../../slices/authSlice';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -80,6 +89,7 @@ const Header = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
+  const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
 
   React.useEffect(() => {
     const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
@@ -88,23 +98,34 @@ const Header = () => {
     input.style.borderStyle = "none";
   }, [])
 
-  const { toggleTheme, theme } = useContext(ThemeContext)
-  
+  const { toggleTheme, theme } = useContext(ThemeContext);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <header className={`header header_${theme}`}>
       <div className="header__wrapper">
         {
-          location.pathname === "/" ? 
-          <div className="header__name_frontend">
-            <h1 className='header__name'>Rayan Dahmena</h1>
-            <h3 className='header__frontend'>{t('frontend_developer')}</h3>
-          </div> 
-          : 
-          <Link to="/" className='header__link'>
-            <img src={arrow} alt="back home" id="back_home" className='header__back'/>
-          </Link> 
+          location.pathname === "/" ?
+            <div className="header__name_frontend">
+              <h1 className='header__name'>Rayan Dahmena</h1>
+              <h3 className='header__frontend'>{t('frontend_developer')}</h3>
+            </div>
+            :
+            <Link to="/" className='header__link'>
+              <img src={arrow} alt="back home" id="back_home" className='header__back' />
+            </Link>
         }
-        
+
         <nav className='header__nav'>
           <ul className='header__nav_list'>
             <Link to="/authentication" className='header__link'>
@@ -112,7 +133,7 @@ const Header = () => {
                 {t('contact')}
               </li>
             </Link>
-            
+
 
             <Box>
               <FormControl fullWidth>
@@ -140,8 +161,35 @@ const Header = () => {
             <li className='header__nav_element'>
               {t('about')}
             </li>
+
+            {
+              token !== null && token ?
+                <li className='header__nav_element'>
+                  <img src={logout} onClick={handleClickOpen} alt="logout" id="logout" className='header__logoutIcon' />
+                </li>
+                : null
+            }
           </ul>
           <SideMenu />
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {t('logout')}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+              {t('logout_confirmation')}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button style={{textTransform:"none"}} onClick={handleClose}>{t('cancel')}</Button>
+              <Button style={{textTransform:"none"}} onClick={()=>{dispatch(logoutAction());handleClose()}}>{t('logout')}</Button>
+            </DialogActions>
+          </Dialog>
         </nav>
       </div>
     </header>
