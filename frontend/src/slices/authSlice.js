@@ -30,20 +30,24 @@ const authSlice = createSlice({
     name:"authSlice",
     initialState:authState,
     reducers: {
-        loginSuccess: (state) => {
+        loginSuccess: (state,action) => {
             state.login_error={
                 message:'',
                 code_msg:'',
             };
+            state.token=action.payload.data.token;
+            localStorage.setItem('token',action.payload.data.token)
         },
         loginFail: (state,action) => {
             state.login_error=action.payload.data;
         },
-        registerSuccess: (state) => {
+        registerSuccess: (state,action) => {
             state.register_error={
                 message:'',
                 code_msg:'',
             };
+            state.token=action.payload.data.token;
+            localStorage.setItem('token',action.payload.data.token)
         },
         registerFail: (state,action) => {
             state.register_error=action.payload.data;
@@ -56,10 +60,14 @@ const authSlice = createSlice({
         },
         changePasswordRes: (state,action) => {
             state.change_password=action.payload;
+        },
+        logoutAction: (state)=> {
+            state.token=null;
+            localStorage.removeItem('token')
         }
     }
 })
 
-export const { loginSuccess, loginFail, registerSuccess, registerFail, resetPasswordRes, forgotPasswordRes,changePasswordRes } = authSlice.actions;
+export const { loginSuccess, loginFail, registerSuccess, registerFail, resetPasswordRes, forgotPasswordRes,changePasswordRes, logoutAction } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
