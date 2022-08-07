@@ -30,6 +30,19 @@
             }
         }
     }
+    &__invalid{
+        display: flex;
+        flex-direction: column;
+        width: 370px;
+        margin: auto;
+        padding:2rem;
+        row-gap:1rem;
+        &__message{
+            font-weight: 100;
+            margin: 0;
+            text-align: center;
+        }
+    }
 }
 
 @media (max-width: 424px) {
@@ -38,7 +51,7 @@
             width: 95%;
         }
 
-        &__form {
+        &__form, &__invalid {
             width: 100%;
             padding: 1rem 0;
         }
@@ -51,7 +64,7 @@
             width: 90%;
         }
 
-        &__form {
+        &__form, &__invalid {
             width: 100%;
             padding: 1rem 0;
         }

@@ -3,8 +3,7 @@ import '../reset/Reset.scss'
 import { ThemeContext } from '../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import Auth from '../auth/Auth';
+import { useParams, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -14,13 +13,26 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import auth_service from '../../services/auth.service';
+import axios from "axios";
 
 const Reset = () => {
     let { token } = useParams();
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const [isValidToken, setIsValidToken] = useState('')
     useEffect(() => {
         document.title = t('reset_password')
-    }, [t])
+        if (!token) {
+            setIsValidToken('invalid_token');
+        }
+        axios.post("http://localhost:5000/api/checkToken",{token})
+        .then((res) => {
+            setIsValidToken(res.data.code_msg)
+        }).catch((err) => {
+            setIsValidToken(err.response.data.code_msg)
+        })
+
+    }, [t,token,navigate,])
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [newPasswordField, showNewPassword] = useState(false);
@@ -28,9 +40,6 @@ const Reset = () => {
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
     let resetState = useSelector((state) => state.auth.reset_password)
-    if (!token) {
-        return <Auth />
-    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -51,8 +60,9 @@ const Reset = () => {
         <main>
             <section className={`reset ${theme}`}>
                 <div className="reset__wrapper">
-
-                    <form onSubmit={(e) => { onSubmit(e) }} className="reset__form">
+                    {
+                        isValidToken === "valid_token" ?
+                        <form onSubmit={(e) => { onSubmit(e) }} className="reset__form">
                         <h1 className="reset__form__resetPassword">
                             {t('reset_password')}
                         </h1>
@@ -120,7 +130,16 @@ const Reset = () => {
                         color={resetState.status === "success" ? "success" : resetState.status === 'fail' ? "error" : null }/> 
                             : resetState.status === 'initial' ? null : null
                         }
-                    </form>
+
+                        {resetState.status === 'success' ? <Button variant="text" style={{ textTransform: "none" }}>{t('back')}</Button> : null}
+                        </form>
+                        : isValidToken ==="invalid_token" ? 
+                        <div className="reset__invalid">
+                            <h1 className="reset__invalid__message">{t('invalid_link')}</h1>
+                            <Button onClick={() => {navigate('/authentication')}} variant="text" style={{ textTransform: "none" }}>{t('back')}</Button>
+                        </div> 
+                        : null
+                    }
                 </div>
             </section>
         </main>
