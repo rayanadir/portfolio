@@ -2,13 +2,10 @@ const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
   try {
-    const token = req.params.token;
-    console.log("auth middleware token : " + token)
-    if (!token) return res.status(401).json({ errorMessage: "Unauthorized" });
-
-    const verified = jwt.verify(token, process.env.JWT_RESET_KEY);
-    req.user = verified.user;
-
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const userId = decodedToken.userId;
+    req.auth = { userId };
     next();
   } catch (err) {
     console.error(err);
