@@ -23,6 +23,7 @@ const authState= {
     change_password:{
         message:'',
         code_msg:'',
+        status: 'initial'
     }
 }
 
