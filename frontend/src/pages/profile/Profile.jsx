@@ -4,12 +4,8 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import user_service from '../../services/user.service';
-import auth_service from '../../services/auth.service';
 import Button from '@mui/material/Button';
-import { logoutAction } from '../../slices/authSlice';
 import axios from "axios";
-//import moment from 'moment';
 import moment from 'moment/min/moment-with-locales';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +13,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import auth_service from '../../services/auth.service';
+import { Box } from '@mui/material';
+import Chip from '@mui/material/Chip';
 
 const Profile = () => {
     const { t } = useTranslation();
@@ -33,36 +32,40 @@ const Profile = () => {
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
-    
+    const changePasswordState = useSelector((state) => state.auth.change_password);
+
     useEffect(() => {
         if (token === null || !token) {
             navigate('/authentication')
         }
-        ;
-        axios.post("http://localhost:5000/api/getUser", { token })
+
+        axios.post("http://localhost:5000/api/getUser", { token }, {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
             .then((res) => {
-                setUser(res.data)
+                console.log(res);
+                setUser(res.data.user)
             })
             .catch((err) => {
                 console.log(err);
             })
     }, [navigate, token])
-    
+
     const formatDate = () => {
         moment.locale(localStorage.getItem('lang'))
-        return moment(user.user.last_login).format('LLLL')
+        return moment(user.last_login).format('LLLL')
     }
 
     const handleShowPassword = (field) => {
-        if(field==="currentPassword") showCurrentPassword(!currentPasswordField)
-        if(field==="newPassword") showNewPassword(!newPasswordField)
-        if(field==="confirmNewPassword") showConfirmPassword(!confirmNewPasswordField)
+        if (field === "currentPassword") showCurrentPassword(!currentPasswordField)
+        if (field === "newPassword") showNewPassword(!newPasswordField)
+        if (field === "confirmNewPassword") showConfirmPassword(!confirmNewPasswordField)
     }
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
+
     return (
         <>
             {
@@ -71,16 +74,16 @@ const Profile = () => {
                         <section className={`profile ${theme}`}>
                             <div className="profile__wrapper">
                                 <article className="profile__welcome">
-                                    <h1 className="profile__welcome__welcomeMessage">{t('welcome_username', { username: user.user.username })}</h1>
+                                    <h1 className="profile__welcome__welcomeMessage">{t('welcome_username', { username: user.username })}</h1>
                                     <p className="profile__welcome__lastlogin">{t('last_login')} : {formatDate()}</p>
                                 </article>
 
                                 <article className='profile__profile'>
                                     <div className="profile__profile__contact">
                                         {
-                                            user.user.isAdmin ?
+                                            user.isAdmin ?
                                                 ""
-                                                : user.user.isAdmin === false ?
+                                                : user.isAdmin === false ?
                                                     ""
                                                     : null}
                                     </div>
@@ -94,16 +97,16 @@ const Profile = () => {
                                             type="email"
                                             className='profile__profile__settings__input'
                                             size='small'
-                                            value={user.user.email}
+                                            value={user.email}
                                             disabled={true}
                                         />
 
-                                        { editPassword ===false ? <Button onClick={() => { setEditPassword(!editPassword) }} style={{ textTransform: "none" }} >{t('edit_password')}</Button> : null}
-                                        
+                                        {editPassword === false ? <Button onClick={() => { setEditPassword(!editPassword) }} style={{ textTransform: "none" }} >{t('edit_password')}</Button> : null}
+
                                         {
                                             editPassword ?
-                                                <div className="profile__profile__settings__edit">
-                                                    
+                                                <form onSubmit={(e) => {e.preventDefault();auth_service.changePassword(token,currentPassword, newPassword, confirmNewPassword) }} className="profile__profile__settings__edit">
+
                                                     <h3 className="profile__profile__settings__edit__title">
                                                         {t('edit_password')}
                                                     </h3>
@@ -180,11 +183,19 @@ const Profile = () => {
                                                         }
                                                     />
                                                     <div className="profile__profile__settings__edit__buttons">
-                                                        <Button style={{textTransform:"none", width:"50%"}}>{t('edit')}</Button>
-                                                        <Button onClick={() => {setEditPassword(!editPassword)}} style={{textTransform:"none", width:"50%"}}>{t('cancel')}</Button>
+                                                        <Button type="submit" style={{ textTransform: "none", width: "50%" }}>{t('edit')}</Button>
+                                                        <Button onClick={() => { setEditPassword(!editPassword) }} style={{ textTransform: "none", width: "50%" }}>{t('cancel')}</Button>
                                                     </div>
 
-                                                </div>
+                                                    {
+                                                        changePasswordState.status === 'fail' || changePasswordState.status === 'success' ?
+                                                            <Chip
+                                                                style={{ height: "auto", padding: ".5rem" }}
+                                                                label={<Box sx={{ whiteSpace: "break-spaces", textAlign: "center" }}>{t(changePasswordState.code_msg)} </Box>}
+                                                                color={changePasswordState.status === "success" ? "success" : changePasswordState.status === 'fail' ? "error" : null} />
+                                                            : changePasswordState.status === 'initial' ? null : null
+                                                    }
+                                                </form>
                                                 : null
                                         }
                                     </div>
