@@ -12,7 +12,7 @@
                 text-decoration: none;
             }
         }
-        #back_home{
+        #back_home,&__logoutIcon{
             filter: invert(0);
         }
         &__link{
@@ -72,6 +72,9 @@
         }
         &__link{
             color:white
+        }
+        &__logoutIcon{
+            filter: invert(1);
         }
     }
     .project{
