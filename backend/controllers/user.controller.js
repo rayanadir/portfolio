@@ -5,10 +5,8 @@ const Token = require('../models/token.model');
 module.exports.getUser = async (req,res) => {
     try {
         const { token } = req.body;
-        const existingToken= await Token.findOne({token:token.replace(/['"]+/g, '')})
-        if (!existingToken)
-            return res.status(401).json({ message: "no token", code_msg: "no token" });
-        const user = await User.findOne({userId: existingToken.userId});
+        const decodedJwtToken = jwt.decode(token);
+        const user = await User.findOne({userId:decodedJwtToken.userId})
         if(!user){
             return res.status(400).json({message:"No user found", code_msg:"no_user_found"});
         }

@@ -83,10 +83,12 @@ module.exports.signUp = async (req, res) => {
     // sign the token
     const token = jwt.sign(
       {
-        user: savedUser.userId,
+        userId: savedUser.userId,
       },
-      process.env.TOKEN_SECRET
+      process.env.TOKEN_SECRET,
+      {expiresIn:'24h'}
     );
+    //console.log(token);
 
     // send the token in a HTTP-only cookie
     res
@@ -148,14 +150,11 @@ module.exports.signIn = async (req, res) => {
 
     const token = jwt.sign(
       {
-        user: existingUser.userId,
+        userId: existingUser.userId,
       },
-      process.env.TOKEN_SECRET
+      process.env.TOKEN_SECRET,
+      {expiresIn:'24h'},
     );
-      console.log(token);
-    //const userToken = await Token.findOneAndUpdate({userId:existingUser.userId, tokenType:'login'}, {token})
-    const token_db = await Token.findOne({userId:existingUser.userId, tokenType:'login'});
-    await token_db.updateOne({token:token});
 
     // send the token in a HTTP-only cookie
     res
@@ -165,7 +164,7 @@ module.exports.signIn = async (req, res) => {
         secure: true,
         sameSite: "none",
       })
-      .send({ message: "User successfully logged in !", code_msg: "user_logged", token, userId: existingUser.userId });
+      .json({ message: "User successfully logged in !", code_msg: "user_logged", token, userId: existingUser.userId });
 
   } catch (err) {
     console.error(err);
@@ -339,8 +338,9 @@ module.exports.forgotPassword = async (req, res) => {
 
 // changePassword
 module.exports.changePassword = async (req, res) => {
-  const { oldPassword, newPassword, newConfirmPassword } = req.body;
-  if (!oldPassword || !newPassword || !newConfirmPassword) {
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+  console.log(currentPassword, newPassword, confirmNewPassword);
+  if (!currentPassword || !newPassword || !confirmNewPassword) {
     return res.status(400).json({
       message: "Please enter all fields.", code_msg: "all_fields_miss", status: 'fail'
     })
@@ -352,7 +352,7 @@ module.exports.changePassword = async (req, res) => {
       status: 'fail',
     })
   }
-  if (newPassword !== newConfirmPassword) {
+  if (newPassword !== confirmNewPassword) {
     return res.status(400).json({
       message: "The passwords are not identical",
       code_msg: "different_passwords",
@@ -362,7 +362,7 @@ module.exports.changePassword = async (req, res) => {
   const userId = req.user;
   const user = await User.findById(userId);
   if (user) {
-    bcrypt.compare(oldPassword, user.passwordHash, (err, isMatch) => {
+    bcrypt.compare(currentPassword, user.passwordHash, (err, isMatch) => {
       if (err) {
         return res.status(500).json({
           status: 'fail',
@@ -395,34 +395,5 @@ module.exports.changePassword = async (req, res) => {
         })
       }
     })
-  }
-}
-
-// checkToken
-module.exports.checkToken = async (req, res) => {
-  try {
-    const {token} = req.body;
-    const token_database = await Token.findOne({token});
-    if(!token_database){
-      console.log("aucun token reconnu");
-      res.status(400).json({
-        status: 'invalid',
-        message: "Invalid token",
-        code_msg: "invalid_token",
-      });
-    }else{
-      console.log("token reconnu");
-      res.status(200).json({
-        status: 'initial',
-        message: "Valid token",
-        code_msg: "valid_token",
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      status: 'fail',
-      message: "Server error",
-      code_msg: "server_error",
-    });
   }
 }
