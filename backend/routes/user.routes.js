@@ -22,12 +22,9 @@ router.put("/api/resetPassword/:token", auth, authController.resetPassword);
 router.put("/api/forgotPassword", authController.forgotPassword);
 
 // changePassword
-router.put("/api/changePassword", auth ,authController.changePassword);
-
-// checkTokenValidity
-router.post("/api/checkToken", authController.checkToken)
+router.put("/api/changePassword/:token", auth ,authController.changePassword);
 
 // getUser
-router.post("/api/getUser",userController.getUser);
+router.post("/api/getUser", auth,userController.getUser);
 
 module.exports = router;
