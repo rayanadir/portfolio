@@ -8,13 +8,11 @@ const token = localStorage.getItem("token");
 const login =  (email,password) => {
     axios.post(BASE_URL+"/api/login", {email,password})
     .then(res => {
-        //console.log(res);
         store.dispatch(loginSuccess(res))
-        localStorage.setItem('token', JSON.stringify(res.data.token))
+        localStorage.setItem('token', res.data.token);
         return res;
     })
     .catch(err=> {
-        //console.log(err.response);
         store.dispatch(loginFail(err.response))
         return err;
     })
@@ -23,13 +21,11 @@ const login =  (email,password) => {
 const register =  (email,username,password,confirmPassword) => {
      axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
     .then(res => {
-        //console.log(res);
         store.dispatch(registerSuccess(res));
-        localStorage.setItem('token', JSON.stringify(res.data.token));
+        localStorage.setItem('token', res.data.token);
         return res;
     })
     .catch(err => {
-        //console.log(err.response);
         store.dispatch(registerFail(err.response));
         return err;
     })
@@ -52,7 +48,9 @@ const logout = () => {
 }
 
 const resetPassword = (token,newPassword,confirmNewPassword) => {
-    axios.put(BASE_URL+"/api/resetPassword/"+token,{newPassword,confirmNewPassword})
+    axios.put(BASE_URL+"/api/resetPassword/"+token,{newPassword,confirmNewPassword}, {
+        headers: {"Authorization":  `Bearer ${token}`}
+    })
     .then((res) => {
         console.log(res.data)
         store.dispatch(resetPasswordRes(res.data))
@@ -80,18 +78,19 @@ const forgotPassword = (email) => {
     })
 }
 
-const changePassword = (data) => {
-    axios.put(BASE_URL+"/api/changePassword",data, {
-        headers: {Authorization: `Bearer ${token}`}
+const changePassword = (token,currentPassword, newPassword, confirmNewPassword) => {
+    console.log(currentPassword, newPassword, confirmNewPassword);
+    axios.put(BASE_URL+"/api/changePassword/"+token,{currentPassword,newPassword, confirmNewPassword}, {
+        headers: {"Authorization": `Bearer ${token}`}
     })
     .then((res) => {
         console.log(res);
-        store.dispatch(changePasswordRes(res))
+        store.dispatch(changePasswordRes(res.data))
         return res;
     })
     .catch((err) => {
         console.log(err)
-        store.dispatch(changePasswordRes(err))
+        store.dispatch(changePasswordRes(err.response.data))
         return err;
     })
 }

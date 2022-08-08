@@ -4,13 +4,13 @@ import { store } from "../app/store"
 import { getUserAction } from "../slices/userSlice";
 
 const BASE_URL = "http://localhost:5000";
-//const token = localStorage.getItem("token");
 
 const getUser = (token) => {
-    axios.post(BASE_URL+"/api/getUser", {token})
+    axios.post(BASE_URL+"/api/getUser", {token}, {
+        headers: {"Authorization" : `Bearer ${token}`}
+    })
     .then((res) => {
-        console.log(res.data);
-        store.dispatch(getUserAction(res.data))
+        store.dispatch(getUserAction(res.data.user))
         return res.data;
     })
     .catch((err) => {
