@@ -29,7 +29,7 @@ const Auth = () => {
         if(token!==null){
             navigate('/profile');
         }
-    },[t,authType,navigate,token])
+    },[t,authType,navigate, token])
     const [loginForm, setLoginForm] = useState({
         email: "",
         password: ""
