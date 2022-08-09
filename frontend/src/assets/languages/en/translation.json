@@ -130,7 +130,7 @@
     "new_password":"New password",
     "confirm_new_password":"Confirm new password",
     "change":"Change",
-    "back":"Back to authentication page",
+    "navigate_profile":"Profile access",
     "invalid_link":"Invalid link or has expired, sorry.",
     "welcome_username":"Welcome {{username}} !",
     "logout":"Logout",
