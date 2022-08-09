@@ -62,6 +62,11 @@ const authSlice = createSlice({
         changePasswordRes: (state,action) => {
             state.change_password=action.payload;
         },
+        setInitialPasswordState: (state) => {
+            state.change_password.status='initial';
+            state.change_password.code_msg='';
+            state.change_password.message="";
+        },
         logoutAction: (state)=> {
             state.token=null;
             localStorage.removeItem('token')
@@ -69,6 +74,6 @@ const authSlice = createSlice({
     }
 })
 
-export const { loginSuccess, loginFail, registerSuccess, registerFail, resetPasswordRes, forgotPasswordRes,changePasswordRes, logoutAction } = authSlice.actions;
+export const { loginSuccess, loginFail, registerSuccess, registerFail, resetPasswordRes, forgotPasswordRes,changePasswordRes, logoutAction, setInitialPasswordState } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
