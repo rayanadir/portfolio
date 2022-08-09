@@ -2,6 +2,7 @@ const router = require("express").Router();
 const authController = require("../controllers/auth.controller.js");
 const userController = require('../controllers/user.controller.js');
 const auth = require("../middleware/auth.middleware")
+const resetMiddleware = require("../middleware/reset.middleware")
 
 // register
 router.post("/api/register", authController.signUp);
@@ -16,7 +17,7 @@ router.get("/api/logout", authController.logout);
 router.get("/api/loggedIn", authController.loggedIn);
 
 // resetPassword
-router.put("/api/resetPassword/:token", auth, authController.resetPassword);
+router.put("/api/resetPassword/:token", resetMiddleware, authController.resetPassword);
 
 // forgotPassword
 router.put("/api/forgotPassword", authController.forgotPassword);
@@ -26,5 +27,8 @@ router.put("/api/changePassword/:token", auth ,authController.changePassword);
 
 // getUser
 router.post("/api/getUser", auth,userController.getUser);
+
+// checkTokenValidity
+router.post("/api/checkToken", resetMiddleware,authController.checkToken)
 
 module.exports = router;
