@@ -48,7 +48,7 @@ const logout = () => {
 }
 
 const resetPassword = (token,newPassword,confirmNewPassword) => {
-    axios.put(BASE_URL+"/api/resetPassword/"+token,{newPassword,confirmNewPassword}, {
+    axios.put(BASE_URL+"/api/resetPassword/"+token,{token,newPassword,confirmNewPassword}, {
         headers: {"Authorization":  `Bearer ${token}`}
     })
     .then((res) => {
@@ -78,9 +78,8 @@ const forgotPassword = (email) => {
     })
 }
 
-const changePassword = (token,currentPassword, newPassword, confirmNewPassword) => {
-    console.log(currentPassword, newPassword, confirmNewPassword);
-    axios.put(BASE_URL+"/api/changePassword/"+token,{currentPassword,newPassword, confirmNewPassword}, {
+const changePassword = (token,currentPassword, newPassword, confirmNewPassword, userId) => {
+    axios.put(BASE_URL+"/api/changePassword/"+token,{currentPassword,newPassword, confirmNewPassword, userId}, {
         headers: {"Authorization": `Bearer ${token}`}
     })
     .then((res) => {
