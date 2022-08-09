@@ -201,8 +201,7 @@ module.exports.loggedIn = (req, res) => {
 // resetPassword
 module.exports.resetPassword = async (req, res) => {
   try {
-    const { newPassword, confirmNewPassword } = req.body;
-    const token = req.params.token;
+    const { token,newPassword, confirmNewPassword } = req.body;
     if (!newPassword) {
       return res.status(400)
         .json({
@@ -338,7 +337,7 @@ module.exports.forgotPassword = async (req, res) => {
 
 // changePassword
 module.exports.changePassword = async (req, res) => {
-  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+  const { currentPassword, newPassword, confirmNewPassword, userId } = req.body;
   console.log(currentPassword, newPassword, confirmNewPassword);
   if (!currentPassword || !newPassword || !confirmNewPassword) {
     return res.status(400).json({
@@ -359,8 +358,7 @@ module.exports.changePassword = async (req, res) => {
       status: 'fail',
     })
   }
-  const userId = req.user;
-  const user = await User.findById(userId);
+  const user = await User.findOne({userId});
   if (user) {
     bcrypt.compare(currentPassword, user.passwordHash, (err, isMatch) => {
       if (err) {
@@ -397,3 +395,32 @@ module.exports.changePassword = async (req, res) => {
     })
   }
 }
+
+// checkToken
+module.exports.checkToken = async (req, res) => {
+  try {
+    const {token} = req.body;
+    const token_database = await Token.findOne({token});
+    if(!token_database){
+      console.log("aucun token reconnu");
+      res.status(400).json({
+        status: 'invalid',
+        message: "Invalid token",
+        code_msg: "invalid_token",
+      });
+    }else{
+      console.log("token reconnu");
+      res.status(200).json({
+        status: 'initial',
+        message: "Valid token",
+        code_msg: "valid_token",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: "Server error",
+      code_msg: "server_error",
+    });
+  }
+} 
