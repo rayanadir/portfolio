@@ -131,7 +131,7 @@ const Reset = () => {
                             : resetState.status === 'initial' ? null : null
                         }
 
-                        {resetState.status === 'success' ? <Button variant="text" style={{ textTransform: "none" }}>{t('back')}</Button> : null}
+                        {resetState.status === 'success' ? <Button variant="text" onClick={() => {navigate('/authentication')}} style={{ textTransform: "none" }}>{t('navigate_profile')}</Button> : null}
                         </form>
                         : isValidToken ==="invalid_token" ? 
                         <div className="reset__invalid">
