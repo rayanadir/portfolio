@@ -14,8 +14,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import auth_service from '../../services/auth.service';
+import { setInitialPasswordState } from '../../slices/authSlice';
 import { Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
+import ProfileContact from '../../containers/profileContact/ProfileContact';
 
 const Profile = () => {
     const { t } = useTranslation();
@@ -33,7 +35,7 @@ const Profile = () => {
     const { toggleTheme, theme } = useContext(ThemeContext);
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
     const changePasswordState = useSelector((state) => state.auth.change_password);
-
+    const emptyFields = () => {setCurrentPassword(''); setNewPassword(''); setConfirmNewPassword(''); }
     useEffect(() => {
         if (token === null || !token) {
             navigate('/authentication')
@@ -48,8 +50,9 @@ const Profile = () => {
             })
             .catch((err) => {
                 console.log(err);
-            })
-    }, [navigate, token])
+            });
+        if(changePasswordState.status ==='success') emptyFields()
+    }, [navigate, token, changePasswordState.status])
 
     const formatDate = () => {
         moment.locale(localStorage.getItem('lang'))
@@ -61,7 +64,6 @@ const Profile = () => {
         if (field === "newPassword") showNewPassword(!newPasswordField)
         if (field === "confirmNewPassword") showConfirmPassword(!confirmNewPasswordField)
     }
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
@@ -80,12 +82,7 @@ const Profile = () => {
 
                                 <article className='profile__profile'>
                                     <div className="profile__profile__contact">
-                                        {
-                                            user.isAdmin ?
-                                                ""
-                                                : user.isAdmin === false ?
-                                                    ""
-                                                    : null}
+                                        <ProfileContact user={user}/>
                                     </div>
                                     <div className="profile__profile__settings">
                                         <h1 className="profile__profile__settings__title">{t('settings')}</h1>
@@ -105,7 +102,7 @@ const Profile = () => {
 
                                         {
                                             editPassword ?
-                                                <form onSubmit={(e) => {e.preventDefault();auth_service.changePassword(token,currentPassword, newPassword, confirmNewPassword) }} className="profile__profile__settings__edit">
+                                                <form onSubmit={(e) => {e.preventDefault();auth_service.changePassword(token,currentPassword, newPassword, confirmNewPassword,user.userId) }} className="profile__profile__settings__edit">
 
                                                     <h3 className="profile__profile__settings__edit__title">
                                                         {t('edit_password')}
@@ -184,7 +181,7 @@ const Profile = () => {
                                                     />
                                                     <div className="profile__profile__settings__edit__buttons">
                                                         <Button type="submit" style={{ textTransform: "none", width: "50%" }}>{t('edit')}</Button>
-                                                        <Button onClick={() => { setEditPassword(!editPassword) }} style={{ textTransform: "none", width: "50%" }}>{t('cancel')}</Button>
+                                                        <Button onClick={() => { setEditPassword(!editPassword); dispatch(setInitialPasswordState()); emptyFields() }} style={{ textTransform: "none", width: "50%" }}>{t('cancel')}</Button>
                                                     </div>
 
                                                     {
