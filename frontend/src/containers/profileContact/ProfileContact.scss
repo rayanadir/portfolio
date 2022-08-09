@@ -1,0 +1,55 @@
+.profileContact{
+    &__lastMessages{
+        margin-top: 0;
+        font-weight: 100;
+    }
+    &__noMessages{
+        font-weight: 100;
+    }
+    &__list{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        padding: 0;
+        width: 300px;
+        &__element{
+            list-style-type: none;
+            cursor: pointer;
+            &__name-time{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                &__name,&__time{
+                    margin: 0;
+                    font-weight: 100;
+                    font-size: 18px;
+                }
+            }
+            &__text{
+                font-weight: 100;
+                margin-top: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+    &__messages{
+        display: flex;
+        flex-direction: column;
+        &__header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            &__arrow{
+                width: 32px;
+                height: 32px;
+                cursor: pointer;
+            }
+            &__username{
+                font-weight: 100;
+                margin: 0;
+            }
+        }
+    }
+}
