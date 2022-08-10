@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { translateProjects } from './slices/projectsSlice';
 import { ThemeProvider } from './context/ThemeContext';
 import Reset from './pages/reset/Reset';
+import Settings from './pages/settings/Settings';
 
 const App = () => {
   const { t } = useTranslation();
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/authentication' element={<Auth />} />
             <Route path='/reset/:token' element={<Reset />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/settings' element={<Settings />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>

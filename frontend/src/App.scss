@@ -12,7 +12,7 @@
                 text-decoration: none;
             }
         }
-        #back_home,&__logoutIcon{
+        #back_home,&__logoutIcon,&__settings{
             filter: invert(0);
         }
         &__link{
@@ -32,7 +32,18 @@
             color:black
         }
     }
-    #prev,#next,#check,#uncheck,#responsive,#previous_project,#next_project,#error_icon,#information,#messages_back{
+    #prev,
+    #next,
+    #check,
+    #uncheck,
+    #responsive,
+    #previous_project,
+    #next_project,
+    #error_icon,
+    #information,
+    #messages_back,
+    #send,
+    #settings{
         filter: invert(0);
     }
     
@@ -73,7 +84,7 @@
         &__link{
             color:white
         }
-        &__logoutIcon{
+        &__logoutIcon,&__settings{
             filter: invert(1);
         }
     }
@@ -90,7 +101,18 @@
             color:white
         }
     }
-    #prev,#next,#check,#uncheck,#responsive,#previous_project,#next_project,#error_icon,#information,#messages_back{
+    #prev,
+    #next,
+    #check,
+    #uncheck,
+    #responsive,
+    #previous_project,
+    #next_project,
+    #error_icon,
+    #information,
+    #messages_back,
+    #send,
+    #settings{
         filter: invert(1);
     }
     
@@ -127,7 +149,7 @@
             filter: invert(0);
         }
     }
-    #back_home,#logout{
+    #back_home,#logout,#settings{
         filter: invert(0);
     }
 }
@@ -154,7 +176,7 @@
             filter: invert(1);
         }
     }
-    #back_home,#logout{
+    #back_home,#logout,#settings{
         filter: invert(1);
     }
 }
