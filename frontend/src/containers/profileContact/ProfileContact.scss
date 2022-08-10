@@ -1,31 +1,32 @@
-.profileContact{
-    &__lastMessages{
+.profileContact {
+    &__lastMessages {
         margin-top: 0;
         font-weight: 100;
     }
-    &__noMessages{
+    &__noMessages {
         font-weight: 100;
     }
-    &__list{
+    &__list {
         display: flex;
         flex-direction: column;
         row-gap: 1rem;
         padding: 0;
-        width: 300px;
-        &__element{
+        &__element {
             list-style-type: none;
             cursor: pointer;
-            &__name-time{
+            &__name-time {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                &__name,&__time{
+
+                &__name,
+                &__time {
                     margin: 0;
                     font-weight: 100;
                     font-size: 18px;
                 }
             }
-            &__text{
+            &__text {
                 font-weight: 100;
                 margin-top: 0;
                 text-overflow: ellipsis;
@@ -34,21 +35,102 @@
             }
         }
     }
-    &__messages{
+    &__messages {
         display: flex;
         flex-direction: column;
-        &__header{
+        &__header {
             display: flex;
             flex-direction: row;
             align-items: center;
-            &__arrow{
+            &__arrow {
                 width: 32px;
                 height: 32px;
                 cursor: pointer;
             }
-            &__username{
+            &__username {
                 font-weight: 100;
                 margin: 0;
+                font-size: 24px;
+            }
+        }
+        &__conversation {
+            flex: 1;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        &__footer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &__input{
+                background-color: white;
+                border-radius: 5px;
+            }
+            &__send{
+                width: 32px;
+                height: 32px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 424px){
+    .profileContact{
+        &__messages{
+            &__footer{
+                &__input{
+                    width: 80%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .profileContact{
+        &__messages{
+            &__footer{
+                &__input{
+                    width: 85%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .profileContact{
+        &__messages{
+            &__footer{
+                &__input{
+                    width: 85%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+    .profileContact{
+        &__messages{
+            &__footer{
+                &__input{
+                    width: 90%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .profileContact{
+        &__messages{
+            &__footer{
+                &__input{
+                    width: 90%;
+                }
             }
         }
     }
