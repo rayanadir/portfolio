@@ -2,9 +2,12 @@ import React, { useEffect } from 'react'
 import '../background/Background.scss';
 import background2 from '../../img/main-background2.jpg';
 import { useTranslation } from "react-i18next";
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const Background = () => {
+    const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
+    const navigate = useNavigate()
     useEffect(() => {
         const windowWidth = window.innerWidth; 
             const setBlur = () => {
@@ -51,9 +54,7 @@ const Background = () => {
                     <button onClick={() => { 
                         document.querySelector('.projects').scrollIntoView({behavior:"smooth"}) 
                         }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
-                    <Link to="/authentication">
-                        <button className="background__welcome__button" id="contact_button">{t('contact')}</button>
-                    </Link>
+                    <button onClick={() => {navigate(token!==null && token ? "/profile" : "/authentication")}} className="background__welcome__button" id="contact_button">{t('contact')}</button>
                 </div>
             </div>
             <img id='home-background' src={background2} alt="home-background" className='background__image' />
