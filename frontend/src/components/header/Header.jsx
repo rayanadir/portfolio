@@ -23,10 +23,11 @@ import { changeSelectedLanguage } from '../../slices/languagesSlice';
 import { ThemeContext } from '../../context/ThemeContext';
 
 import SideMenu from './SideMenu';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 import arrow from "../../img/arrow.svg"
 import logout from "../../img/logout.svg";
+import settings from "../../img/settings.svg"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -88,6 +89,7 @@ const Header = () => {
   let language = useSelector((state) => state.languages.language)
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const location = useLocation();
   const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
 
@@ -128,11 +130,9 @@ const Header = () => {
 
         <nav className='header__nav'>
           <ul className='header__nav_list'>
-            <Link to="/authentication" className='header__link'>
-              <li className='header__nav_element'>
+              <li className='header__nav_element' onClick={() => {navigate(token!==null  && token ? "/profile" : "/authentication")}}>
                 {t('contact')}
               </li>
-            </Link>
 
 
             <Box>
@@ -163,9 +163,17 @@ const Header = () => {
             </li>
 
             {
+              token !==null && token ? 
+              <li className="header__nav_element">
+                <img src={settings} onClick={() => {navigate("/settings")}} alt="settings" id="settings" className='header__icon'/>
+              </li>
+              : null
+            }
+
+            {
               token !== null && token ?
                 <li className='header__nav_element'>
-                  <img src={logout} onClick={handleClickOpen} alt="logout" id="logout" className='header__logoutIcon' />
+                  <img src={logout} onClick={handleClickOpen} alt="logout" id="logout" className='header__icon' />
                 </li>
                 : null
             }

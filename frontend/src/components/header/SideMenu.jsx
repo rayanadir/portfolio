@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 import menu from "../../img/hamburger-menu.svg";
 
 import logout from "../../img/logout.svg";
+import settings from "../../img/settings.svg"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -175,7 +176,6 @@ export default function SideMenu() {
                 <li className=' hover_none'>
                     <label htmlFor="theme">{theme === "dark" ? t('dark_theme') : t('light_theme')}</label>
                     <MaterialUISwitch sx={{ m: 0 }} checked={theme === "dark" ? true : false} onChange={toggleTheme} />
-
                 </li>
 
                 <li className="header__nav_element" onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
@@ -184,12 +184,22 @@ export default function SideMenu() {
 
                 {
                     token !== null && token ?
+                    <li className='header__nav_element' onClick={handleClickOpen}>
+                        <p style={{margin:"0", wordBreak:"break-word"}}>{t('settings')}</p>
+                        <img src={settings}  alt="settings" id="settings" className='header__settings header__icon' />
+                    </li>
+                    : null                    
+                }
+                
+                {
+                    token !== null && token ?
                         <li className='header__nav_element' onClick={handleClickOpen}>
-                            <p style={{margin:"0"}}>{t('logout')}</p>
-                            <img src={logout}  alt="logout" id="logout" className='header__logoutIcon' />
+                            <p style={{margin:"0", wordBreak:"break-word"}}>{t('logout')}</p>
+                            <img src={logout}  alt="logout" id="logout" className='header__logoutIcon header__icon' />
                         </li>
                         : null
                 }
+
                 <Dialog
                     open={open}
                     onClose={handleClose}
