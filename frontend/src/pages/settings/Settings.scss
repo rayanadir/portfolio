@@ -1,0 +1,93 @@
+.settings {
+    min-height: 150vh;
+    &__wrapper{
+        margin: auto;
+    }
+    &__title {
+        font-weight: 100;
+        margin-top: 0;
+    }
+
+    &__edit {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: auto;
+        padding-top: 2rem;
+        width: 370px;
+        &__label {
+            font-weight: 100;
+            margin: 5px 0;
+        }
+
+        &__title {
+            font-weight: 100;
+            margin: 15px 0;
+        }
+
+        &__buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+    }
+    &__input {
+        background-color: white;
+        border-radius: 5px;
+        width: 370px;
+    }
+}
+
+
+@media (max-width: 424px) {
+    .settings{
+        &__edit{
+            width: 100%;
+        }
+        &__wrapper{
+            width: 95%;
+        }
+        &__input{
+            width: 100%;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px) {
+    .settings{
+        &__edit{
+            width: 100%;
+        }
+        &__wrapper{
+            width: 90%;
+        }
+        &__input{
+            width: 100%;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px) {
+    .settings{
+        &__wrapper{
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .settings {
+        &__wrapper{
+            width: 80%;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .settings{
+        &__wrapper{
+            width: 75%;
+        }
+    }
+}
