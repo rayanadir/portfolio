@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home/Home';
 import ProjectPage from './pages/projectPage/ProjectPage';
 import Auth from './pages/auth/Auth';
+import Conversation from './pages/conversation/Conversation'
 import Profile from './pages/profile/Profile';
 import Error from './pages/error/Error';
 import Header from './components/header/Header';
@@ -37,6 +38,7 @@ const App = () => {
             <Route path='/reset/:token' element={<Reset />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='/conversation/:id' element={<Conversation />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
