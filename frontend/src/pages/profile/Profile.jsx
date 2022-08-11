@@ -31,6 +31,8 @@ const Profile = () => {
             .catch((err) => {
                 console.log(err);
             });
+            document.querySelector('.header').style.display="block"
+            document.querySelector('.footer').style.display="block"
     }, [navigate, token, changePasswordState.status])
 
     const formatDate = () => {
