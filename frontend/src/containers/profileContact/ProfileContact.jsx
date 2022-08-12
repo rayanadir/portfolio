@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../profileContact/ProfileContact.scss';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import conversation_service from '../../services/conversation.service';
+import axios from "axios";
 
 
 const ProfileContact = ({ user }) => {
     const { t } = useTranslation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
+    useEffect(() => {
+        //conversation_service.getConversations()
+        axios.post("http://localhost:5000/api/conversations", { token }, {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },[token])
     return (
         <article className='profileContact'>
             {
