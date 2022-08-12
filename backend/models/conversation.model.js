@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const messageSchema = new mongoose.Schema({
  message: {type:String, required:true},
  userId: {type:String, required:true},
- date: {type: Date, required: true}   
+ date: {type: Date, required: true},
+ id: {type: String, required:true}   
 },
 {
     timestamps:true,
@@ -11,7 +12,7 @@ const messageSchema = new mongoose.Schema({
 
 const conversationSchema = new mongoose.Schema({
     users: { type: Array, required: true},
-    id: {type: new mongoose.Types.ObjectId().toHexString(), required:true},
+    id: {type: String, required:true},
     messages: [messageSchema]
 },
 {
