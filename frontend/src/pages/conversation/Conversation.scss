@@ -21,7 +21,7 @@
     }
     &__conversation {
         flex: 1;
-        padding: 1rem 0;
+        padding: 1rem;
         overflow-x: auto;
     }
     &__footer{
@@ -30,6 +30,8 @@
         justify-content: space-between;
         padding: 1rem;
         border-top: 1px solid;
+        position: sticky;
+        bottom: 0;
         &__input{
             background-color: white;
             border-radius: 5px;
@@ -38,6 +40,64 @@
             width: 32px;
             height: 32px;
             cursor: pointer;
+        }
+    }
+}
+
+@media (max-width: 424px){
+    .conversation{
+        &__footer{
+            &__input{
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px){
+    .conversation{
+        &__footer{
+            &__input{
+                width: 85%;
+            }
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px){
+    .conversation{
+        &__footer{
+            &__input{
+                width: 85%;
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px){
+    .conversation{
+        &__header,&__conversation,&__footer{
+            width: 60%;
+            margin: auto;
+        }
+        &__footer{
+            &__input{
+                width: 90%;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .conversation{
+        &__header,&__conversation,&__footer{
+            width: 50%;
+            margin: auto;
+        }
+        &__footer{
+            &__input{
+                width: 90%;
+            }
         }
     }
 }
