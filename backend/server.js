@@ -15,7 +15,9 @@ app.use(cors(corsOptions));
 //const dbo = require("./config/db");
 require("./config/db");
 app.use(express.json());
+// call only once
 app.use(require("./routes/user.routes"))
+//app.use(require("./routes/conversation.routes"))
  
 app.listen(port, () => {
   // perform a database connection when server starts
