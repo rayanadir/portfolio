@@ -1,4 +1,6 @@
 import axios from "axios";
+import {store} from "../app/store";
+import { getConversationsAction } from "../slices/userSlice";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -39,10 +41,11 @@ const getConversation = (id, userId) => {
     }) 
 }
 
-const getConversations = () => {
-    axios.post(BASE_URL+"/api/conversations")
+const getConversations = (userId) => {
+    axios.post(BASE_URL+"/api/conversations", {userId})
     .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        store.dispatch(getConversationsAction(res.data));
         return res;
     })
     .catch((err) => {
@@ -51,6 +54,19 @@ const getConversations = () => {
     }) 
 }
 
-const conversation_service = { newConversation, sendMessage, getConversation, getConversations }
+const checkHasConversation = (userId) => {
+    axios.post(BASE_URL+"/api/hasConversation", {userId})
+    .then((res) => {
+        console.log(res);
+        store.dispatch(getConversationsAction(res.data));
+        return res;
+    })
+    .catch((err) => {
+        console.log(err);
+        return err;
+    }) 
+}
+
+const conversation_service = { newConversation, sendMessage, getConversation, getConversations, checkHasConversation }
 
 export default conversation_service;

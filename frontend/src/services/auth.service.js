@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordRes, forgotPasswordRes, resetPasswordRes } from "../slices/authSlice";
+import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordRes, forgotPasswordRes, resetPasswordRes, logoutAction } from "../slices/authSlice";
 import { store } from "../app/store"
 
 const BASE_URL = "http://localhost:5000";
@@ -43,8 +43,14 @@ const loggedIn = () => {
 
 const logout = () => {
     axios.post(BASE_URL+"/api/logout")
-    .then(res=> {return res})
-    .catch(err => { return err})
+    .then(res=> {
+        console.log(res.data);
+        store.dispatch(logoutAction())
+        return res
+    })
+    .catch(err => { 
+        return err
+    })
 }
 
 const resetPassword = (token,newPassword,confirmNewPassword) => {
