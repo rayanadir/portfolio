@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const userState={
     userData:{},
+    conversationsData: {},
 }
 
 const userSlice = createSlice({
@@ -10,10 +11,13 @@ const userSlice = createSlice({
     reducers : {
         getUserAction : (state,action) => {
             state.userData=action.payload
+        },
+        getConversationsAction: (state,action) => {
+            state.conversationsData= action.payload;
         }
     }
 })
 
-export const {getUserAction} = userSlice.actions
+export const {getUserAction, getConversationsAction } = userSlice.actions
 
 export const userReducer = userSlice.reducer
