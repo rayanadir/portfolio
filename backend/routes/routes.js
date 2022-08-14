@@ -13,7 +13,7 @@ router.post("/api/register", authController.signUp);
 router.post("/api/login", authController.signIn);
 
 // logout
-router.get("/api/logout", authController.logout);
+router.post("/api/logout", authController.logout);
 
 // loggedIn
 router.get("/api/loggedIn", authController.loggedIn);
@@ -33,18 +33,22 @@ router.post("/api/getUser", auth,userController.getUser);
 // checkTokenValidity
 router.post("/api/checkToken", resetMiddleware,authController.checkToken)
 
+// get admin username
+router.post("/api/adminUsername", conversationController.getAdmin);
+
 // start new conversation
-router.post("/api/newConversation", conversation,conversationController.newConversation);
+router.post("/api/newConversation",conversationController.newConversation);
 
 // send message
-router.post("/api/sendMessage", conversation,conversationController.sendMessage);
+router.post("/api/sendMessage", conversationController.sendMessage);
 
 // get single conversation
-router.post("/api/conversation/:id", conversation,conversationController.getSingleConversation);
+router.post("/api/conversation/:id", conversationController.getSingleConversation);
 
 // get all conversations
-router.post("/api/conversations", conversation,conversationController.getAllConversations);
+router.post("/api/conversations",conversationController.getAllConversations);
 
-
+// has already started a conversation ?
+router.post("/api/hasConversation", conversationController.hasConversation);
 
 module.exports = router;
