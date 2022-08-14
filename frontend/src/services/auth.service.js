@@ -3,7 +3,6 @@ import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordR
 import { store } from "../app/store"
 
 const BASE_URL = "http://localhost:5000";
-const token = localStorage.getItem("token");
 
 const login =  (email,password) => {
     axios.post(BASE_URL+"/api/login", {email,password})
