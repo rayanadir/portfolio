@@ -174,12 +174,17 @@ module.exports.signIn = async (req, res) => {
 
 // logout
 module.exports.logout = (req, res) => {
-  res
+  return res
     .cookie("token", "", {
       httpOnly: true,
       expires: new Date(0),
       secure: true,
       sameSite: "none",
+    })
+    .status(200)
+    .json({
+      message:"Logout successfully",
+      code_msg:"logout_success"
     })
     .send();
 }
