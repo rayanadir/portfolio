@@ -39,6 +39,7 @@ const App = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/conversation/:id' element={<Conversation />} />
+            <Route path='/conversation/new' element={<Conversation />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
