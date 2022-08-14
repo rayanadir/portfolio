@@ -1,6 +1,6 @@
 import axios from "axios";
 import {store} from "../app/store";
-import { getConversationsAction } from "../slices/userSlice";
+import { getConversationsAction, getConversationAction, getAdminUsernameAction } from "../slices/userSlice";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -33,6 +33,7 @@ const getConversation = (id, userId) => {
     axios.post(BASE_URL+"/api/conversation", {id, userId})
     .then((res) => {
         console.log(res);
+        store.dispatch(getConversationAction(res.data))
         return res;
     })
     .catch((err) => {
@@ -57,8 +58,8 @@ const getConversations = (userId) => {
 const checkHasConversation = (userId) => {
     axios.post(BASE_URL+"/api/hasConversation", {userId})
     .then((res) => {
-        console.log(res);
-        store.dispatch(getConversationsAction(res.data));
+        console.log(res)
+        store.dispatch(getConversationAction(res.data));
         return res;
     })
     .catch((err) => {
@@ -67,6 +68,16 @@ const checkHasConversation = (userId) => {
     }) 
 }
 
-const conversation_service = { newConversation, sendMessage, getConversation, getConversations, checkHasConversation }
+const getAdminUsername = () => {
+    axios.post(BASE_URL+"/api/adminUsername")
+    .then((res) => {
+        store.dispatch(getAdminUsernameAction(res.data.admin_username))
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+const conversation_service = { newConversation, sendMessage, getConversation, getConversations, checkHasConversation, getAdminUsername }
 
 export default conversation_service;
