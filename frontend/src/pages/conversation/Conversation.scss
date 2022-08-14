@@ -6,7 +6,6 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        border-bottom: 1px solid;
         padding: 1rem;
         &__arrow {
             width: 32px;
@@ -23,13 +22,31 @@
         flex: 1;
         padding: 1rem;
         overflow-x: auto;
+        &__wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &__container{
+                display:flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 3rem;
+                row-gap: 1rem;
+                &__welcome,&__send{
+                    font-weight: 100;
+                    margin: 0;
+                }
+                &__send{
+                    color: grey;
+                }
+            }
+        }
     }
     &__footer{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 1rem;
-        border-top: 1px solid;
         position: sticky;
         bottom: 0;
         &__input{
@@ -44,8 +61,18 @@
     }
 }
 
+#header_wrapper{
+    justify-content: flex-start;
+}
+
 @media (max-width: 424px){
     .conversation{
+        &__conversation{
+            &__wrapper{
+                width: 95%;
+                margin: auto;
+            }
+        }
         &__footer{
             &__input{
                 width: 80%;
@@ -56,6 +83,12 @@
 
 @media (min-width : 425px) and (max-width: 767px){
     .conversation{
+        &__conversation{
+            &__wrapper{
+                width: 90%;
+                margin: auto;
+            }
+        }
         &__footer{
             &__input{
                 width: 85%;
@@ -66,6 +99,12 @@
 
 @media (min-width : 768px) and (max-width: 1023px){
     .conversation{
+        &__conversation{
+            &__wrapper{
+                width: 80%;
+                margin: auto;
+            }
+        }
         &__footer{
             &__input{
                 width: 85%;
@@ -76,9 +115,11 @@
 
 @media (min-width: 1024px) and (max-width: 1439px){
     .conversation{
-        &__header,&__conversation,&__footer{
-            width: 60%;
-            margin: auto;
+        &__conversation{
+            &__wrapper{
+                width: 60%;
+                margin: auto;
+            }
         }
         &__footer{
             &__input{
@@ -90,9 +131,11 @@
 
 @media (min-width: 1440px){
     .conversation{
-        &__header,&__conversation,&__footer{
-            width: 50%;
-            margin: auto;
+        &__conversation{
+            &__wrapper{
+                width: 50%;
+                margin: auto;
+            }
         }
         &__footer{
             &__input{
