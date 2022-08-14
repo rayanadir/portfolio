@@ -15,7 +15,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import List from '@mui/material/List';
 import { ThemeContext } from '../../context/ThemeContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import menu from "../../img/hamburger-menu.svg";
 
@@ -28,7 +28,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-import { logoutAction } from '../../slices/authSlice';
+import auth_service from '../../services/auth.service.js'
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -106,6 +106,7 @@ export default function SideMenu() {
     let language = useSelector((state) => state.languages.language)
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -184,7 +185,7 @@ export default function SideMenu() {
 
                 {
                     token !== null && token ?
-                    <li className='header__nav_element' onClick={handleClickOpen}>
+                    <li className='header__nav_element' onClick={()=>{toggleDrawer('left', false);navigate('/settings')}}>
                         <p style={{margin:"0", wordBreak:"break-word"}}>{t('settings')}</p>
                         <img src={settings}  alt="settings" id="settings" className='header__settings header__icon' />
                     </li>
@@ -216,7 +217,7 @@ export default function SideMenu() {
                     </DialogContent>
                     <DialogActions>
                         <Button style={{textTransform:"none"}} onClick={handleClose}>{t('cancel')}</Button>
-                        <Button style={{textTransform:"none"}} onClick={()=> {dispatch(logoutAction());handleClose()} }>{t('logout')}</Button>
+                        <Button style={{textTransform:"none"}} onClick={()=> {toggleDrawer('left', false);handleClose();auth_service.logout()} }>{t('logout')}</Button>
                     </DialogActions>
                 </Dialog>
             </List>

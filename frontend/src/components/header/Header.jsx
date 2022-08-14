@@ -35,7 +35,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-import { logoutAction } from '../../slices/authSlice';
+import auth_service from '../../services/auth.service.js'
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -195,7 +195,7 @@ const Header = () => {
             </DialogContent>
             <DialogActions>
               <Button style={{textTransform:"none"}} onClick={handleClose}>{t('cancel')}</Button>
-              <Button style={{textTransform:"none"}} onClick={()=>{dispatch(logoutAction());handleClose()}}>{t('logout')}</Button>
+              <Button style={{textTransform:"none"}} onClick={()=>{handleClose(); auth_service.logout()}}>{t('logout')}</Button>
             </DialogActions>
           </Dialog>
         </nav>
