@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import conversation_service from "../../services/conversation.service";
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { ThemeContext } from '../../context/ThemeContext';
 import axios from "axios";
 import moment from 'moment/min/moment-with-locales';
@@ -41,8 +41,7 @@ const useWindowDimensions = () => {
 const Conversation = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const dispatch = useDispatch()
-    let { id } = useParams() || null;
+    let { id } = useParams() || undefined;
     var conversationHeight;
     const { height, width } = useWindowDimensions();
     const [user, setUser] = useState(null);
@@ -51,8 +50,8 @@ const Conversation = () => {
     const { toggleTheme, theme } = useContext(ThemeContext);
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
     const conversation = useSelector((state) =>  state.user.conversationData)
-    //console.log(user)
     const adminUser = useSelector((state) => state.user.adminUsername)
+    const messageState = useSelector((state) => state.user.messageState);
     const hideHeaderFooter = () => {
         document.querySelector('.header').style.display = "none"
         document.querySelector('.footer').style.display = "none"
@@ -62,7 +61,6 @@ const Conversation = () => {
         document.querySelector('.header').style.display = "block"
         document.querySelector('.footer').style.display = "block"
     }
-    conversation_service.getAdminUsername()
 
     useEffect(() => {
 
@@ -74,18 +72,13 @@ const Conversation = () => {
         })
             .then((res) => {
                 setUser(res.data.user)
+                    conversation_service.getAdminUsername()
+                    conversation_service.checkHasConversation(res.data.user.userId)
             })
             .catch((err) => {
                 console.log(err);
             });
         
-        conversation_service.getAdminUsername()
-        
-        /*if(user!==null && user){
-            conversation_service.checkHasConversation(user.userId)
-        }*/
-        
-
         document.body.style.overflow = "hidden";
         if (width >= 768) {
             hideHeaderFooter()
@@ -134,27 +127,7 @@ const Conversation = () => {
                                 </header>
 
                                 <div className="conversation__conversation" style={{ height: `${conversationHeight}px` }}>
-                                    {/*<Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={true} timestamp={new Date().toISOString()} />
-                                    <Message message="Bonjour" isAuthor={false} timestamp={new Date().toISOString()} />*/}
-
-
-                                    <div className="conversation__conversation__wrapper">
+                                    <div className="conversation__conversation__wrapper" id="chat_section">
                                         {
                                             conversation && conversation.code_msg === "no_conversation_started" ?
                                                 <div className="conversation__conversation__wrapper__container">
@@ -165,10 +138,11 @@ const Conversation = () => {
                                             <>
                                                 {
                                                     conversation.conversation.messages.map((conversation) => {
-                                                    return <Message 
+                                                        return <Message 
                                                                 message={conversation.message}
                                                                 isAuthor={conversation.userId === user.userId ? true : false}
                                                                 timestamp={formatDate(conversation.date)}
+                                                                key={conversation.id}
                                                                 />
                                                     })
                                                 }
@@ -187,13 +161,18 @@ const Conversation = () => {
                                         className='conversation__footer__input'
                                         size='small'
                                         onChange={(e) => { setMessage(e.target.value) }}
+                                        value={message}
                                     />
                                     <img onClick={() => { 
                                         if(conversation && conversation.code_msg === "no_conversation_started"){
-                                            conversation_service.sendMessage(message, user.userId, id=null)
+                                            conversation_service.sendMessage(message, user.userId, id=undefined)
+                                            if(messageState.code_msg==='first_message_sent'){
+                                                navigate(`/conversation/${messageState.id}`)
+                                            }
                                         }else if(conversation && conversation.code_msg === "conversation_already_started"){
                                             conversation_service.sendMessage(message, user.userId, id)
                                         }
+                                        setMessage('')
                                     }} 
                                     src={send} alt="send" id="send" className='conversation__footer__send' />
                                     </div>
