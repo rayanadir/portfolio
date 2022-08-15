@@ -62,7 +62,7 @@ module.exports.newConversation = async (req, res) => {
 module.exports.sendMessage = async (req, res) => {
     try {
         const { userId, message, id } = req.body;
-        if (id !== null) {
+        if (id !== undefined) {
             const conversation = await Conversation.findOne({ id });
             if (!conversation) {
                 return res.status(400).json({
@@ -75,8 +75,8 @@ module.exports.sendMessage = async (req, res) => {
             await conversation.updateOne({
                 $push: { messages: messageObj },
             });
-            return res.status(201).json({ message: "Message sent", code_msg: "message_sent" })
-        }else if(id===null){
+            return res.status(201).json({ message: "Message sent", code_msg: "message_sent", messageData:messageObj })
+        }else if(id===undefined){
             const adminUser = await User.findOne({ email: String(process.env.USER) });
             if (!adminUser) {
                 return res.status(400).json({
@@ -84,13 +84,16 @@ module.exports.sendMessage = async (req, res) => {
                     code_msg: "no_admin"
                 })
             }
+            const newConversationId = new mongoose.Types.ObjectId().toHexString();
+            const messageId=new mongoose.Types.ObjectId().toHexString();
+            const newMessage =[{message, userId, date: new Date().toISOString(), id: messageId}]
             const conversation = new Conversation({
-                id:new mongoose.Types.ObjectId().toHexString(),
+                id: newConversationId,
                 users:[userId,adminUser.userId],
-                messages: [{message, userId, date: new Date().toISOString(), id: new mongoose.Types.ObjectId().toHexString()}]
+                messages: newMessage
             });
             await conversation.save();
-            return res.status(201).json({ message: "Message sent", code_msg: "message_sent" })
+            return res.status(201).json({ message: "First message sent", code_msg: "first_message_sent", id: newConversationId, messageData: newMessage })
         }
 
     } catch (error) {
