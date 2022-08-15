@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import conversation_service from '../../services/conversation.service';
-import axios from "axios";
 import moment from 'moment/min/moment-with-locales';
 
 
@@ -15,14 +14,16 @@ const ProfileContact = ({ user }) => {
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
     const conversations = useSelector((state) => state.user.conversationsData);
     const conversation = useSelector((state) =>  state.user.conversationData);
+    console.log(conversation)
     useEffect(() => {
         if (user.isAdmin) {
             conversation_service.getConversations(user.userId)
         } else {
             conversation_service.checkHasConversation(user.userId)
+            
         }
-
     }, [token, user.isAdmin, user.userId])
+
     const formatDate = (date) => {
         moment.locale(localStorage.getItem('lang'))
         return moment(date).format('LLLL')
@@ -71,9 +72,15 @@ const ProfileContact = ({ user }) => {
                                         <li className='profileContact__list__element' onClick={() => { navigate(`/conversation/${conversation.conversation.id}`) }}>
                                             <div className='profileContact__list__element__name-time'>
                                                 <p className='profileContact__list__element__name-time__name'>{conversation.conversation.username}</p>
-                                                <p className='profileContact__list__element__name-time__time'>{formatDate(conversation.updatedAt)}</p>
+                                                <p className='profileContact__list__element__name-time__time'>{formatDate(conversation.conversation.messages[0].date)}</p>
                                             </div>
-                                            <p className='profileContact__list__element__text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                            <p className='profileContact__list__element__text'>
+                                                {
+                                                    conversation.conversation.messages[0].userId === user.userId ?
+                                                    "Vous : ":
+                                                    null
+                                                } 
+                                            {conversation.conversation.messages[0].message}</p>
                                         </li>
                                     </>
                                 : null
