@@ -25,8 +25,9 @@ const Profile = () => {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 setUser(res.data.user)
+                sessionStorage.setItem('userId', res.data.user.userId)
             })
             .catch((err) => {
                 console.log(err);
