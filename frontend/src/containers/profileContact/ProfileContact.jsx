@@ -6,18 +6,21 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import conversation_service from '../../services/conversation.service';
 import moment from 'moment/min/moment-with-locales';
+import useConversations from '../../pages/conversation/useConversations';
 
 
 const ProfileContact = ({ user }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
-    const conversations = useSelector((state) => state.user.conversationsData);
+    //const conversations = useSelector((state) => state.user.conversationsData);
     const conversation = useSelector((state) =>  state.user.conversationData);
-    console.log(conversation)
+    const {conversations} = useConversations();
+    //console.log(conversations) 
     useEffect(() => {
         if (user.isAdmin) {
             conversation_service.getConversations(user.userId)
+            
         } else {
             conversation_service.checkHasConversation(user.userId)
             
@@ -35,28 +38,32 @@ const ProfileContact = ({ user }) => {
                 user.isAdmin === true ?
                     <section>
                         {
-                            conversations.conversations && conversations.conversations.length > 0 ?
+                            conversations && conversations !== null && conversations !==undefined && conversations.length > 0 ?
                                 <>
                                     <h2 className='profileContact__title'>Derniers messages</h2>
                                     <ul className='profileContact__list'>
                                         {
-                                            conversations.conversations.map((conversation) => {
+                                            conversations.map((conversation) => {
+                                                //console.log(conversation)
                                                 return <li key={conversation.id} className='profileContact__list__element' onClick={() => { navigate(`/conversation/${conversation.id}`) }}>
                                                     <div className='profileContact__list__element__name-time'>
                                                         <p className='profileContact__list__element__name-time__name'>{conversation.username}</p>
                                                         <p className='profileContact__list__element__name-time__time'>{formatDate(conversation.updatedAt)}</p>
                                                     </div>
-                                                    <p className='profileContact__list__element__text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                                    <p className='profileContact__list__element__text'>{conversation.messages[conversation.messages.length-1].userId === user.userId ? "Vous : " : ""}{conversation.messages[conversation.messages.length-1].message}</p>
                                                 </li>
                                             })
                                         }
 
                                     </ul>
                                 </>
-                                : conversations.conversations && conversations.conversations.length === 0 ?
-                                    <p className='profileContact__noMessages'>Aucun message pour le moment</p>
-                                    : null
-                        }
+                            : conversations && conversations.length === 0 ?
+                                <p className='profileContact__noMessages'>Aucun message pour le moment</p>
+                            : !conversations || conversations === null || conversations === undefined ?
+                            <>
+                            </>
+                            :null
+                                    }
                     </section>
                     : user.isAdmin === false ?
                     <section>
@@ -64,7 +71,7 @@ const ProfileContact = ({ user }) => {
                             conversation && conversation.code_msg === "no_conversation_started" ?
                                 <>
                                     <h2 className='profileContact__title'>Démarrez une conversation</h2>
-                                    <Button id="new_conversation" onClick={() => { navigate('/conversation/new');/*conversation_service.newConversation(user.userId)*/ }} style={{ textTransform: "none" }}>Lancer conversation</Button>
+                                    <Button id="new_conversation" onClick={() => { navigate('/conversation/new') }} style={{ textTransform: "none" }}>Lancer conversation</Button>
                                 </>
                                 : conversation && conversation.code_msg === "conversation_already_started" ?
                                     <>
@@ -87,7 +94,7 @@ const ProfileContact = ({ user }) => {
                         }
                     </section>
                     : null
-            }
+                    }
         </article>
     )
 }
