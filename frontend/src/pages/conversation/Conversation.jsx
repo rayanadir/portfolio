@@ -50,6 +50,7 @@ const Conversation = () => {
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
+    
     const hideHeaderFooter = () => {
         document.querySelector('.header').style.display = "none"
         document.querySelector('.footer').style.display = "none"
@@ -58,6 +59,18 @@ const Conversation = () => {
     const displayHeaderFooter = () => {
         document.querySelector('.header').style.display = "block"
         document.querySelector('.footer').style.display = "block"
+    }
+
+    const addMainProperties = () =>{
+        let main = document.querySelector('main')
+        main.style.position="fixed";
+        main.style.width="100%"
+    }
+
+    const removeMainProperties = () => {
+        let main = document.querySelector('main')
+        main.style.position="initial";
+        main.style.width="100%"
     }
 
     const formatDate = (date) => {
@@ -70,8 +83,8 @@ const Conversation = () => {
 
     const conversation = useSelector((state) => state.user.conversationData)
     const adminUser = useSelector((state) => state.user.adminUsername)
-    //const messageState = useSelector((state) => state.user.messageState);
     const { messages, sendMessage } = useConversation();
+    const bottomRef = useRef(null);
 
 
     useEffect(() => {
@@ -79,6 +92,17 @@ const Conversation = () => {
         if (token === null || !token) {
             navigate('/authentication')
         }
+        
+        axios.post("http://localhost:5000/api/checkConversation", {id})
+        .then((res) => {
+            //console.log(res.data.code_msg)
+        })
+        .catch((err) => {
+            if(err.response.data.code_msg==="no_conversation_found"){
+                navigate('/*')
+            }
+        })
+
         axios.post("http://localhost:5000/api/getUser", { token }, {
             headers: { "Authorization": `Bearer ${token}` }
         })
@@ -97,10 +121,11 @@ const Conversation = () => {
         } else if (width < 768) {
             hideHeaderFooter()
         }
-
+        addMainProperties()
         return () => {
             sessionStorage.removeItem('conversationId')
             document.body.style.overflow = "auto";
+            removeMainProperties()
             if (width >= 768) {
                 displayHeaderFooter()
             } else if (width < 768) {
@@ -108,10 +133,9 @@ const Conversation = () => {
             }
         }
 
-    }, [navigate, token, width])
+    }, [navigate, token, width, id])
 
     conversationHeight = height - 168;
-
 
 
 
@@ -119,11 +143,15 @@ const Conversation = () => {
         e.preventDefault();
         if(user!==null){
             const userId = user.userId
-            //conversation_service.sendMessage(message, userId, id);
-            sendMessage(message,userId,id);
-            setMessage('')
+            const date = new Date().toISOString()
+            sendMessage(message,userId,id,date);
+            setMessage('');
         }
     }
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({behavior: 'auto'});
+      }, [messages]);
 
 
     return (
@@ -183,6 +211,7 @@ const Conversation = () => {
                                                 />
                                             })
                                         }
+                                        <div ref={bottomRef} />
                                     </div>
                                 </div>
 
@@ -191,7 +220,7 @@ const Conversation = () => {
                                         <TextField
                                             multiline
                                             maxRows={3}
-                                            placeholder="Entrez un message"
+                                            placeholder={t('enter_message')}
                                             className='conversation__footer__input'
                                             size='small'
                                             onChange={(e) => { setMessage(e.target.value) }}
