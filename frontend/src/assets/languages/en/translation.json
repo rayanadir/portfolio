@@ -140,5 +140,11 @@
     "edit_password":"Edit password",
     "edit":"Edit",
     "cancel":"Cancel",
-    "current_password":"Current password"    
+    "current_password":"Current password",
+    "enter_message":"Enter a message",
+    "last_messages":"Last messages",
+    "no_message_yet":"No message yet",
+    "start_new_conversation":"Start a conversation",
+    "new_conversation":"New conversation",
+    "follow_conversation":"Follow my conversation"    
 }

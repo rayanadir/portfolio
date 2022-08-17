@@ -140,5 +140,11 @@
     "edit_password":"Modifier le mot de passe",
     "edit":"Modifier",
     "cancel":"Annuler",
-    "current_password":"Mot de passe actuel"     
+    "current_password":"Mot de passe actuel",
+    "enter_message":"Entrez un message",
+    "last_messages":"Derniers messages",
+    "no_message_yet":"Aucun message pour le moment",
+    "start_new_conversation":"Démarrez une conversation",
+    "new_conversation":"Nouvelle conversation",
+    "follow_conversation":"Suivre ma conversation"      
 }
