@@ -195,3 +195,30 @@ module.exports.hasConversation = async (req, res) => {
         return res.status(500).send({ message: "Internal server error", code_msg: "server_error" });
     }
 }
+
+module.exports.checkIsValidConversation = async (req,res) => {
+    try{
+        const { id } = req.body;
+        if(id===undefined){
+            return res.status(200).json({
+                message:"New conversation",
+                code_msg:"new_conversation",
+            })
+        }else if(id && id!==undefined && id!==null){
+            const conversation = await Conversation.findOne({id});
+            if(!conversation){
+                return res.status(400).json({
+                    message:"No conversation found",
+                    code_msg:"no_conversation_found"
+                })
+            }else if(conversation){
+                return res.status(201).json({
+                    message:"Conversation found",
+                    code_msg:"conversation_found"
+                })
+            }
+        }
+    }catch(err){
+        return res.status(500).send({ message: "Internal server error", code_msg: "server_error" });
+    }
+}

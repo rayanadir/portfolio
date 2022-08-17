@@ -86,7 +86,7 @@ module.exports.signUp = async (req, res) => {
         userId: savedUser.userId,
       },
       process.env.TOKEN_SECRET,
-      {expiresIn:'24h'}
+      {expiresIn:'30d'}
     );
     //console.log(token);
 
@@ -153,7 +153,7 @@ module.exports.signIn = async (req, res) => {
         userId: existingUser.userId,
       },
       process.env.TOKEN_SECRET,
-      {expiresIn:'24h'},
+      {expiresIn:'30d'},
     );
 
     // send the token in a HTTP-only cookie
