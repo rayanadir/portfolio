@@ -51,4 +51,7 @@ router.post("/api/conversations",conversationController.getAllConversations);
 // has already started a conversation ?
 router.post("/api/hasConversation", conversationController.hasConversation);
 
+// check is valid conversation
+router.post("/api/checkConversation", conversationController.checkIsValidConversation)
+
 module.exports = router;
