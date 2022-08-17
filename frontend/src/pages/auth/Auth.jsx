@@ -104,7 +104,7 @@ const Auth = () => {
     const onSubmit =  (e) => {
         e.preventDefault();
         if (authType === "login") {
-            auth_service.login(loginForm.email,loginForm.password)
+            auth_service.login(loginForm.email,loginForm.password, checkbox)
         } else if (authType === "register") {
             auth_service.register(registerForm.email,registerForm.username,registerForm.password,registerForm.confirmPassword)
         }else if (authType === "forgot"){
