@@ -37,7 +37,8 @@ const Profile = () => {
     }, [navigate, token, changePasswordState.status])
 
     const formatDate = () => {
-        moment.locale(localStorage.getItem('lang'))
+        const lang = localStorage.getItem('lang') || localStorage.getItem('i18nextLng')
+        moment.locale(lang)
         return moment(user.last_login).format('LLLL')
     }
 
