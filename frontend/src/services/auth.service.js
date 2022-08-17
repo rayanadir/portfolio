@@ -1,14 +1,19 @@
 import axios from "axios";
 import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordRes, forgotPasswordRes, resetPasswordRes, logoutAction } from "../slices/authSlice";
 import { store } from "../app/store"
+import { logoutUserSliceAction } from "../slices/userSlice";
 
 const BASE_URL = "http://localhost:5000";
 
-const login =  (email,password) => {
+const login =  (email,password, rememberMe) => {
     axios.post(BASE_URL+"/api/login", {email,password})
     .then(res => {
-        store.dispatch(loginSuccess(res))
-        localStorage.setItem('token', res.data.token);
+        store.dispatch(loginSuccess(res));
+        if(rememberMe){
+            localStorage.setItem('token', res.data.token);
+        }else{
+            sessionStorage.setItem('token', res.data.token);
+        }
         return res;
     })
     .catch(err=> {
@@ -21,7 +26,7 @@ const register =  (email,username,password,confirmPassword) => {
      axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
     .then(res => {
         store.dispatch(registerSuccess(res));
-        localStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('token', res.data.token);
         return res;
     })
     .catch(err => {
@@ -45,6 +50,7 @@ const logout = () => {
     .then(res=> {
         console.log(res.data);
         store.dispatch(logoutAction())
+        store.dispatch(logoutUserSliceAction())
         return res
     })
     .catch(err => { 
