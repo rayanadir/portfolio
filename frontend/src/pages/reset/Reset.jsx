@@ -25,7 +25,7 @@ const Reset = () => {
         if (!token) {
             setIsValidToken('invalid_token');
         }
-        axios.post("http://localhost:5000/api/checkToken",{token})
+        axios.post(process.env.REACT_APP_API_URL+"api/checkToken",{token})
         .then((res) => {
             setIsValidToken(res.data.code_msg)
         }).catch((err) => {
