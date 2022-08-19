@@ -39,15 +39,13 @@ const Settings = () => {
             navigate('/authentication')
         }
 
-        axios.post("http://localhost:5000/api/getUser", { token }, {
+        axios.post(process.env.REACT_APP_API_URL+"api/getUser", { token }, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((res) => {
-                console.log(res);
                 setUser(res.data.user)
             })
             .catch((err) => {
-                console.log(err);
             });
         if (changePasswordState.status === 'success') emptyFields()
     }, [navigate, token, changePasswordState.status])
