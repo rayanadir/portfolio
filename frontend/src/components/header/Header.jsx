@@ -158,7 +158,7 @@ const Header = () => {
 
             <MaterialUISwitch sx={{ m: 0 }} checked={theme === "dark" ? true : false} onChange={toggleTheme} />
 
-            <li className='header__nav_element'>
+            <li className='header__nav_element' onClick={() => {navigate('/about')}}>
               {t('about')}
             </li>
 

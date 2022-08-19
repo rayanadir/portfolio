@@ -178,23 +178,25 @@ export default function SideMenu() {
                     <label htmlFor="theme">{theme === "dark" ? t('dark_theme') : t('light_theme')}</label>
                     <MaterialUISwitch sx={{ m: 0 }} checked={theme === "dark" ? true : false} onChange={toggleTheme} />
                 </li>
-
-                <li className="header__nav_element" onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
-                    {t('about')}
-                </li>
-
+                <Link to="/about" className='header__link'>
+                    <li className="header__nav_element" onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
+                        {t('about')}
+                    </li>
+                </Link>
                 {
                     token !== null && token ?
-                    <li className='header__nav_element' onClick={()=>{toggleDrawer('left', false);navigate('/settings')}}>
-                        <p style={{margin:"0", wordBreak:"break-word"}}>{t('settings')}</p>
-                        <img src={settings}  alt="settings" id="settings" className='header__settings header__icon' />
-                    </li>
+                    <Link to="/settings" className='header__link'>
+                        <li className='header__nav_element' onClick={toggleDrawer(anchor, false)}>
+                            <p style={{margin:"0", wordBreak:"break-word"}}>{t('settings')}</p>
+                            <img src={settings}  alt="settings" id="settings" className='header__settings header__icon' />
+                        </li>
+                    </Link>
                     : null                    
                 }
                 
                 {
                     token !== null && token ?
-                        <li className='header__nav_element' onClick={handleClickOpen}>
+                        <li className='header__nav_element' onClick={()=>{toggleDrawer(anchor,false);handleClickOpen()}}>
                             <p style={{margin:"0", wordBreak:"break-word"}}>{t('logout')}</p>
                             <img src={logout}  alt="logout" id="logout" className='header__logoutIcon header__icon' />
                         </li>
@@ -216,8 +218,8 @@ export default function SideMenu() {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button style={{textTransform:"none"}} onClick={handleClose}>{t('cancel')}</Button>
-                        <Button style={{textTransform:"none"}} onClick={()=> {toggleDrawer('left', false);handleClose();auth_service.logout()} }>{t('logout')}</Button>
+                        <Button style={{textTransform:"none"}} onClick={()=>{ handleClose(); toggleDrawer(anchor, false) }}>{t('cancel')}</Button>
+                        <Button style={{textTransform:"none"}} onClick={()=> { toggleDrawer(anchor, false);handleClose();auth_service.logout()} }>{t('logout')}</Button>
                     </DialogActions>
                 </Dialog>
             </List>
