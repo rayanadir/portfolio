@@ -42,7 +42,6 @@
     #error_icon,
     #information,
     #messages_back,
-    #send,
     #settings{
         filter: invert(0);
     }
@@ -66,6 +65,12 @@
                     color: black;
                 }
             }
+        }
+    }
+
+    .about{
+        &__link{
+            color:black
         }
     }
 }
@@ -111,7 +116,6 @@
     #error_icon,
     #information,
     #messages_back,
-    #send,
     #settings{
         filter: invert(1);
     }
@@ -135,6 +139,12 @@
                     color: white;
                 }
             }
+        }
+    }
+    
+    .about{
+        &__link{
+            color:white
         }
     }
 }
