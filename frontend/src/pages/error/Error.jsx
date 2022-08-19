@@ -9,6 +9,7 @@ const Error = () => {
   const { t } = useTranslation()
   // eslint-disable-next-line no-unused-vars
   const { toggleTheme, theme } = useContext(ThemeContext);
+  document.title=t('error_404')
   return (
     <main>
         <section className={`error ${theme}`}>

@@ -19,6 +19,7 @@ import Chip from '@mui/material/Chip';
 
 const Settings = () => {
     const { t } = useTranslation();
+    document.title=t('settings')
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);

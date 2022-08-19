@@ -7,6 +7,7 @@ const About = () => {
     const { t } = useTranslation();
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
+    document.title=t('about')
 
     return (
         <main>

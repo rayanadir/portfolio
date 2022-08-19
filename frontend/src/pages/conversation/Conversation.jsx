@@ -41,6 +41,7 @@ const useWindowDimensions = () => {
 
 const Conversation = () => {
     const { t } = useTranslation();
+    document.title=t('chat')
     const navigate = useNavigate();
     let { id } = useParams();
     sessionStorage.setItem("conversationId", id)

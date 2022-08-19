@@ -10,6 +10,7 @@ import ProfileContact from '../../containers/profileContact/ProfileContact';
 
 const Profile = () => {
     const { t } = useTranslation();
+    document.title=t('profile')
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     // eslint-disable-next-line no-unused-vars
