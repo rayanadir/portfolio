@@ -21,16 +21,15 @@ const Profile = () => {
             navigate('/authentication')
         }
 
-        axios.post("http://localhost:5000/api/getUser", { token }, {
+        axios.post(process.env.REACT_APP_API_URL+"api/getUser", { token }, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((res) => {
-                //console.log(res);
                 setUser(res.data.user)
                 sessionStorage.setItem('userId', res.data.user.userId)
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
             document.querySelector('.header').style.display="block"
             document.querySelector('.footer').style.display="block"
@@ -62,7 +61,6 @@ const Profile = () => {
                         </div>
                         : null
                 }
-
             </section>
         </main>
 
