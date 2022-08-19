@@ -21,7 +21,7 @@ const io = require('socket.io')(8900,{
 })
 
 io.on("connection", (socket) => {
-
+  //console.log("connection")
   const userId = socket.handshake.query.userId;
   User.findOne({userId}).lean().exec(async (err,user) => {
     if(err){
@@ -34,16 +34,16 @@ io.on("connection", (socket) => {
             socket.emit('getConversations', [])
           } else if (doc) {
             const conversations = doc.map(async (conversation) => {
-              const otherUser = conversation.users.find(u => u !== userId)
-              const user = await User.findOne({ userId: otherUser })
-              conversation.username = user.username
+              const users_arr = await User.find({userId: conversation.users})
+              conversation.users_arr= users_arr;
               return conversation;
             })
             Promise.all(conversations).then((values) => {
               socket.emit("getConversations", values)
             })
-          }
+          } 
         })
+
       }else if (user.isAdmin === false) {
         // get single conversation 
           try{
@@ -55,9 +55,8 @@ io.on("connection", (socket) => {
                 socket.emit('getSingleConversation', {code_msg:"no_conversation_started"})
               }
               else if(doc){
-                const otherUser = doc.users.find(u => u!==userId)
-                const user = await User.findOne({userId: otherUser});
-                doc.username = user.username;
+                const users_arr = await User.find({userId: doc.users})
+                doc.users_arr= users_arr
                 socket.emit('getSingleConversation', doc)
               }
             })
@@ -84,42 +83,47 @@ io.on("connection", (socket) => {
 
   // send a message
   socket.on('newMessage', async (data) => {
+
     try {
-      const conversationId =socket.handshake.query.conversationId
-      if(conversationId !== undefined){
-        const existingConversation = await Conversation.findOne({id: conversationId})
-        const messageId = new mongoose.Types.ObjectId().toHexString()
-        const messageObj = { message: data.message, userId: data.userId, date: data.date, id: messageId }
-        const otherUser = existingConversation.users.filter(u=> u!==userId);
-        const user = await User.findOne({userId: otherUser});
-        const username = user.username;
-        const conversation = await Conversation.findOneAndUpdate({id: conversationId},
-          {
-            $push: {messages: messageObj},
-          },
-          {
-            new:true
-          });
-          //conversation.username= username
-          const updatedConversation = {...conversation, username}
-          io.emit('newMessage', { message: data.message, userId: data.userId, date: data.date, id: messageId });
-          io.emit('updateConversation', conversation);
-          io.emit('getSingleConversation', updatedConversation);
-      }else if(conversationId === undefined){
-        const adminUser = await User.findOne({ email: String(process.env.USER) });
-        const newConversationId = new mongoose.Types.ObjectId().toHexString();
-        const messageId=new mongoose.Types.ObjectId().toHexString();
-        const newMessage =[{message:data.message, userId:data.userId, date: data.date, id: messageId}]
-        const conversation = new Conversation({
-            id: newConversationId,
-            users:[userId,adminUser.userId],
+      const conversationId =socket.handshake.query.conversationId;   
+      Conversation.findOne({id: conversationId}).lean().exec(async (err, conv) => {
+        if(err){
+          socket.emit('getSingleConversation',{code_msg:"error"})
+        }
+        if(!conv){
+          const adminUser = await User.findOne({ email: String(process.env.USER) });
+          const messageId=new mongoose.Types.ObjectId().toHexString();
+          const newMessage =[{message:data.message, userId:data.userId,id: messageId ,date: data.date}];
+          const users_arr = await User.find({userId: [adminUser.userId, data.userId]});
+          const conversation = new Conversation({
+            id: conversationId,
+            users:[data.userId,adminUser.userId],
             messages: newMessage
-        });
-        await conversation.save()
-        io.emit('newMessage', { message: data.message, userId: data.userId, date: data.date, id: messageId });
-        io.emit('updateConversation', conversation);
-        io.emit('getSingleConversation', { message: data.message, userId: data.userId, date: data.date, id: messageId, username:adminUser.username });
-      }
+          });
+          await conversation.save()
+          const updatedConversation = {...conversation.toObject(), users_arr}
+          io.emit('newMessage', { message: data.message, userId: data.userId ,date: data.date,id: messageId });
+          io.emit('updateConversation', updatedConversation);
+          io.emit('getSingleConversation', updatedConversation);
+        }
+        if(conv){
+          const messageId = new mongoose.Types.ObjectId().toHexString()
+          const messageObj = { message: data.message, userId: data.userId,date: data.date,id: messageId  }
+          const users_arr = await User.find({userId: conv.users});
+          const conversation = await Conversation.findOneAndUpdate({id: conversationId},
+            {
+              $push: {messages: messageObj},
+            },
+            {
+              new:true 
+            }); 
+            const updatedConversation = {...conversation.toObject(), users_arr} 
+            io.emit('newMessage', { message: data.message, userId: data.userId, date: data.date, id: messageId });
+            io.emit('updateConversation', updatedConversation);
+            io.emit('getSingleConversation', updatedConversation);
+            
+        }
+      })
     } catch (error) {
       console.log(error)
     }
