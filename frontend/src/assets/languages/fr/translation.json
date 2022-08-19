@@ -108,6 +108,7 @@
     "password_length":"Le mot de passe doit faire au moins 6 caractères.",
     "different_passwords":"Les mots de passe sont différents.",
     "account_exists":"Cette adresse email est déjà utilisée.",
+    "existing_username":"Ce nom d'utilisateur est déjà utilisé.",
     "all_fields_miss":"Remplissez tous les champs.",
     "email_miss":"Saisissez l'adresse email.",
     "password_miss":"Saisissez le mot de passe.",
@@ -146,5 +147,9 @@
     "no_message_yet":"Aucun message pour le moment",
     "start_new_conversation":"Démarrez une conversation",
     "new_conversation":"Nouvelle conversation",
-    "follow_conversation":"Suivre ma conversation"      
+    "follow_conversation":"Suivre ma conversation",
+    "conversation_welcome":"Bienvenue sur la page de conversation privée !",
+    "conversation_send":"Envoyez à {{adminUser}} un premier message.",
+    "about_text":"Ce site a été codé en React, Node.js, Express. MongoDB est utilisée comme base de données. D'autres dépendances sont utilisées pour le développement de ce site. Pour plus d'informations, voir ci-dessous le dépôt github de ce portfolio.",
+    "github_link":"Dépôt github"         
 }
