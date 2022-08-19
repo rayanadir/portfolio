@@ -1,0 +1,51 @@
+.about{
+    min-height: 150vh;
+    &__wrapper{
+        margin: auto;
+        padding-top: 2rem;
+    }
+    &__about{
+        font-weight: 100;
+        margin: 0;
+    }
+}
+
+@media (max-width: 424px) {
+    .about {
+        &__wrapper {
+            width: 95%;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px) {
+    .about {
+        &__wrapper {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px) {
+    .about {
+        &__wrapper {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .about {
+        &__wrapper {
+            width: 80%;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .about {
+        &__wrapper {
+            width: 70%;
+        }
+    }
+}
