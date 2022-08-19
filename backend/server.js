@@ -134,23 +134,6 @@ io.on("connection", (socket) => {
   });
 })
 
-const getConversations = async (userId) => {
-   Conversation.find({}).sort({ updatedAt: -1 }).lean().exec(async (err, doc) => {
-    if (err) {
-      return [];
-    } else if (doc) {
-      const conversations = doc.map(async (conversation) => {
-        const otherUser = conversation.users.find(u => u !== userId)
-        const user = await User.findOne({ userId: otherUser })
-        conversation.username = user.username
-        return conversation;
-      })
-      Promise.all(conversations).then((values) => {
-        console.log(values)
-      })
-    }
-  })
-}
 
 // get driver connection
 require("./config/db");
