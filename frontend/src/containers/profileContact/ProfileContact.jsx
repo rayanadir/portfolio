@@ -69,7 +69,7 @@ const ProfileContact = ({ user }) => {
                                 <>
                                     <h2 className='profileContact__title'>{t('start_new_conversation')}</h2>
                                     <Button id="new_conversation" onClick={() => {
-                                            axios.post("http://localhost:5000/api/newConversation")
+                                            axios.post(process.env.REACT_APP_API_URL+"api/newConversation")
                                             .then((res) => {
                                                 if(res.data.id){
                                                     navigate(`/conversation/${res.data.id}`)
