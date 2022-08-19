@@ -3,10 +3,10 @@ import { loginSuccess, loginFail, registerSuccess, registerFail, changePasswordR
 import { store } from "../app/store"
 import { logoutUserSliceAction } from "../slices/userSlice";
 
-const BASE_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const login =  (email,password, rememberMe) => {
-    axios.post(BASE_URL+"/api/login", {email,password})
+    axios.post(API_URL+"api/login", {email,password})
     .then(res => {
         store.dispatch(loginSuccess(res));
         if(rememberMe){
@@ -23,7 +23,7 @@ const login =  (email,password, rememberMe) => {
 }
 
 const register =  (email,username,password,confirmPassword) => {
-     axios.post(BASE_URL+"/api/register", {email,username,password,confirmPassword})
+     axios.post(API_URL+"api/register", {email,username,password,confirmPassword})
     .then(res => {
         store.dispatch(registerSuccess(res));
         sessionStorage.setItem('token', res.data.token);
@@ -36,19 +36,18 @@ const register =  (email,username,password,confirmPassword) => {
 }
 
 const loggedIn = () => {
-    axios.get(BASE_URL+"/api/loggedIn")
+    axios.get(API_URL+"api/loggedIn")
     .then((res) => {
-        console.log(res);
+        return res
     })
     .catch((err) => {
-        console.log(err);
+        return err
     })
 }
 
 const logout = () => {
-    axios.post(BASE_URL+"/api/logout")
+    axios.post(API_URL+"api/logout")
     .then(res=> {
-        console.log(res.data);
         store.dispatch(logoutAction())
         store.dispatch(logoutUserSliceAction())
         return res
@@ -59,16 +58,14 @@ const logout = () => {
 }
 
 const resetPassword = (token,newPassword,confirmNewPassword) => {
-    axios.put(BASE_URL+"/api/resetPassword/"+token,{token,newPassword,confirmNewPassword}, {
+    axios.put(API_URL+"api/resetPassword/"+token,{token,newPassword,confirmNewPassword}, {
         headers: {"Authorization":  `Bearer ${token}`}
     })
     .then((res) => {
-        console.log(res.data)
         store.dispatch(resetPasswordRes(res.data))
         return res;
     })
     .catch((err) => {
-        console.log(err.response.data)
         store.dispatch(resetPasswordRes(err.response.data))
         return err;
     });
@@ -76,30 +73,26 @@ const resetPassword = (token,newPassword,confirmNewPassword) => {
 
 
 const forgotPassword = (email) => {
-    axios.put(BASE_URL+"/api/forgotPassword", {email})
+    axios.put(API_URL+"api/forgotPassword", {email})
     .then((res)=> {
-        console.log(res.data);
         store.dispatch(forgotPasswordRes(res.data))
         return res;
     })
     .catch((err) => {
-        console.log(err);
         store.dispatch(forgotPasswordRes(err.response.data))
         return err;
     })
 }
 
 const changePassword = (token,currentPassword, newPassword, confirmNewPassword, userId) => {
-    axios.put(BASE_URL+"/api/changePassword/"+token,{currentPassword,newPassword, confirmNewPassword, userId}, {
+    axios.put(API_URL+"api/changePassword/"+token,{currentPassword,newPassword, confirmNewPassword, userId}, {
         headers: {"Authorization": `Bearer ${token}`}
     })
     .then((res) => {
-        console.log(res);
         store.dispatch(changePasswordRes(res.data))
         return res;
     })
     .catch((err) => {
-        console.log(err)
         store.dispatch(changePasswordRes(err.response.data))
         return err;
     })
