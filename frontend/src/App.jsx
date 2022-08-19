@@ -7,6 +7,7 @@ import Auth from './pages/auth/Auth';
 import Conversation from './pages/conversation/Conversation'
 import Profile from './pages/profile/Profile';
 import Error from './pages/error/Error';
+import About from './pages/about/About';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { PROJECTS } from './data/projects';
@@ -39,7 +40,7 @@ const App = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/conversation/:id' element={<Conversation />} />
-            <Route path='/conversation/new' element={<Conversation />} />
+            <Route path='/about' element={<About />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
