@@ -24,35 +24,12 @@ module.exports.getAdmin = async (req, res) => {
 
 module.exports.newConversation = async (req, res) => {
     try {
-        const { userId } = req.body;
-        const adminUser = await User.findOne({ email: String(process.env.USER) });
-        if (!adminUser) {
-            return res.status(400).json({
-                message: "No admin found",
-                code_msg: "no_admin"
-            })
-        }
         const id = new mongoose.Types.ObjectId().toHexString()
-        const newConversation = new Conversation({
-            id,
-            users: [userId, adminUser.userId],
-            messages: [],
-        })
-        await newConversation.save();
-        const token = jwt.sign(
-            {
-                userId,
-            },
-            process.env.TOKEN_SECRET,
-            { expiresIn: '24h' },
-        );
-        return res.status(201)
-            .cookie("token", token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-            })
-            .json({ message: "Conversation created", code_msg: "conversation_created" })
+            return res.status(201).json({
+                message:"ID generated",
+                code_msg:"id_generated",
+                id
+            });
     } catch (err) {
         console.error(err);
         return res.status(500).send({ message: "Internal server error", code_msg: "server_error" });
@@ -142,9 +119,8 @@ module.exports.getAllConversations = async (req, res) => {
                 })
             } else if (doc) {
                 const test = doc.map(async (conversation) => {
-                    const otherUser = conversation.users.find(u => u !== userId)
-                    const user = await User.findOne({ userId: otherUser })
-                    conversation.username = user.username;
+                    const users_arr = await User.find({userId: conversation.users})
+                    conversation.users_arr= users_arr;
                     return conversation;
                 })
                 Promise.all(test).then((conversations) => {
