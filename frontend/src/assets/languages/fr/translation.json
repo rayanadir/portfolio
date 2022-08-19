@@ -151,5 +151,8 @@
     "conversation_welcome":"Bienvenue sur la page de conversation privée !",
     "conversation_send":"Envoyez à {{adminUser}} un premier message.",
     "about_text":"Ce site a été codé en React, Node.js, Express. MongoDB est utilisée comme base de données. D'autres dépendances sont utilisées pour le développement de ce site. Pour plus d'informations, voir ci-dessous le dépôt github de ce portfolio.",
-    "github_link":"Dépôt github"         
+    "github_link":"Dépôt github",
+    "conversation":"Conversation",
+    "error_404":"Erreur",
+    "profile":"Profil"         
 }

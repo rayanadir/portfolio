@@ -151,5 +151,8 @@
     "conversation_welcome":"Welcome to the private chat page !",
     "conversation_send":"Send to {{adminUser}} a first message.",
     "about_text":"This site has been coded in React, Node.js, Express. MongoDB is used as a database. Others dependencies are used for this website development. For more informations, see the github repository of this portfolio below.",
-    "github_link":"Github repository"    
+    "github_link":"Github repository",
+    "conversation":"Conversation",
+    "error_404":"Error",
+    "profile":"Profile"    
 }
