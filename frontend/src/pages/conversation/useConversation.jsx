@@ -19,8 +19,8 @@ const useConversation = () => {
         })
 
         // new message
-        socketRef.current.on("newMessage", ({message,userId,id,date}) => {
-            setMessages(messages => [...messages, {message,userId,id, date}])
+        socketRef.current.on("newMessage", ({message,userId,date,id}) => {
+            setMessages(messages => [...messages, {message,userId,date,id}])
         })
         
         return () => {
@@ -28,8 +28,8 @@ const useConversation = () => {
         }
     },[conversationId])
 
-    const sendMessage = (message,userId,id,date) => {
-        socketRef.current.emit('newMessage', {message,userId,id,date});
+    const sendMessage = (message,userId,date,id) => {
+        socketRef.current.emit('newMessage', {message,userId,date,id});
     }
 
     return {messages, sendMessage};

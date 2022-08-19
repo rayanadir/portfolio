@@ -42,8 +42,7 @@ const useWindowDimensions = () => {
 const Conversation = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    let { id } = useParams() || undefined;
-    //dispatch(setConversationIdAction(id));
+    let { id } = useParams();
     sessionStorage.setItem("conversationId", id)
     var conversationHeight;
     const { height, width } = useWindowDimensions();
@@ -79,37 +78,43 @@ const Conversation = () => {
     }
 
     const [user, setUser] = useState(null);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+
+    const messageRegex = /^[0-9a-zA-Z\-éëàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇÆæœ]{1,}$/;
+    const messageTest = messageRegex.test(message);
+    
+    let style= {};
+
+    if(!messageTest){
+         style ={
+            cursor:"auto",
+            filter: "invert(0.4)"
+        }
+    }else if(messageTest){
+         style ={
+            cursor:"pointer",
+            filter: "invert(1)"
+        }
+    }
 
     const conversation = useSelector((state) => state.user.conversationData)
     const adminUser = useSelector((state) => state.user.adminUsername)
     const { messages, sendMessage } = useConversation();
     const bottomRef = useRef(null);
 
-
     useEffect(() => {
 
         if (token === null || !token) {
             navigate('/authentication')
         }
-        
-        axios.post("http://localhost:5000/api/checkConversation", {id})
-        .then((res) => {
-            //console.log(res.data.code_msg)
-        })
-        .catch((err) => {
-            if(err.response.data.code_msg==="no_conversation_found"){
-                navigate('/*')
-            }
-        })
 
-        axios.post("http://localhost:5000/api/getUser", { token }, {
+        axios.post(process.env.REACT_APP_API_URL+"api/getUser", { token }, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((res) => {
                 setUser(res.data.user)
                 conversation_service.getAdminUsername()
-                conversation_service.checkHasConversation(res.data.user.userId)
+                conversation_service.checkHasConversation(res.data.user.userId);
             })
             .catch((err) => {
                 console.log(err);
@@ -144,7 +149,7 @@ const Conversation = () => {
         if(user!==null){
             const userId = user.userId
             const date = new Date().toISOString()
-            sendMessage(message,userId,id,date);
+            sendMessage(message,userId,date,id);
             setMessage('');
         }
     }
@@ -177,39 +182,27 @@ const Conversation = () => {
                                 </header>
 
                                 <div className="conversation__conversation" style={{ height: `${conversationHeight}px` }}>
-                                    {/*<div className="conversation__conversation__wrapper" id="chat_section">
-                                        {
-                                            conversation && conversation.code_msg === "no_conversation_started" ?
-                                                <div className="conversation__conversation__wrapper__container">
-                                                    <h2 className="conversation__conversation__wrapper__container__welcome">Bienvenue sur la page de conversation privée</h2>
-                                                    <p className="conversation__conversation__wrapper__container__send">Envoyez à {adminUser} un premier message</p>
-                                                </div>
-                                            : conversation && conversation.code_msg === "conversation_already_started" ?
-                                            <>
-                                                {
-                                                    messages.map((conversation) => {
-                                                        return <Message 
-                                                                message={conversation.message}
-                                                                isAuthor={conversation.userId === user.userId ? true : false}
-                                                                timestamp={formatDate(conversation.date)}
-                                                                key={conversation.id}
-                                                                />
-                                                    })
-                                                }
-                                            </>
-                                            : null
-                                        }
-                                    </div>*/}
                                     <div className="conversation__conversation__wrapper" id="chat_section">
                                         {
-                                            messages.map((message,i) => {
-                                                return <Message
-                                                        isAuthor={message.userId === user.userId ? true : false}
-                                                        message={message.message}
-                                                        timestamp={formatDate(message.date)}
-                                                        key={i}
-                                                />
-                                            })
+                                            messages.length === 0 ?
+                                            <div className="conversation__conversation__wrapper__container">
+                                                <h2 className="conversation__conversation__wrapper__container__welcome">{t('conversation_welcome')}</h2>
+                                                <p className="conversation__conversation__wrapper__container__send">{t('conversation_send', {adminUser})}</p>
+                                            </div>
+                                            : messages.length > 0 ?
+                                            <>
+                                            {
+                                                messages.map((message,i) => {
+                                                    return <Message
+                                                            isAuthor={message.userId === user.userId ? true : false}
+                                                            message={message.message}
+                                                            timestamp={formatDate(message.date)}
+                                                            key={i}
+                                                    />
+                                                })
+                                            }
+                                            </>
+                                            : null
                                         }
                                         <div ref={bottomRef} />
                                     </div>
@@ -226,19 +219,11 @@ const Conversation = () => {
                                             onChange={(e) => { setMessage(e.target.value) }}
                                             value={message}
                                         />
-                                        <img onClick={(e) => {
-                                            
-                                            handleSendMessage(e)
-                                            /*if (conversation && conversation.code_msg === "no_conversation_started") {
-                                                conversation_service.sendMessage(message, user.userId, id = undefined)
-                                                if (messageState.code_msg === 'first_message_sent') {
-                                                    navigate(`/conversation/${messageState.id}`)
-                                                }
-                                            } else if (conversation && conversation.code_msg === "conversation_already_started") {
-                                                conversation_service.sendMessage(message, user.userId, id)
+                                        <img style={style} onClick={(e) => { 
+                                            if(messageTest){
+                                                handleSendMessage(e)
                                             }
-                                            setMessage('')*/
-                                        }}
+                                         }}
                                             src={send} alt="send" id="send" className='conversation__footer__send' />
                                     </div>
                                 </div>
