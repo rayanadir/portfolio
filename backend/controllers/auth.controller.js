@@ -12,7 +12,7 @@ module.exports.signUp = async (req, res) => {
   try {
     const { email, username, password, confirmPassword } = req.body;
     // validation
-    const usernameRegex = /^[a-zA-Z\-éëàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇÆæœ]{3,}$/;
+    const usernameRegex = /^[0-9a-zA-Z\-éëàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇÆæœ]{3,}$/;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const usernameTest = usernameRegex.test(username);
     const emailTest = emailRegex.test(email);
@@ -59,6 +59,14 @@ module.exports.signUp = async (req, res) => {
         message: "An account already uses this email",
         code_msg: "account_exists",
       });
+    
+    const existingUsername = await User.findOne({username});
+    if(existingUsername){
+      return res.status(400).json({
+        message:"This username is already taken",
+        code_msg:"existing_username",
+      })
+    }
 
     // hash the password
 
