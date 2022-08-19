@@ -108,6 +108,7 @@
     "password_length":"Password length must be at least 6 characters.",
     "different_passwords":"The passwords are not identical.",
     "account_exists":"An account already uses this email.",
+    "existing_username":"This username is already taken.",
     "all_fields_miss":"Please enter all fields.",
     "email_miss":"Enter email.",
     "password_miss":"Enter password.",
@@ -146,5 +147,9 @@
     "no_message_yet":"No message yet",
     "start_new_conversation":"Start a conversation",
     "new_conversation":"New conversation",
-    "follow_conversation":"Follow my conversation"    
+    "follow_conversation":"Follow my conversation",
+    "conversation_welcome":"Welcome to the private chat page !",
+    "conversation_send":"Send to {{adminUser}} a first message.",
+    "about_text":"This site has been coded in React, Node.js, Express. MongoDB is used as a database. Others dependencies are used for this website development. For more informations, see the github repository of this portfolio below.",
+    "github_link":"Github repository"    
 }
