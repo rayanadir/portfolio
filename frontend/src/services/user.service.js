@@ -5,6 +5,7 @@ import { getUserAction } from "../slices/userSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const getUser = (token) => {
+    console.log(API_URL)
     axios.post(API_URL+"api/getUser", {token}, {
         headers: {"Authorization" : `Bearer ${token}`}
     })

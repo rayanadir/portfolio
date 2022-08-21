@@ -15,7 +15,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import List from '@mui/material/List';
 import { ThemeContext } from '../../context/ThemeContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import menu from "../../img/hamburger-menu.svg";
 
@@ -77,6 +77,18 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
+const SelectComponent = styled(Select) ({
+        "& .MuiOutlinedInput-notchedOutline": {
+          border: "0"
+        },
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          border: "0"
+        },
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          border: "0"
+        },
+})
+
 const getWindowWidthDimensions = () => {
     const { innerWidth: width } = window;
     return {
@@ -106,7 +118,6 @@ export default function SideMenu() {
     let language = useSelector((state) => state.languages.language)
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const navigate = useNavigate()
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -116,12 +127,7 @@ export default function SideMenu() {
     };
     const { toggleTheme, theme } = React.useContext(ThemeContext)
     const { width } = useWindowWidthDimensions();
-    React.useEffect(() => {
-        const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
-        languageInput.id = "languageInputDrawer";
-        const inputDrawer = document.getElementById('languageInputDrawer');
-        inputDrawer.style.borderWidth = "0";
-    }, []);
+
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
 
     const [open, setOpen] = React.useState(false);
@@ -150,8 +156,8 @@ export default function SideMenu() {
                 <li className=' hover_none'>
                     <label htmlFor="translation">{t('language')}</label>
                     <Box>
-                        <FormControl fullWidth>
-                            <Select
+                        <FormControl  fullWidth /*classes={{root:classes.quantityRoot}}*/>
+                            <SelectComponent
                                 value={language}
                                 onChange={(e) => {
                                     localStorage.setItem('lang', e.target.value);
@@ -168,7 +174,7 @@ export default function SideMenu() {
                             >
                                 <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french" /></MenuItem>
                                 <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk" /></MenuItem>
-                            </Select>
+                            </SelectComponent>
                         </FormControl>
                     </Box>
 

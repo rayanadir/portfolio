@@ -85,6 +85,18 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 
+const SelectComponent = styled(Select)({
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "0"
+      },
+      "&:hover .MuiOutlinedInput-notchedOutline": {
+        border: "0"
+      },
+      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "0"
+      },
+})
+
 const Header = () => {
   let language = useSelector((state) => state.languages.language)
   const { t } = useTranslation();
@@ -92,13 +104,6 @@ const Header = () => {
   const navigate = useNavigate()
   const location = useLocation();
   const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
-
-  React.useEffect(() => {
-    const languageInput = document.querySelector('.css-1d3z3hw-MuiOutlinedInput-notchedOutline');
-    languageInput.id = "languageInput";
-    const input = document.getElementById('languageInput');
-    input.style.borderStyle = "none";
-  }, [])
 
   const { toggleTheme, theme } = useContext(ThemeContext);
 
@@ -136,8 +141,8 @@ const Header = () => {
 
 
             <Box>
-              <FormControl fullWidth>
-                <Select
+              <FormControl fullWidth /*classes={{root:classes.quantityRoot}}*/>
+                <SelectComponent
                   value={language}
                   onChange={(e) => {
                     localStorage.setItem('lang', e.target.value);
@@ -152,7 +157,7 @@ const Header = () => {
                 >
                   <MenuItem value="fr" className="header__menuItem"><img className='header__flag' src={french} alt="french flag" id="french" /></MenuItem>
                   <MenuItem value="en" className="header__menuItem"><img className='header__flag' src={uk} alt="uk flag" id="uk" /></MenuItem>
-                </Select>
+                </SelectComponent>
               </FormControl>
             </Box>
 
