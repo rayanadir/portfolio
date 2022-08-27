@@ -37,7 +37,7 @@ const authSlice = createSlice({
                 code_msg:'',
             };
             state.token=action.payload.data.token;
-            localStorage.setItem('token',action.payload.data.token)
+            //localStorage.setItem('token',action.payload.data.token)
         },
         loginFail: (state,action) => {
             state.login_error=action.payload.data;
@@ -48,7 +48,7 @@ const authSlice = createSlice({
                 code_msg:'',
             };
             state.token=action.payload.data.token;
-            localStorage.setItem('token',action.payload.data.token)
+            //localStorage.setItem('token',action.payload.data.token)
         },
         registerFail: (state,action) => {
             state.register_error=action.payload.data;
