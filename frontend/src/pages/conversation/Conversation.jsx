@@ -87,14 +87,16 @@ const Conversation = () => {
     let style= {};
 
     if(!messageTest){
-         style ={
+        style = {
             cursor:"auto",
-            filter: "invert(0.4)"
+            //filter: "invert(0.4)"
+            filter: `invert(${ theme === "dark" ? "0.4" : theme === "light" ? "0.5" : null })`
         }
     }else if(messageTest){
-         style ={
+        style = {
             cursor:"pointer",
-            filter: "invert(1)"
+            //filter: "invert(1)"
+            filter: `invert(${ theme === "dark" ? "1" : theme === "light" ? "0" : null })`
         }
     }
 
@@ -225,7 +227,7 @@ const Conversation = () => {
                                                 handleSendMessage(e)
                                             }
                                          }}
-                                            src={send} alt="send" id="send" className='conversation__footer__send' />
+                                            src={send} alt="send" id="send" className='conversation__footer__send' title={t('enter_message')}/>
                                     </div>
                                 </div>
                             </>

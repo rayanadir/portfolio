@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import socketIOClient from "socket.io-client";
+import { io } from "socket.io-client";
 
 const useSingleConversation = () => {
     const socketRef = useRef();
@@ -8,7 +8,7 @@ const useSingleConversation = () => {
     const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
-        socketRef.current= socketIOClient("http://localhost:8900",{
+        socketRef.current= io(process.env.REACT_APP_API_URL,{
             query:{
                 userId
             }

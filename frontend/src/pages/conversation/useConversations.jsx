@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import socketIOClient from "socket.io-client";
+import { io } from "socket.io-client";
 import axios from "axios";
 
 const useConversations = () => {
@@ -8,7 +8,7 @@ const useConversations = () => {
     const userId = sessionStorage.getItem('userId');
     const conversationId = sessionStorage.getItem('conversationId');
     useEffect(() => {
-        socketRef.current = socketIOClient("http://localhost:8900", {
+        socketRef.current = io(process.env.REACT_APP_API_URL, {
             query: {
                 userId
             }
@@ -23,14 +23,12 @@ const useConversations = () => {
 
         // get conversations list updated
         socketRef.current.on('updateConversation', (conversation) => {
-            axios.post("http://localhost:5000/api/conversations")
+            axios.post(process.env.REACT_APP_API_URL+"api/conversations")
             .then((res) => {
-                console.log(res.data.conversations)
                 setConversations(res.data.conversations)
             })
             .catch((err) => {
                 setConversations([])
-                console.log(err)
             })
         })
 
