@@ -154,5 +154,6 @@
     "github_link":"Github repository",
     "conversation":"Conversation",
     "error_404":"Error",
-    "profile":"Profile"    
+    "profile":"Profile",
+    "chat":"Conversation"    
 }
