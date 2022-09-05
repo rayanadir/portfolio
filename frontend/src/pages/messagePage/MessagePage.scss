@@ -1,0 +1,88 @@
+.messagePage{
+    min-height: 150vh;
+    &__wrapper{
+        margin: auto;
+        padding-top: 2rem;
+    }
+    &__title,&__text{
+        font-weight: 100;
+    }
+    &__form{
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+        width: 500px;
+        margin: auto;
+        &__text{
+            font-weight: 100;
+        }
+        &__label-input{
+            display: flex;
+            flex-direction: column;
+        }
+        &__input{
+            background-color: white;
+            border-radius: 5px;
+        }
+        &__buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+    }
+}
+
+@media (max-width: 424px) {
+    .messagePage {
+        &__wrapper {
+            width: 95%;
+        }
+        &__form {
+            width: 100%;
+            padding: 1rem 0;
+        }
+    }
+}
+
+@media (min-width : 425px) and (max-width: 767px) {
+    .messagePage {
+        &__wrapper {
+            width: 90%;
+        }
+        &__form {
+            width: 100%;
+            padding: 1rem 0;
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width: 1023px) {
+    .messagePage {
+        &__wrapper {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .messagePage {
+        &__wrapper {
+            width: 80%;
+        }
+        &__buttons{
+            justify-content: flex-start;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .messagePage {
+        &__wrapper {
+            width: 70%;
+        }
+        &__buttons{
+            justify-content: flex-start;
+        }
+    }
+}
