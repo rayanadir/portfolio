@@ -1,26 +1,46 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config({ path: "./config.env" });
 const port = process.env.PORT || 5000;
+
+if(process.env.NODE_ENV !== "production"){
+  require("dotenv").config({ path: "./config.env" });
+}
+
 const corsOptions ={
-  origin:process.env.BASE_URL, 
+  origin:"https://rayan-dahmena.fr",
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
 
+app.use(cors(corsOptions));
+
 const Conversation = require('./models/conversation.model');
+const Message = require('./models/message.model')
 const User = require('./models/user.model');
 const mongoose = require('mongoose');
 
-const io = require('socket.io')(8900,{
+// get driver connection
+require("./config/db");
+app.use(express.json());
+app.use(require("./routes/routes"));
+
+app.get('/', (req,res) => {
+  res.send("App is running")
+})
+
+const server = app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
+
+
+const io = require('socket.io')(server, {
   cors:{
-      origin: process.env.BASE_URL,
-  },
+    origin: "https://rayan-dahmena.fr",
+  }
 })
 
 io.on("connection", (socket) => {
-  //console.log("connection")
   const userId = socket.handshake.query.userId;
   User.findOne({userId}).lean().exec(async (err,user) => {
     if(err){
@@ -78,11 +98,8 @@ io.on("connection", (socket) => {
     })
   }
 
-
-
-  // send a message
+  // send a conversation message
   socket.on('newMessage', async (data) => {
-
     try {
       const conversationId =socket.handshake.query.conversationId;   
       Conversation.findOne({id: conversationId}).lean().exec(async (err, conv) => {
@@ -128,22 +145,16 @@ io.on("connection", (socket) => {
     }
   })
 
+  // get all simple messages
+  Message.find().sort({date: -1}).lean().exec(async (err,doc) => {
+    if(err){
+      socket.emit('getSimpleMessages', [])
+    }else if (doc){
+      socket.emit('getSimpleMessages', doc)
+    }
+  })
+
   socket.on("disconnect",()=>{
     //console.log("disconnection");
   });
 })
-
-app.use(cors(corsOptions));
-
-// get driver connection
-require("./config/db");
-app.use(express.json());
-app.use(require("./routes/routes"))
-
-app.get('/', (req,res) => {
-  res.send("App is running")
-})
- 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
