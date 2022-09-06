@@ -143,6 +143,7 @@
     "cancel":"Cancel",
     "current_password":"Current password",
     "enter_message":"Enter a message",
+    "last_conversations":"Last conversations",
     "last_messages":"Last messages",
     "no_message_yet":"No message yet",
     "start_new_conversation":"Start a conversation",
@@ -155,5 +156,15 @@
     "conversation":"Conversation",
     "error_404":"Error",
     "profile":"Profile",
-    "chat":"Conversation"    
+    "chat":"Conversation",
+    "enter_email":"Enter an email address",
+    "enter_name":"Enter a name",
+    "name":"Name",
+    "invalid_name":"Enter a valid name, at least 3 characters",
+    "invalid_message":"Enter a 10 minimum characters message",
+    "message_sent":"Message sent",
+    "contact_message":"Send a simple message or discuss in real time.",
+    "message":"Message",
+    "send_simple_message":"Send a simple message",
+    "you":"You"     
 }

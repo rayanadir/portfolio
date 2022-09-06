@@ -81,18 +81,16 @@ const Conversation = () => {
     const [user, setUser] = useState(null);
     const [message, setMessage] = useState('');
 
-    const messageRegex = /^[0-9a-zA-Z\-éëàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇÆæœ]{1,}$/;
-    const messageTest = messageRegex.test(message);
     
     let style= {};
 
-    if(!messageTest){
+    if(message.trim().length===0){
         style = {
             cursor:"auto",
             //filter: "invert(0.4)"
             filter: `invert(${ theme === "dark" ? "0.4" : theme === "light" ? "0.5" : null })`
         }
-    }else if(messageTest){
+    }else if(message.trim().length>0){
         style = {
             cursor:"pointer",
             //filter: "invert(1)"
@@ -101,15 +99,31 @@ const Conversation = () => {
     }
 
     const conversation = useSelector((state) => state.user.conversationData)
+
     const adminUser = useSelector((state) => state.user.adminUsername)
     const { messages, sendMessage } = useConversation();
     const bottomRef = useRef(null);
-
     useEffect(() => {
 
         if (token === null || !token) {
             navigate('/authentication')
         }
+
+        axios.post(process.env.REACT_APP_API_URL+"api/checkConversation", {id})
+        .then((res) => {
+            const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId') || null;
+            const isAllowedUser = res.data.users.includes(userId)
+            if(!isAllowedUser){
+                navigate('/profile')
+            }
+            return res;
+        })
+        .catch((err) => {
+            if(err.response.data.code_msg==="no_conversation_found"){
+                navigate('*')
+            }
+            return err;
+        })
 
         axios.post(process.env.REACT_APP_API_URL+"api/getUser", { token }, {
             headers: { "Authorization": `Bearer ${token}` }
@@ -120,8 +134,10 @@ const Conversation = () => {
                 conversation_service.checkHasConversation(res.data.user.userId);
             })
             .catch((err) => {
-                console.log(err);
+                return err
             });
+
+
 
         document.body.style.overflow = "hidden";
         if (width >= 768) {
@@ -187,12 +203,12 @@ const Conversation = () => {
                                 <div className="conversation__conversation" style={{ height: `${conversationHeight}px` }}>
                                     <div className="conversation__conversation__wrapper" id="chat_section">
                                         {
-                                            messages.length === 0 ?
+                                            conversation && conversation.code_msg === "no_conversation_started" ?
                                             <div className="conversation__conversation__wrapper__container">
                                                 <h2 className="conversation__conversation__wrapper__container__welcome">{t('conversation_welcome')}</h2>
                                                 <p className="conversation__conversation__wrapper__container__send">{t('conversation_send', {adminUser})}</p>
                                             </div>
-                                            : messages.length > 0 ?
+                                            : conversation && conversation.code_msg === "conversation_already_started" ?
                                             <>
                                             {
                                                 messages.map((message,i) => {
@@ -223,7 +239,7 @@ const Conversation = () => {
                                             value={message}
                                         />
                                         <img style={style} onClick={(e) => { 
-                                            if(messageTest){
+                                            if(message.trim().length>0){
                                                 handleSendMessage(e)
                                             }
                                          }}

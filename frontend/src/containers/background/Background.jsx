@@ -54,7 +54,7 @@ const Background = () => {
                     <button onClick={() => { 
                         document.querySelector('.projects').scrollIntoView({behavior:"smooth"}) 
                         }} className="background__welcome__button" id="projects_button">{t('projects')}</button>
-                    <button onClick={() => {navigate(token!==null && token ? "/profile" : "/authentication")}} className="background__welcome__button" id="contact_button">{t('contact')}</button>
+                    <button onClick={() => {navigate("/contact")}} className="background__welcome__button" id="contact_button">{t('contact')}</button>
                 </div>
             </div>
             <img id='home-background' src={background2} alt="home-background" className='background__image' />

@@ -18,6 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Auth = () => {
     const { t } = useTranslation();
@@ -67,6 +68,8 @@ const Auth = () => {
     let loginError = useSelector((state) => state.auth.login_error);
     let registerError = useSelector((state) => state.auth.register_error);
     let forgotState = useSelector((state) => state.auth.forgot_password);
+
+    let requestState = useSelector((state) => state.auth.request)
 
     const updateForm = (value, form) => {
         return form((prev) => {
@@ -181,8 +184,12 @@ const Auth = () => {
                                     <em className="auth__form__form__bcrypt">{t('bcrypt')} <a href="https://www.npmjs.com/package/bcrypt" className="auth__form__form__bcrypt__link">bcrypt</a> </em>
 
                                     <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('login')}</Button>
-
+                                    
+                                    {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                                    
                                      {loginError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(loginError.code_msg)}</Box>} color="error" /> : null}
+
+                                     
 
                                 </div>
                             : authType === "register" ?
@@ -283,6 +290,8 @@ const Auth = () => {
                                         
                                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('register')}</Button>
 
+                                        {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+
                                         {registerError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(registerError.code_msg)}</Box>} color="error" /> : null}
 
                                     </div>
@@ -306,6 +315,8 @@ const Auth = () => {
                                         />
 
                                 <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('send')}</Button>
+
+                                {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
 
                                 {forgotState.status === 'fail' || forgotState.status === 'success' ?
                                  <Chip 

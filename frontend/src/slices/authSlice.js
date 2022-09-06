@@ -24,7 +24,8 @@ const authState= {
         message:'',
         code_msg:'',
         status: 'initial'
-    }
+    },
+    request:"none"
 }
 
 const authSlice = createSlice({
@@ -72,10 +73,29 @@ const authSlice = createSlice({
             localStorage.removeItem('token');
             sessionStorage.removeItem('userId');
             sessionStorage.removeItem('token');
+        },
+        startRequest: (state) => {
+            state.request="loading"
+        },
+        endRequest: (state) => {
+            state.request="none"
         }
     }
 })
 
-export const { loginSuccess, loginFail, registerSuccess, registerFail, resetPasswordRes, forgotPasswordRes,changePasswordRes, logoutAction, setInitialPasswordState } = authSlice.actions;
+export const 
+    { 
+     loginSuccess,
+     loginFail, 
+     registerSuccess, 
+     registerFail, 
+     resetPasswordRes, 
+     forgotPasswordRes,
+     changePasswordRes, 
+     logoutAction, 
+     setInitialPasswordState,
+     startRequest,
+     endRequest 
+    } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

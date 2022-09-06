@@ -1,6 +1,6 @@
 .profileContact {
     &__title {
-        margin-top: 0;
+        margin: auto 0;
         font-weight: 100;
     }
     &__noMessages {
@@ -24,6 +24,9 @@
                     margin: 0;
                     font-weight: 100;
                     font-size: 18px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             &__text {

@@ -16,6 +16,7 @@ import auth_service from '../../services/auth.service';
 import { setInitialPasswordState } from '../../slices/authSlice';
 import { Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Settings = () => {
     const { t } = useTranslation();
@@ -35,6 +36,7 @@ const Settings = () => {
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
     const changePasswordState = useSelector((state) => state.auth.change_password);
     const emptyFields = () => { setCurrentPassword(''); setNewPassword(''); setConfirmNewPassword(''); }
+    let requestState = useSelector((state) => state.auth.request)
     useEffect(() => {
         if (token === null || !token) {
             navigate('/authentication')
@@ -50,17 +52,18 @@ const Settings = () => {
             });
         if (changePasswordState.status === 'success') emptyFields()
     }, [navigate, token, changePasswordState.status])
+    
     const handleShowPassword = (field) => {
         if (field === "currentPassword") showCurrentPassword(!currentPasswordField)
         if (field === "newPassword") showNewPassword(!newPasswordField)
         if (field === "confirmNewPassword") showConfirmPassword(!confirmNewPasswordField)
     }
+
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     return (
-
-
         <main>
             <section className={`settings ${theme}`}>
                 {
@@ -167,7 +170,7 @@ const Settings = () => {
                                                 <Button type="submit" style={{ textTransform: "none", width: "50%" }}>{t('edit')}</Button>
                                                 <Button onClick={() => { setEditPassword(!editPassword); dispatch(setInitialPasswordState()); emptyFields() }} style={{ textTransform: "none", width: "50%" }}>{t('cancel')}</Button>
                                             </div>
-
+                                            {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
                                             {
                                                 changePasswordState.status === 'fail' || changePasswordState.status === 'success' ?
                                                     <Chip

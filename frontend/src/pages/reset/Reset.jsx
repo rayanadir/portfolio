@@ -14,6 +14,7 @@ import { Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import auth_service from '../../services/auth.service';
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Reset = () => {
     let { token } = useParams();
@@ -32,14 +33,15 @@ const Reset = () => {
             setIsValidToken(err.response.data.code_msg)
         })
 
-    }, [t,token,navigate,])
+    }, [t,token,navigate])
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [newPasswordField, showNewPassword] = useState(false);
     const [confirmNewPasswordField, showConfirmPassword] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
-    let resetState = useSelector((state) => state.auth.reset_password)
+    let resetState = useSelector((state) => state.auth.reset_password);
+    let requestState = useSelector((state) => state.auth.request)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -122,6 +124,8 @@ const Reset = () => {
                         <em className="reset__form__bcrypt">{t('bcrypt')} <a href="https://www.npmjs.com/package/bcrypt" className="auth__form__form__bcrypt__link">bcrypt</a> </em>
 
                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('change')}</Button>
+
+                        {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
 
                         {resetState.status === 'fail' || resetState.status === 'success' ? 
                         <Chip 
