@@ -125,7 +125,7 @@ const Reset = () => {
 
                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('change')}</Button>
 
-                        {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                        {requestState==="loading" ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div>: requestState==="none" ? null : null}
 
                         {resetState.status === 'fail' || resetState.status === 'success' ? 
                         <Chip 

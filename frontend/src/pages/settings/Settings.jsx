@@ -170,7 +170,7 @@ const Settings = () => {
                                                 <Button type="submit" style={{ textTransform: "none", width: "50%" }}>{t('edit')}</Button>
                                                 <Button onClick={() => { setEditPassword(!editPassword); dispatch(setInitialPasswordState()); emptyFields() }} style={{ textTransform: "none", width: "50%" }}>{t('cancel')}</Button>
                                             </div>
-                                            {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                                            {requestState==="loading" ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div>: requestState==="none" ? null : null}
                                             {
                                                 changePasswordState.status === 'fail' || changePasswordState.status === 'success' ?
                                                     <Chip

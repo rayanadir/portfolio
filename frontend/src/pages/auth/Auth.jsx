@@ -185,7 +185,7 @@ const Auth = () => {
 
                                     <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('login')}</Button>
                                     
-                                    {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                                    {requestState==="loading" ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div>: requestState==="none" ? null : null}
                                     
                                      {loginError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(loginError.code_msg)}</Box>} color="error" /> : null}
 
@@ -290,7 +290,7 @@ const Auth = () => {
                                         
                                         <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('register')}</Button>
 
-                                        {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                                        {requestState==="loading" ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div>: requestState==="none" ? null : null}
 
                                         {registerError.code_msg !== "" ? <Chip style={{height:"auto", padding:".5rem"}} label={<Box sx={{whiteSpace:"break-spaces",textAlign:"center"}}>{t(registerError.code_msg)}</Box>} color="error" /> : null}
 
@@ -316,7 +316,7 @@ const Auth = () => {
 
                                 <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('send')}</Button>
 
-                                {requestState==="loading" ? <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> : requestState==="none" ? null : null}
+                                {requestState==="loading" ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div>: requestState==="none" ? null : null}
 
                                 {forgotState.status === 'fail' || forgotState.status === 'success' ?
                                  <Chip 
