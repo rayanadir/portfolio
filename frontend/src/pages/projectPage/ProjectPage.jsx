@@ -29,6 +29,7 @@ const ProjectPage = () => {
   let projectIndex = project.index;
   document.title = `Rayan Dahmena - ${project.title}`
   
+  
 
 
   const previousImage = () => {
@@ -47,6 +48,8 @@ const ProjectPage = () => {
   const onClickUrl = (url) => {
     return () => openInNewTab(url)
   }
+
+
 
   return (
     <main>
@@ -140,7 +143,7 @@ const ProjectPage = () => {
             {
               projectIndex === 0 ? null :
                 <Link to={`/project/${projects[projectIndex - 1].id}`} className="projectPage__navigation__link">
-                  <Button variant='text' title={t('previous_project')}>
+                  <Button variant='text' title={t('previous_project')} onClick={() => setActiveImageIndex(0)}>
                     <div className="projectPage__navigation__button">
                       <img src={arrow} alt="previous icon" className='projectPage__navigation__button__previous' id="previous_project" />
                       <p className="projectPage__navigation__button__title">{projects[projectIndex - 1].title}</p>
@@ -152,7 +155,7 @@ const ProjectPage = () => {
             {
               projectIndex === projects.length - 1 ? null :
                 <Link to={`/project/${projects[projectIndex + 1].id}`} className="projectPage__navigation__link">
-                  <Button variant='text' title={t('next_project')} >
+                  <Button variant='text' title={t('next_project')} onClick={() => setActiveImageIndex(0)}>
                     <div className="projectPage__navigation__button">
                       <p className="projectPage__navigation__button__title">{projects[projectIndex + 1].title}</p>
                       <img src={arrow} alt="next icon" className='projectPage__navigation__button__next' id="next_project" />
