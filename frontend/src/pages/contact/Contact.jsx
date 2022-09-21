@@ -17,11 +17,13 @@ const Contact = () => {
         <main>
             <section className={`contact ${theme}`}>
                 <div className="contact__wrapper">
-                    <h1 className="contact__title">{t('contact')}</h1>
-                    <p className="contact__text">{t('contact_message')}</p>
-                    <div className="contact__buttons">
-                        <button className='contact__buttons__button message-btn' onClick={() => { navigate("/message") }}>{t('message')}</button>
-                        <button className='contact__buttons__button conversation-btn' onClick={() => { navigate(token !== null && token ? "/profile" : "/authentication") }}>{t('conversation')}</button>
+                    <div className="contact__content">
+                        <h1 className="contact__title">{t('contact')}</h1>
+                        <p className="contact__text">{t('contact_message')}</p>
+                        <div className="contact__buttons">
+                            <button className='contact__buttons__button message-btn' onClick={() => { navigate("/message") }}>{t('message')}</button>
+                            <button className='contact__buttons__button conversation-btn' onClick={() => { navigate(token !== null && token ? "/profile" : "/authentication") }}>{t('conversation')}</button>
+                        </div>
                     </div>
                 </div>
             </section>
