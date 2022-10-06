@@ -25,9 +25,11 @@ module.exports.getAdmin = async (req, res) => {
 module.exports.newConversation = async (req, res) => {
     try {
         const id = new mongoose.Types.ObjectId().toHexString();
+        const adminUser = await User.findOne({ email: String(process.env.USER) });
+        const { userId } = req.body
         const conversation= new Conversation({
             id,
-            users:[],
+            users:[adminUser.id, userId],
             messages:[]
         })
         await conversation.save()
