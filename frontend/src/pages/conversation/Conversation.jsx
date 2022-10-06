@@ -203,7 +203,7 @@ const Conversation = () => {
                                 <div className="conversation__conversation" style={{ height: `${conversationHeight}px` }}>
                                     <div className="conversation__conversation__wrapper" id="chat_section">
                                         {
-                                            conversation && conversation.code_msg === "no_conversation_started" ?
+                                            conversation && (conversation.code_msg === "no_conversation_started" || messages.length === 0) ?
                                             <div className="conversation__conversation__wrapper__container">
                                                 <h2 className="conversation__conversation__wrapper__container__welcome">{t('conversation_welcome')}</h2>
                                                 <p className="conversation__conversation__wrapper__container__send">{t('conversation_send', {adminUser})}</p>
