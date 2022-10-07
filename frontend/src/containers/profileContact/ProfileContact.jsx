@@ -64,7 +64,7 @@ const ProfileContact = ({ user }) => {
                                             <ul className="profileContact__list">
                                                 {
                                                     messages.map((message, i) => {
-                                                        return <li key={i} className='profileContact__list__element' onClick={() => {navigate(`/message/${message.id}`)}}>
+                                                        return <li key={i} className='profileContact__list__element' onClick={() => { navigate(`/message/${message.id}`) }}>
                                                             <div className='profileContact__list__element__name-time'>
                                                                 <p className='profileContact__list__element__name-time__name'>{message.username}</p>
                                                                 <p className='profileContact__list__element__name-time__time'>{formatDate(message.date)}</p>
@@ -125,7 +125,8 @@ const ProfileContact = ({ user }) => {
                                     <>
                                         <h2 className='profileContact__title'>{t('start_new_conversation')}</h2>
                                         <Button id="new_conversation" onClick={() => {
-                                            axios.post(process.env.REACT_APP_API_URL + "api/newConversation")
+                                            const userId = user.userId
+                                            axios.post(process.env.REACT_APP_API_URL + "api/newConversation", { userId })
                                                 .then((res) => {
                                                     if (res.data.id) {
                                                         navigate(`/conversation/${res.data.id}`)
@@ -155,8 +156,12 @@ const ProfileContact = ({ user }) => {
                                                     {conversation.messages[conversation.messages.length - 1].message}</p>
                                             </li>
                                         </>
-                                        : conversation && conversation.code_msg === "error" ?
-                                            null : null
+                                        : conversation && conversation.messages.length === 0 ?
+                                            <Button id="new_conversation" onClick={() => {
+                                                navigate(`/conversation/${conversation.id}`)
+                                            }} style={{ textTransform: "none" }}>{t('new_conversation')}</Button>
+                                            : conversation && conversation.code_msg === "error" ?
+                                                null : null
                             }
                         </section>
                         : null
