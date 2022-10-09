@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
     const { t } = useTranslation();
+    document.title=t('contact')
     const token = useSelector((state) => state.auth.token !== null ? state.auth.token : localStorage.getItem('token') !== null ? localStorage.getItem('token') : null);
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
