@@ -109,6 +109,11 @@
 
 @media (min-width : 768px) and (max-width: 1023px){
     .profileContact{
+        &__list{
+            &__element{
+                width: 60%;
+            }
+        }
         &__messages{
             &__footer{
                 &__input{
@@ -121,6 +126,11 @@
 
 @media (min-width: 1024px) and (max-width: 1439px){
     .profileContact{
+        &__list{
+            &__element{
+                width: 45%;
+            }
+        }
         &__messages{
             &__footer{
                 &__input{
@@ -133,6 +143,11 @@
 
 @media (min-width: 1440px){
     .profileContact{
+        &__list{
+            &__element{
+                width: 40%;
+            }
+        }
         &__messages{
             &__footer{
                 &__input{

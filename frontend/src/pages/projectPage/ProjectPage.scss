@@ -19,16 +19,22 @@
         flex-direction: row;
         flex-wrap: wrap;
         column-gap: 2rem;
+        row-gap: 2rem;
         padding: 0;
         &__element{
             display: flex;
             flex-direction: column;
             align-items: center;
             list-style-type: none;
+            width: min-content;
+            &__icon{
+                object-fit: contain;
+            }
             &__name{
                 font-size: 16px;
                 font-weight: 100;
                 margin: 0;
+                text-align: center;
             }
         }
     }
@@ -62,6 +68,10 @@
                 font-weight: 100;
             }
         }
+    }
+    &__informations_carrousel{
+        display: flex;
+        flex-direction: column;
     }
     &__carrousel{
         &__images{
@@ -177,8 +187,6 @@
             }
         }
         &__informations_carrousel{
-            display: flex;
-            flex-direction: column;
             row-gap: 1rem;
         }
         &__carrousel{
@@ -224,8 +232,6 @@
             }
         }
         &__informations_carrousel{
-            display: flex;
-            flex-direction: column;
             row-gap: 1rem;
         }
         &__carrousel{
@@ -269,9 +275,6 @@
             }
         }
         &__informations_carrousel{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
             row-gap: 2rem;
         }
         &__carrousel{
@@ -311,10 +314,7 @@
             }
         }
         &__informations_carrousel{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            column-gap: 2rem;
+            row-gap: 2rem;
         }
         &__carrousel{
             width: auto;
@@ -350,10 +350,7 @@
             }
         }
         &__informations_carrousel{
-            display: flex;
-            flex-direction: row;
-            align-items: flex-end;
-            column-gap: 2rem;
+            row-gap: 2rem;
         }
         &__details{
             flex-direction: row;

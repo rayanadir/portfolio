@@ -15,6 +15,7 @@
         display: flex;
         padding: 0;
         margin: 0;
+        flex-wrap: wrap;
         &__element{
             display: flex;
             flex-direction: column;
@@ -23,6 +24,7 @@
         }
         &__icon{
             cursor: pointer;
+            object-fit: contain;
         }
     }
     &__title{
@@ -49,6 +51,7 @@
         }
         &__list{
             column-gap: .5rem;
+            row-gap: .5rem;
             &__icon{
                 width: 24px;
                 height: 24px;
@@ -79,6 +82,7 @@
         }
         &__list{
             column-gap: .5rem;
+            row-gap: .5rem;
             &__icon{
                 width: 24px;
                 height: 24px;
@@ -109,6 +113,7 @@
         }
         &__list{
             column-gap: .5rem;
+            row-gap: .5rem;
             &__icon{
                 width: 18px;
                 height: 18px;
@@ -138,6 +143,7 @@
         }
         &__list{
             column-gap: .5rem;
+            row-gap: .5rem;
             &__icon{
                 width: 24px;
                 height: 24px;
@@ -167,6 +173,7 @@
         }
         &__list{
             column-gap: .5rem;
+            row-gap: .5rem;
             &__icon{
                 width: 32px;
                 height: 32px;

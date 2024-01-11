@@ -18,14 +18,17 @@
             flex-direction: column;
             align-items: center;
             list-style-type: none;
+            width: min-content;
         }
         &__icon{
             width: 64px;
             height: 64px;
+            object-fit: contain;
         }
         &__name{
             font-weight: 100;
             margin: 0;
+            text-align: center;
         }
     }
 }
