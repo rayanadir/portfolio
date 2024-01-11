@@ -148,9 +148,9 @@ export default function SideMenu() {
             className={theme}
         >
             <List style={{ display: "flex", flexDirection: "column", rowGap: "2rem", padding: '2rem 1rem' }}>
-                <Link to="/contact" className='header__link'>
+                <Link to="/message" className='header__link'>
                     <li className='header__nav_element' onClick={toggleDrawer(anchor, false)} style={{ display: "flex", alignItems: "center" }}>
-                        {t('contact')}
+                        {t('message')}
                     </li>
                 </Link>
                 <li className=' hover_none'>

@@ -124,19 +124,19 @@ const Header = () => {
         {
           location.pathname === "/" ?
             <div className="header__name_frontend">
-              <h1 className='header__name'>Rayan Dahmena</h1>
-              <h3 className='header__frontend'>{t('frontend_developer')}</h3>
+              {/*<h1 className='header__name'>Rayan Dahmena</h1>
+              <h3 className='header__frontend'>{t('frontend_developer')}</h3>*/}
             </div>
             :
-            <Link to={location.pathname === "/authentication" || location.pathname==="/message" ? "/contact" : location.pathname.includes('/message/') ? "/profile" : "/"} className='header__link'>
+            <Link to={location.pathname === "/authentication" || location.pathname==="/message" ? "/" : location.pathname.includes('/message/') ? "/profile" : "/"} className='header__link'>
               <img src={arrow} alt="back home" id="back_home" className='header__back' />
             </Link>
         }
 
         <nav className='header__nav'>
           <ul className='header__nav_list'>
-              <li className='header__nav_element' onClick={() => {navigate("/contact")}}>
-                {t('contact')}
+              <li className='header__nav_element' onClick={() => {navigate("/message")}}>
+                {t('message')}
               </li>
 
 
