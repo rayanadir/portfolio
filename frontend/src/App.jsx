@@ -38,14 +38,17 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/project/:id' element={<ProjectPage />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/message" element={<MessagePage />} />
+
+            {/*<Route path="/contact" element={<Contact />} />
             <Route path="/message/:id" element={<SimpleMessage />} />
             <Route path='/authentication' element={<Auth />} />
             <Route path='/reset/:token' element={<Reset />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/settings' element={<Settings />} />
-            <Route path='/conversation/:id' element={<Conversation />} />
+            <Route path='/conversation/:id' element={<Conversation />} />*/}
+            
+            
+            <Route path="/message" element={<MessagePage />} />
+            <Route path='/settings' element={<Settings />} />          
             <Route path='/about' element={<About />} />
             <Route path="*" element={<Error />} />
           </Routes>
