@@ -17,7 +17,7 @@ const sendSimpleMessage = (email,message,username) => {
 }
 
 const getAllSimpleMessages = () => {
-    axios.post(API_URL+"api/messages")
+    axios.get(API_URL+"api/messages")
 }
 
 const message_service = {
