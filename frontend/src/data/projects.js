@@ -298,9 +298,9 @@ export const PROJECTS = [
         main_image: [main_background_desktop_p2_fs],
         stack: ["Angular", "Typescript"],
         paragraphers: [
-            "olympics_games0",
-            "olympics_games1",
-            "olympics_games2",
+            "olympic_games0",
+            "olympic_games1",
+            "olympic_games2",
         ],
         other_links: {},
         responsive: true,
