@@ -11,6 +11,8 @@ import { Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import axios from "axios";
 import { messageResult } from '../../slices/messageSlice';
+import CircularProgress from '@mui/material/CircularProgress'
+
 
 const MessagePage = () => {
     const { t } = useTranslation();
@@ -23,6 +25,7 @@ const MessagePage = () => {
         email: "",
         message: "",
     })
+    const [loading, setLoading] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const { toggleTheme, theme } = useContext(ThemeContext);
 
@@ -33,17 +36,20 @@ const MessagePage = () => {
     }
 
     const submit = (email,message,username) => {
+        setLoading(true);
         const emailTrim = email.trim();
         const messageTrim= message.trim();
-        const usernameTrim = username.trim()
+        const usernameTrim = username.trim();
         axios.post(process.env.REACT_APP_API_URL+"api/simpleMessage", {email: emailTrim,message: messageTrim,username: usernameTrim})
         .then((res) => {
-            dispatch(messageResult(res.data))
-            setMessageForm({email:"",message:"",username:""})
+            dispatch(messageResult(res.data));
+            setMessageForm({email:"",message:"",username:""});
+            setLoading(false);
             return res;
         })
         .catch((err) => {
             dispatch(messageResult(err.response.data))
+            setLoading(false);
             return err;
         })
     }
@@ -96,7 +102,10 @@ const MessagePage = () => {
                             />
                         </div>
 
-                            <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('send')}</Button>
+                        <Button type="submit" variant="text" style={{ textTransform: "none" }}>{t('send')}</Button>
+                        
+                        { loading === true ? <div style={{margin:"auto"}}> <CircularProgress color={theme==="dark" ? "inherit": theme==="light" ? "primary" : null} /> </div> : null }
+                        
 
                         {
                             messageState.status === "fail" || messageState.status === "success" ? 
