@@ -58,7 +58,7 @@ router.post("/api/checkConversation", conversationController.checkIsValidConvers
 router.post("/api/simpleMessage", messageController.sendSimpleMessage)
 
 // get all simple messages
-router.post("/api/messages", messageController.getAllSimpleMessages)
+router.get("/api/messages", messageController.getAllSimpleMessages)
 
 // get simple message
 router.post("/api/message", messageController.getSimpleMessage)
