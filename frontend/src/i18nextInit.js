@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import translationFR from "./assets/languages/fr/translation.json";
 import translationEN from "./assets/languages/en/translation.json";
 
-const fallbackLng = ["fr"];
+const fallbackLng = "fr";
 const availableLanguages = ["fr", "en"];
 
 const resources = {
@@ -24,7 +24,7 @@ i18n
   .init({
     resources,
     fallbackLng,
-
+    lng:localStorage.getItem('i18nextLng') || "fr",
     detection: {
       checkWhitelist: true
     },

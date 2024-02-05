@@ -160,7 +160,7 @@ export default function SideMenu() {
                             <SelectComponent
                                 value={language}
                                 onChange={(e) => {
-                                    localStorage.setItem('lang', e.target.value);
+                                    //localStorage.setItem('lang', e.target.value);
                                     i18next.changeLanguage(e.target.value);
                                     dispatch(changeLanguage())
                                     dispatch(changeSelectedLanguage(e.target.value))
